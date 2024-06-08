@@ -1,0 +1,11 @@
+# the particular pinned requirements here are necessary to avoid a nasty segmentation fault
+pillow
+numpy
+matplotlib
+torch==2.1.0
+torchvision==0.16.0
+transformers
+sentence-transformers==2.2.2
+einops
+faiss-cpu
+streamlit
