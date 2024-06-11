@@ -2,10 +2,10 @@
 pillow
 numpy
 matplotlib
-torch==2.1.0
-torchvision==0.16.0
+torch
+torchvision
 transformers
-sentence-transformers==2.2.2
+sentence-transformers
 einops
 faiss-cpu
 streamlit
