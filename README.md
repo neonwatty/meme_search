@@ -1,3 +1,5 @@
+<a href="https://colab.research.google.com/github/jermwatt/meme_search/blob/main/meme_search_walkthrough.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+
 # Meme Search app, walkthrough, and demo
 
 Index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
@@ -42,9 +44,11 @@ python meme_search/utilities/create.py
 
 You will see printouts at the terminal indicating success of the 3 main stages for making your memes searchable.  These steps - outlined in the repo notebook `meme_search_walkthrough.ipynb` - are
 
-1.  Extracting a text based description of your images using moondream  - this can take sometime depending on your hardware setup / number of images.  The first extraction - which is performed in batches of 3 images at a time - takes the longest, with subsequent batches computed considerably more quickly.
-2.  Embedding and storing text extractions in a vector database
-3.  Storing chunk information in a sqlite database
+1.  extract text descriptions of each image, including ocr of any text on the image, using the kickass tiny vision-llm  [moondream](https://github.com/vikhyat/moondream)
+2.  window each image's text description, producing a list of text chunks per image
+3.  embed those text chunks as vectors using a popular embedding model - [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+4.  store and index the embeddings in an open source and local vector base [faiss database](https://github.com/facebookresearch/faiss)
+5.  store references connecting the embeddings to their images in the greatest little db of all time - [sqlite](https://sqlite.org/), which comes builtin with python
 
 
 ## starting the streamlit server
