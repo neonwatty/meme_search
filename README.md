@@ -42,13 +42,15 @@ Next - at your terminal - paste the following command
 python meme_search/utilities/create.py
 ```
 
-You will see printouts at the terminal indicating success of the 3 main stages for making your memes searchable.  These steps - outlined in the repo notebook `meme_search_walkthrough.ipynb` - are
+You will see printouts at the terminal indicating success of the 3 main stages for making your memes searchable.  These steps are
 
-1.  extract text descriptions of each image, including ocr of any text on the image, using the kickass tiny vision-llm  [moondream](https://github.com/vikhyat/moondream)
-2.  window each image's text description, producing a list of text chunks per image
-3.  embed those text chunks as vectors using a popular embedding model - [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
-4.  store and index the embeddings in an open source and local vector base [faiss database](https://github.com/facebookresearch/faiss)
-5.  store references connecting the embeddings to their images in the greatest little db of all time - [sqlite](https://sqlite.org/), which comes builtin with python
+1.  **extract**: get text descriptions of each image, including ocr of any text on the image, using the kickass tiny vision-llm  [moondream](https://github.com/vikhyat/moondream)
+
+
+2.  **embed**: window and embed each image's text description using a popular embedding model - [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+
+
+3.  **index**: index the embeddings in an open source and local vector base [faiss database](https://github.com/facebookresearch/faiss) and references connecting the embeddings to their images in the greatest little db of all time - [sqlite](https://sqlite.org/)
 
 
 ## starting the streamlit server
