@@ -3,6 +3,8 @@ from meme_search.utilities.query import complete_query
 from meme_search.utilities import model
 import streamlit as st
 
+st.set_page_config(page_title="Meme Search")
+
 
 # search bar taken from --> https://discuss.streamlit.io/t/creating-a-nicely-formatted-search-field/1804/2
 def local_css(file_name):
