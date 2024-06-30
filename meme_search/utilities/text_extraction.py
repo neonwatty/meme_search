@@ -9,7 +9,9 @@ def prompt_moondream(img_path: str, prompt: str) -> str:
     model_id = "vikhyatk/moondream2"
     revision = "2024-05-20"
     model = AutoModelForCausalLM.from_pretrained(
-        model_id, trust_remote_code=True, revision=revision,
+        model_id, 
+        trust_remote_code=True, 
+        revision=revision,
     )
     tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
     image = Image.open(img_path)
