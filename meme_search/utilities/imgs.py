@@ -14,6 +14,8 @@ def collect_img_paths() -> list:
             for name in os.listdir(img_dir)
             if name.split(".")[-1] in allowable_extensions
         ]
+        all_img_paths = sorted(all_img_paths)
+
         print(
             f"SUCCESS: collect_img_paths ran successfully - image paths loaded from '{img_dir}'"
         )

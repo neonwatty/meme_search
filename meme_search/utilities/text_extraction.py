@@ -26,7 +26,7 @@ def extract_text_from_imgs(img_paths: list) -> list:
         prompt = "Describe this image."
         answers = []
         for img_path in img_paths:
-            print(f"INFO: prompting moondream for a description of image: {img_path}")
+            print(f"INFO: prompting moondream for a description of image: '{img_path}'")
             answer = prompt_moondream(img_path, prompt)
             answers.append(answer)
             print("DONE!")
