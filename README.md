@@ -4,6 +4,10 @@
 
 Index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
 
+<p align="center">
+<img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search.gif" height="325">
+</p>
+
 This repository contains code, a walkthrough notebook (`meme_search_walkthrough.ipynb`), and streamlit demo app for indexing, searching, and easily retrieving your memes based on semantic search of their content and text.
 
 All processing - from image-to-text extraction, to vector embedding, to search - are performed locally.
