@@ -2,7 +2,7 @@
 
 # Meme Search app, walkthrough, and demo
 
-Index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
+Use Python and AI to index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
 
 <p align="center">
 <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search.gif" height="325">
