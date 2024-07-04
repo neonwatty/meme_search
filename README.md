@@ -12,9 +12,9 @@ This repository contains code, a walkthrough notebook (`meme_search_walkthrough.
 
 All processing - from image-to-text extraction, to vector embedding, to search - are performed locally.
 
-This process uses the following open source components:
+This pipeline uses the following open source components:
 
-- [moondream](https://github.com/vikhyat/moondream): a tiny, kickass vision llm used for image captioning / extracting image text
+- [moondream](https://github.com/vikhyat/moondream): a tiny, kickass vision language model used for image captioning / extracting image text
 - [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2): a very popular text embedding model
 - [faiss](https://github.com/facebookresearch/faiss): a fast and efficient vector db
 - [sqlite](https://sqlite.org/): the greatest database of all time, used for data indexing
