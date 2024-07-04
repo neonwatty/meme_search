@@ -10,7 +10,7 @@ Use Python and AI to index your memes by their content and text, making them eas
 
 This repository contains code, a walkthrough notebook (`meme_search_walkthrough.ipynb`), and streamlit demo app for indexing, searching, and easily retrieving your memes based on semantic search of their content and text.
 
-All processing - from image-to-text extraction, to vector embedding, to search - are performed locally.
+All processing - from image-to-text extraction, to vector embedding, to search - is performed locally.
 
 This pipeline uses the following open source components:
 
