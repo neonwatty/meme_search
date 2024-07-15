@@ -9,11 +9,23 @@ Use Python and AI to index your memes by their content and text, making them eas
 <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search.gif" height="325">
 </p>
 
+A table of contents for the remainder of this README:
+
+- [Introduction](#introduction)
+- [Installation instructions](#installation-instructions)
+- [Pipeline overview](#pipeline-overview)
+- [Start the streamlit server](#start-the-streamlit-server)
+- [Index your own memes](#index-your-own-memes)
+
+## Introduction
+
 This repository contains code, a walkthrough notebook (`meme_search_walkthrough.ipynb`), and streamlit demo app for indexing, searching, and easily retrieving your memes based on semantic search of their content and text.
 
 All processing - from image-to-text extraction, to vector embedding, to search - is performed locally.
 
-This pipeline uses the following open source components:
+## Pipeline overview
+
+This meme search pipeline is built using the following open source components:
 
 - [moondream](https://github.com/vikhyat/moondream): a tiny, kickass vision language model used for image captioning / extracting image text
 - [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2): a very popular text embedding model
@@ -31,6 +43,17 @@ pip install -r requirements.txt
 ```
 
 Note that the particular pinned requirements here are necessary to avoid a current nasty segmentation fault involving `sentence-transformers` [as of 6/5/2024](https://github.com/UKPLab/sentence-transformers/issues/1319).
+
+
+## Start the streamlit server
+
+After indexing your memes you can then start the streamlit app, allowing you to semantically search for and retrieve your memes
+
+```python
+python -m streamlit run meme_search/app.py
+```
+
+Note: you can drag and drop any recovered meme directly from the streamlit app to any messager app of your choice.
 
 
 ##  Index your own memes
@@ -57,13 +80,3 @@ You will see printouts at the terminal indicating success of the 3 main stages f
 
 3.  **index**: index the embeddings in an open source and local vector base [faiss database](https://github.com/facebookresearch/faiss) and references connecting the embeddings to their images in the greatest little db of all time - [sqlite](https://sqlite.org/)
 
-
-## starting the streamlit server
-
-After indexing your memes you can then start the streamlit app, allowing you to semantically search for and retrieve your memes
-
-```python
-python -m streamlit run meme_search/app.py
-```
-
-Note: you can drag and drop any recovered meme directly from the streamlit app to any messager app of your choice.
