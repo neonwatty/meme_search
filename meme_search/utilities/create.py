@@ -1,4 +1,3 @@
-import copy
 import sqlite3
 import faiss
 from meme_search.utilities import model
@@ -50,9 +49,7 @@ def create_vector_db(chunks: list, db_file_path: str) -> None:
     faiss.write_index(index, db_file_path)
 
 
-def complete_create_dbs(
-    img_chunks: list, vector_db_path: str, sqlite_db_path: str
-) -> None:
+def complete_create_dbs(img_chunks: list, vector_db_path: str, sqlite_db_path: str) -> None:
     try:
         print("STARTING: complete_create_dbs")
 
@@ -62,7 +59,7 @@ def complete_create_dbs(
         # create vector embedding db for chunks
         chunks = [v["chunk"] for v in img_chunks]
         create_vector_db(chunks, vector_db_path)
-        print(f"SUCCESS: complete_create_dbs succeeded")
+        print("SUCCESS: complete_create_dbs succeeded")
     except Exception as e:
         print(f"FAILURE: complete_create_dbs failed with exception {e}")
 

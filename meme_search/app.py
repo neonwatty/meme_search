@@ -1,6 +1,5 @@
 from meme_search import base_dir, sqlite_db_path, vector_db_path
 from meme_search.utilities.query import complete_query
-from meme_search.utilities import model
 import streamlit as st
 
 st.set_page_config(page_title="Meme Search")

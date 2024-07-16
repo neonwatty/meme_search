@@ -3,9 +3,7 @@ import re
 
 def clean_word(text: str) -> str:
     # clean input text - keeping only lower case letters, numbers, punctuation, and single quote symbols
-    return re.sub(
-        " +", " ", re.compile("[^a-z0-9,.!?']").sub(" ", text.lower().strip())
-    )
+    return re.sub(" +", " ", re.compile("[^a-z0-9,.!?']").sub(" ", text.lower().strip()))
 
 
 def chunk_text(text: str) -> list:
@@ -63,7 +61,7 @@ def create_all_img_chunks(img_paths: list, answers: list) -> list:
                 entry["img_path"] = img_path
                 entry["chunk"] = chunk
                 img_chunks.append(entry)
-        print(f"SUCCESS: create_all_img_chunks ran successfully")
+        print("SUCCESS: create_all_img_chunks ran successfully")
         return img_chunks
     except Exception as e:
         print(f"FAILURE: create_all_img_chunks failed with exception {e}")
