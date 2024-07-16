@@ -1,0 +1,17 @@
+services:
+  meme_search:
+    build:
+      context: .
+    container_name: meme_search
+    ports:
+      - 8501:8501
+    volumes:
+      - ./data:/home/data
+    ## uncomment to enable GPU support for the container
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
