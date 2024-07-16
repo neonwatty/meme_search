@@ -44,6 +44,12 @@ pip install -r requirements.txt
 
 Note that the particular pinned requirements here are necessary to avoid a current nasty segmentation fault involving `sentence-transformers` [as of 6/5/2024](https://github.com/UKPLab/sentence-transformers/issues/1319).
 
+Alternatively you can install all the requirements you need using docker via the compose file found in the repo.  The command to install the above requirements and start the server using docker-compose is
+
+```sh
+docker compose up
+```
+
 
 ## Start the streamlit server
 
@@ -51,6 +57,12 @@ After indexing your memes you can then start the streamlit app, allowing you to 
 
 ```python
 python -m streamlit run meme_search/app.py
+```
+
+To start the app via docker-compose use
+
+```sh
+docker compose up
 ```
 
 Note: you can drag and drop any recovered meme directly from the streamlit app to any messager app of your choice.
@@ -68,6 +80,12 @@ Next - at your terminal - paste the following command
 
 ```python
 python meme_search/utilities/create.py
+```
+
+or if running the server via docker us
+
+```sh
+docker exec meme_search python meme_search/utilities/create.py
 ```
 
 You will see printouts at the terminal indicating success of the 3 main stages for making your memes searchable.  These steps are
