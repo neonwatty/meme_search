@@ -9,11 +9,13 @@ on:
     paths-ignore:
       - '**/README.md'
       - '**/CONTRIBUTING.md'
+      - '**LICENSE'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
       - '**/README.md'
       - '**/CONTRIBUTING.md'
+      - '**LICENSE'
 
 jobs:
   ruff:
