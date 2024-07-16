@@ -1,4 +1,4 @@
-name: meme_search
+version: '3.3'
 services:
     meme_search:
         build:
@@ -6,7 +6,7 @@ services:
         volumes:
             - ./data:/home/data
         ports:
-            - 8501:8501
+            - 8555:8501
         container_name: meme_search
         
 volumes:
