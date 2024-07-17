@@ -2,6 +2,7 @@ services:
   meme_search:
     build:
       context: .
+    image: meme_search
     container_name: meme_search
     ports:
       - 8501:8501
