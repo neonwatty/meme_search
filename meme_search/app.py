@@ -27,12 +27,16 @@ with st.container():
         st.empty()
         refresh_index_button = st.button("reset index", type="primary")
         if refresh_index_button:
+            process_start = st.warning("refreshing...")
             val = process()
             if val:
+                process_start.empty()
                 success = st.success("index updated!")
                 time.sleep(2)
+                process_start.empty()
                 success.empty()
             else:
+                process_start.empty()
                 warning = st.warning("no refresh needed!")
                 time.sleep(2)
                 warning.empty()
@@ -41,7 +45,7 @@ with st.container():
     if selected:
         results = complete_query(selected)
         img_paths = [v["img_path"] for v in results]
-        with input_col.container(border=True):
+        with st.container(border=True):
             for result in results:
                 with st.container(border=True):
                     st.image(

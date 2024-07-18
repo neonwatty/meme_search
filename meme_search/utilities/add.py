@@ -1,18 +1,16 @@
+import os
 import sqlite3
 import faiss
 from meme_search.utilities import model
 from meme_search.utilities.text_extraction import extract_text_from_imgs
 from meme_search.utilities.chunks import create_all_img_chunks
-from meme_search.utilities import vector_db_path, sqlite_db_path
+from meme_search.utilities import sqlite_db_path, vector_db_path
 
 
-def create_chunk_db(img_chunks: list, db_filepath: str) -> None:
+def add_to_chunk_db(img_chunks: list) -> None:
     # Create a lookup table for chunks
-    conn = sqlite3.connect(db_filepath)
+    conn = sqlite3.connect(sqlite_db_path)
     cursor = conn.cursor()
-
-    # Create the table  - delete old table if it exists
-    cursor.execute("DROP TABLE IF EXISTS chunks_reverse_lookup")
 
     # Create the table
     cursor.execute("""
@@ -35,34 +33,36 @@ def create_chunk_db(img_chunks: list, db_filepath: str) -> None:
     conn.close()
 
 
-def create_vector_db(chunks: list, db_file_path: str) -> None:
+def add_to_vector_db(chunks: list) -> None:
     # embed inputs
     embeddings = model.encode(chunks)
 
     # dump all_embeddings to faiss index
-    index = faiss.IndexFlatL2(embeddings.shape[1])
+    if os.path.exists(vector_db_path):
+        index = faiss.read_index(vector_db_path)
+    else:
+        index = faiss.IndexFlatL2(embeddings.shape[1])
+
     index.add(embeddings)
-
-    # write index to disk
-    faiss.write_index(index, db_file_path)
+    faiss.write_index(index, vector_db_path)
 
 
-def complete_create_dbs(img_chunks: list, vector_db_path: str, sqlite_db_path: str) -> None:
+def add_to_dbs(img_chunks: list) -> None:
     try:
-        print("STARTING: complete_create_dbs")
+        print("STARTING: add_to_dbs")
 
-        # create db for img_chunks
-        create_chunk_db(img_chunks, sqlite_db_path)
+        # add to db for img_chunks
+        add_to_chunk_db(img_chunks)
 
         # create vector embedding db for chunks
         chunks = [v["chunk"] for v in img_chunks]
-        create_vector_db(chunks, vector_db_path)
-        print("SUCCESS: complete_create_dbs succeeded")
+        add_to_vector_db(chunks)
+        print("SUCCESS: add_to_dbs succeeded")
     except Exception as e:
-        print(f"FAILURE: complete_create_dbs failed with exception {e}")
+        print(f"FAILURE: add_to_dbs failed with exception {e}")
 
 
 def index_new_imgs(new_imgs_to_be_indexed: list) -> None:
     moondream_answers = extract_text_from_imgs(new_imgs_to_be_indexed)
     img_chunks = create_all_img_chunks(new_imgs_to_be_indexed, moondream_answers)
-    complete_create_dbs(img_chunks, vector_db_path, sqlite_db_path)
+    add_to_dbs(img_chunks)
