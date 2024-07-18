@@ -6,4 +6,4 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- tests added for query module
+- core tests added for query, imgs modules
