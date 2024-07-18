@@ -5,6 +5,8 @@ from meme_search.utilities.imgs import collect_img_paths
 from meme_search.utilities.text_extraction import extract_text_from_imgs
 from meme_search.utilities.chunks import create_all_img_chunks
 from meme_search.utilities import vector_db_path, sqlite_db_path
+from meme_search.utilities.status import get_input_directory_status
+from meme_search.utilities.remove import remove_old_imgs
 
 
 def create_chunk_db(img_chunks: list, db_filepath: str) -> None:
@@ -15,10 +17,9 @@ def create_chunk_db(img_chunks: list, db_filepath: str) -> None:
     # Create the table  - delete old table if it exists
     cursor.execute("DROP TABLE IF EXISTS chunks_reverse_lookup")
 
-    # Create the table - alias rowid as chunk_index
+    # Create the table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS chunks_reverse_lookup (
-            chunk_index INTEGER PRIMARY KEY,
             img_path TEXT,
             chunk TEXT
         );
@@ -29,8 +30,8 @@ def create_chunk_db(img_chunks: list, db_filepath: str) -> None:
         img_path = entry["img_path"]
         chunk = entry["chunk"]
         cursor.execute(
-            "INSERT INTO chunks_reverse_lookup (chunk_index, img_path, chunk) VALUES (?, ?, ?)",
-            (chunk_index, img_path, chunk),
+            "INSERT INTO chunks_reverse_lookup (img_path, chunk) VALUES (?, ?)",
+            (img_path, chunk),
         )
 
     conn.commit()
@@ -65,9 +66,11 @@ def complete_create_dbs(img_chunks: list, vector_db_path: str, sqlite_db_path: s
 
 
 def process():
-    all_img_paths = collect_img_paths()
-    moondream_answers = extract_text_from_imgs(all_img_paths)
-    img_chunks = create_all_img_chunks(all_img_paths, moondream_answers)
+    old_imgs_to_be_removed, new_imgs_to_be_indexed = get_input_directory_status()
+    remove_old_imgs(old_imgs_to_be_removed)
+
+    moondream_answers = extract_text_from_imgs(new_imgs_to_be_indexed)
+    img_chunks = create_all_img_chunks(new_imgs_to_be_indexed, moondream_answers)
     complete_create_dbs(img_chunks, vector_db_path, sqlite_db_path)
 
 
