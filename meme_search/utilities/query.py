@@ -1,7 +1,7 @@
 import faiss
 import sqlite3
 import numpy as np
-from typing import Tuple
+from typing import Tuple, Union
 import argparse
 from meme_search.utilities import model
 from meme_search.utilities import vector_db_path, sqlite_db_path
@@ -48,28 +48,29 @@ def query_for_all() -> list:
     return rows
 
 
-def complete_query(query: str, vector_db_path: str, sqlite_db_path: str, k: int = 10) -> list:
+def complete_query(query: str, k: int = 10) -> Union[list, None]:
     try:
-        print("STARTING: complete_query")
+        if len(query.strip()) > 2:
+            print("STARTING: complete_query")
 
-        # query vector_db, first converting input query to embedding
-        distances, indices = query_vector_db(query, vector_db_path, k=k)
+            # query vector_db, first converting input query to embedding
+            distances, indices = query_vector_db(query, vector_db_path, k=k)
 
-        # use indices to query sqlite db containing chunk data
-        img_chunks = query_for_indices(indices)  # bump up indices by 1 since sqlite row index starts at 1 not 0
+            # use indices to query sqlite db containing chunk data
+            img_chunks = query_for_indices(indices)  # bump up indices by 1 since sqlite row index starts at 1 not 0
 
-        # map indices back to correct image in img_chunks
-        imgs_seen = []
-        unique_img_entries = []
-        for ind, entry in enumerate(img_chunks):
-            if entry["img_path"] in imgs_seen:
-                continue
-            else:
-                entry["distance"] = round(distances[ind], 2)
-                unique_img_entries.append(entry)
-                imgs_seen.append(entry["img_path"])
-        print("SUCCESS: complete_query succeeded")
-        return unique_img_entries
+            # map indices back to correct image in img_chunks
+            imgs_seen = []
+            unique_img_entries = []
+            for ind, entry in enumerate(img_chunks):
+                if entry["img_path"] in imgs_seen:
+                    continue
+                else:
+                    entry["distance"] = round(distances[ind], 2)
+                    unique_img_entries.append(entry)
+                    imgs_seen.append(entry["img_path"])
+            print("SUCCESS: complete_query succeeded")
+            return unique_img_entries
     except Exception as e:
         print(f"FAILURE: complete_query failed with exception {e}")
         raise e
