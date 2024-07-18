@@ -10,8 +10,10 @@ def process() -> bool:
     print(f"old_imgs_to_be_removed --> {old_imgs_to_be_removed}")
     print(f"new_imgs_to_be_indexed --> {new_imgs_to_be_indexed}")
 
-    remove_old_imgs(old_imgs_to_be_removed)
-    index_new_imgs(new_imgs_to_be_indexed)
+    if len(old_imgs_to_be_removed) > 0:
+        remove_old_imgs(old_imgs_to_be_removed)
+    if len(new_imgs_to_be_indexed):
+        index_new_imgs(new_imgs_to_be_indexed)
     return True
 
 
