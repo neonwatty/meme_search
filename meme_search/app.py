@@ -25,7 +25,7 @@ with st.container():
 
     with button_col:
         st.empty()
-        refresh_index_button = st.button("reset index", type="primary")
+        refresh_index_button = st.button("refresh index", type="primary")
         if refresh_index_button:
             process_start = st.warning("refreshing...")
             val = process()
