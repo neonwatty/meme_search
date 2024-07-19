@@ -6,7 +6,7 @@
 **/.DS_Store
 **/._.DS_Store
 **/.env*
-# scratch.ipynb
+scratch.ipynb
 bug_reports/
 .ruff_cache/
 .vscode

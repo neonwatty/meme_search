@@ -16,6 +16,9 @@ A table of contents for the remainder of this README:
 - [Pipeline overview](#pipeline-overview)
 - [Start the streamlit server](#start-the-streamlit-server)
 - [Index your own memes](#index-your-own-memes)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [Running tests](#running-tests)
 
 ## Introduction
 
@@ -38,7 +41,7 @@ This meme search pipeline is built using the following open source components:
 
 To create a handy tool for your own memes pull the repo and install the requirements file
 
-```python
+```sh
 pip install -r requirements.txt
 ```
 
@@ -55,7 +58,7 @@ docker compose up
 
 After indexing your memes you can then start the streamlit app, allowing you to semantically search for and retrieve your memes
 
-```python
+```sh
 python -m streamlit run meme_search/app.py
 ```
 
@@ -72,13 +75,15 @@ Note: you can drag and drop any recovered meme directly from the streamlit app t
 
 Place any images / memes you would like indexed for the search app in this repo's subdirectory
 
-`data/input/`
+```sh
+data/input/
+```
 
 You can clear out the default test images in this location first, or leave them.
 
 Next - at your terminal - paste the following command
 
-```python
+```sh
 python meme_search/utilities/create.py
 ```
 
@@ -98,3 +103,26 @@ You will see printouts at the terminal indicating success of the 3 main stages f
 
 3.  **index**: index the embeddings in an open source and local vector base [faiss database](https://github.com/facebookresearch/faiss) and references connecting the embeddings to their images in the greatest little db of all time - [sqlite](https://sqlite.org/)
 
+
+## Changelog
+
+Meme Search is under active development!  See the `CHANGELOG.md` in this repo for a record of the most recent changes.  
+
+## Contributing
+
+Contributions are welcome!  Please see `CONTRIBUTING.md` for basic instructions!
+
+
+## Running tests
+
+Tests can be run by first installing the test requirements as 
+
+```sh
+pip install -r requirements.test
+```
+
+Then the test suite can be run as
+
+```sh
+python -m pytest tests/
+```
