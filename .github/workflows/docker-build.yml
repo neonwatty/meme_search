@@ -37,7 +37,7 @@ jobs:
           images: |
             ghcr.io/${{ github.actor }}/meme-serch
           # Uncomment to use Docker Hub
-          # ${{ secrets.DOCKERHUB_USERNAME }}/stm32-builder
+            # ${{ secrets.DOCKERHUB_USERNAME }}/stm32-builder
           tags: type=ref,event=tag
           flavor: latest=true
 
