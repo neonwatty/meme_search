@@ -50,7 +50,7 @@ def query_for_all() -> list:
 
 def complete_query(query: str, k: int = 10) -> Union[list, None]:
     try:
-        if len(query.strip()) > 2:
+        if len(query.strip()) > 1:
             print("STARTING: complete_query")
 
             # query vector_db, first converting input query to embedding

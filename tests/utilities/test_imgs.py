@@ -1,11 +1,11 @@
 import os
 from meme_search import meme_search_root_dir
-from meme_search.utilities.imgs import collect_img_paths
+from meme_search.utilities.imgs import collect_img_paths, allowable_extensions
 
 
 def list_files_in_directory(directory_path):
     try:
-        files = [f for f in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, f))]
+        files = [f for f in os.listdir(directory_path) if (os.path.isfile(os.path.join(directory_path, f)) and f.split(".")[-1] in allowable_extensions)]
         return files
     except OSError as error:
         print(f"Error accessing directory '{directory_path}': {error}")

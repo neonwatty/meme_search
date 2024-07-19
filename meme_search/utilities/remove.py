@@ -53,7 +53,7 @@ def delete_removal_rowids_from_vector_db(rowids: list, vector_db_path: str) -> N
         raise ValueError(f"FAILURE: delete_removal_rowids failed with exception {e}")
 
 
-def remove_old_imgs(old_imgs_to_be_removed: list, sqlite_db_path: str, vector_db_path: str) -> None:
+def remove(old_imgs_to_be_removed: list, sqlite_db_path: str, vector_db_path: str) -> None:
     row_ids = collect_removal_rowids(old_imgs_to_be_removed, sqlite_db_path)
     delete_removal_rowids_from_reverse_lookup(row_ids, sqlite_db_path)
     delete_removal_rowids_from_vector_db(row_ids, vector_db_path)

@@ -6,10 +6,12 @@ import streamlit as st
 
 st.set_page_config(page_title="Meme Search")
 
+
 # search bar taken from --> https://discuss.streamlit.io/t/creating-a-nicely-formatted-search-field/1804/2
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 
 def remote_css(url):
     st.markdown(f'<link href="{url}" rel="stylesheet">', unsafe_allow_html=True)
@@ -53,4 +55,3 @@ with st.container():
                         output_format="auto",
                         caption=f'{result["full_description"]} (query distance = {result["distance"]})',
                     )
-

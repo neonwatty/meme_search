@@ -61,9 +61,7 @@ def add_to_dbs(img_chunks: list, sqlite_db_path: str, vector_db_path: str) -> No
         print(f"FAILURE: add_to_dbs failed with exception {e}")
 
 
-def index_new_imgs(new_imgs_to_be_indexed: list,
-                   sqlite_db_path: str,
-                   vector_db_path: str) -> None:
+def add(new_imgs_to_be_indexed: list, sqlite_db_path: str, vector_db_path: str) -> None:
     moondream_answers = extract_text_from_imgs(new_imgs_to_be_indexed)
     img_chunks = create_all_img_chunks(new_imgs_to_be_indexed, moondream_answers)
     add_to_dbs(img_chunks, sqlite_db_path, vector_db_path)
