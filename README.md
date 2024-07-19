@@ -121,6 +121,8 @@ Meme Search is under active development!  See the `CHANGELOG.md` in this repo fo
 
 Contributions are welcome!  Please see `CONTRIBUTING.md` for basic instructions!
 
+See [the issues of this repository](https://github.com/neonwatty/meme_search/issues) for suggested enhancements to contribute to / weight in on! 
+
 
 ## Running tests
 
