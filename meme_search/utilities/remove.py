@@ -1,10 +1,9 @@
 import sqlite3
 import faiss
 import numpy as np
-from meme_search.utilities import vector_db_path, sqlite_db_path
 
 
-def collect_removal_rowids(old_imgs_to_be_removed: list) -> list:
+def collect_removal_rowids(old_imgs_to_be_removed: list, sqlite_db_path: str) -> list:
     try:
         if len(old_imgs_to_be_removed) > 0:
             conn = sqlite3.connect(sqlite_db_path)
@@ -21,7 +20,7 @@ def collect_removal_rowids(old_imgs_to_be_removed: list) -> list:
         raise ValueError(f"FAILURE: collect_removal_rowids failed with exception {e}")
 
 
-def delete_removal_rowids_from_reverse_lookup(rowids: list) -> None:
+def delete_removal_rowids_from_reverse_lookup(rowids: list, sqlite_db_path: str) -> None:
     try:
         if len(rowids) > 0:
             conn = sqlite3.connect(sqlite_db_path)
@@ -43,7 +42,7 @@ def delete_removal_rowids_from_reverse_lookup(rowids: list) -> None:
         raise ValueError(f"FAILURE: delete_removal_rowids failed with exception {e}")
 
 
-def delete_removal_rowids_from_vector_db(rowids: list) -> None:
+def delete_removal_rowids_from_vector_db(rowids: list, vector_db_path: str) -> None:
     try:
         if len(rowids) > 0:
             index = faiss.read_index(vector_db_path)
@@ -54,7 +53,7 @@ def delete_removal_rowids_from_vector_db(rowids: list) -> None:
         raise ValueError(f"FAILURE: delete_removal_rowids failed with exception {e}")
 
 
-def remove_old_imgs(old_imgs_to_be_removed: list) -> None:
-    row_ids = collect_removal_rowids(old_imgs_to_be_removed)
-    delete_removal_rowids_from_reverse_lookup(row_ids)
-    delete_removal_rowids_from_vector_db(row_ids)
+def remove_old_imgs(old_imgs_to_be_removed: list, sqlite_db_path: str, vector_db_path: str) -> None:
+    row_ids = collect_removal_rowids(old_imgs_to_be_removed, sqlite_db_path)
+    delete_removal_rowids_from_reverse_lookup(row_ids, sqlite_db_path)
+    delete_removal_rowids_from_vector_db(row_ids, vector_db_path)

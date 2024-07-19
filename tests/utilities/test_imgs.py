@@ -1,5 +1,4 @@
 import os
-from tests.utilities import test_input_img_names
 from meme_search import meme_search_root_dir
 from meme_search.utilities.imgs import collect_img_paths
 
@@ -16,6 +15,6 @@ def list_files_in_directory(directory_path):
 def test_collect_img_paths():
     img_data_path = meme_search_root_dir + "/data/input"
     actual_files = list_files_in_directory(img_data_path)
-    output_files = collect_img_paths()
+    output_files = collect_img_paths(img_data_path)
     output_files = [v.split("/")[-1] for v in output_files]
     assert len(set(actual_files) - set(output_files)) == 0

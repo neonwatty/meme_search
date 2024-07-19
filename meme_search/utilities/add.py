@@ -4,10 +4,9 @@ import faiss
 from meme_search.utilities import model
 from meme_search.utilities.text_extraction import extract_text_from_imgs
 from meme_search.utilities.chunks import create_all_img_chunks
-from meme_search.utilities import sqlite_db_path, vector_db_path
 
 
-def add_to_chunk_db(img_chunks: list) -> None:
+def add_to_chunk_db(img_chunks: list, sqlite_db_path: str) -> None:
     # Create a lookup table for chunks
     conn = sqlite3.connect(sqlite_db_path)
     cursor = conn.cursor()
@@ -33,7 +32,7 @@ def add_to_chunk_db(img_chunks: list) -> None:
     conn.close()
 
 
-def add_to_vector_db(chunks: list) -> None:
+def add_to_vector_db(chunks: list, vector_db_path: str) -> None:
     # embed inputs
     embeddings = model.encode(chunks)
 
@@ -47,22 +46,24 @@ def add_to_vector_db(chunks: list) -> None:
     faiss.write_index(index, vector_db_path)
 
 
-def add_to_dbs(img_chunks: list) -> None:
+def add_to_dbs(img_chunks: list, sqlite_db_path: str, vector_db_path: str) -> None:
     try:
         print("STARTING: add_to_dbs")
 
         # add to db for img_chunks
-        add_to_chunk_db(img_chunks)
+        add_to_chunk_db(img_chunks, sqlite_db_path)
 
         # create vector embedding db for chunks
         chunks = [v["chunk"] for v in img_chunks]
-        add_to_vector_db(chunks)
+        add_to_vector_db(chunks, vector_db_path)
         print("SUCCESS: add_to_dbs succeeded")
     except Exception as e:
         print(f"FAILURE: add_to_dbs failed with exception {e}")
 
 
-def index_new_imgs(new_imgs_to_be_indexed: list) -> None:
+def index_new_imgs(new_imgs_to_be_indexed: list,
+                   sqlite_db_path: str,
+                   vector_db_path: str) -> None:
     moondream_answers = extract_text_from_imgs(new_imgs_to_be_indexed)
     img_chunks = create_all_img_chunks(new_imgs_to_be_indexed, moondream_answers)
-    add_to_dbs(img_chunks)
+    add_to_dbs(img_chunks, sqlite_db_path, vector_db_path)
