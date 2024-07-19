@@ -17,6 +17,10 @@ def test_compose(subtests):
     up_cmd = ["docker", "compose", "up", "-d"]
     ps_cmd = "docker-compose ps"
     down_cmd = ["docker", "compose", "down"]
+    
+    with subtests.test(msg="compose down"):
+        code = terminal_process(down_cmd)
+        assert code == 0, "compose down failed"
 
     with subtests.test(msg="compose up"):
         code = terminal_process(up_cmd)

@@ -1,5 +1,7 @@
-from meme_search import base_dir, sqlite_db_path, vector_db_path
+import time
+from meme_search import base_dir
 from meme_search.utilities.query import complete_query
+from meme_search.utilities.create import process
 import streamlit as st
 
 st.set_page_config(page_title="Meme Search")
@@ -19,16 +21,37 @@ local_css(base_dir + "/style.css")
 remote_css("https://fonts.googleapis.com/icon?family=Material+Icons")
 
 # icon("search")
-buff, col, buff2 = st.columns([1, 4, 1])
+with st.container():
+    with st.container(border=True):
+        input_col, button_col = st.columns([6, 2])
 
-selected = col.text_input(label="search for meme", placeholder="search for a meme")
-if selected:
-    results = complete_query(selected, vector_db_path, sqlite_db_path)
-    img_paths = [v["img_path"] for v in results]
-    for result in results:
-        with col.container(border=True):
-            st.image(
-                result["img_path"],
-                output_format="auto",
-                caption=f'{result["full_description"]} (query distance = {result["distance"]})',
-            )
+    with button_col:
+        st.empty()
+        refresh_index_button = st.button("refresh index", type="primary")
+        if refresh_index_button:
+            process_start = st.warning("refreshing...")
+            val = process()
+            if val:
+                process_start.empty()
+                success = st.success("index updated!")
+                time.sleep(2)
+                process_start.empty()
+                success.empty()
+            else:
+                process_start.empty()
+                warning = st.warning("no refresh needed!")
+                time.sleep(2)
+                warning.empty()
+
+    selected = input_col.text_input(label="meme search", placeholder="search for your meme", label_visibility="collapsed")
+    if selected:
+        results = complete_query(selected)
+        img_paths = [v["img_path"] for v in results]
+        with st.container(border=True):
+            for result in results:
+                with st.container(border=True):
+                    st.image(
+                        result["img_path"],
+                        output_format="auto",
+                        caption=f'{result["full_description"]} (query distance = {result["distance"]})',
+                    )

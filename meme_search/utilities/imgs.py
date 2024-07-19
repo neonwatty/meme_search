@@ -1,16 +1,15 @@
 import os
-from meme_search.utilities import meme_search_root_dir
 
 allowable_extensions = ["jpg", "jpeg", "png"]
 
 
-def collect_img_paths() -> list:
+def collect_img_paths(img_dir: str) -> list:
     try:
-        img_dir = meme_search_root_dir + "/data/input"
         print("STARTING: collect_img_paths")
 
         all_img_paths = [os.path.join(img_dir, name) for name in os.listdir(img_dir) if name.split(".")[-1] in allowable_extensions]
         all_img_paths = sorted(all_img_paths)
+        all_img_paths = ["./data/input/" + v.split("/")[-1] for v in all_img_paths]
 
         print(f"SUCCESS: collect_img_paths ran successfully - image paths loaded from '{img_dir}'")
         return all_img_paths
