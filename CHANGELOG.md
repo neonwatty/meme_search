@@ -6,4 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- core tests added for query, imgs modules
+- Core tests added for query, imgs modules, add images re-indexing, remove image re-indexing
+
+- A new "refresh index" button has been introduced to update the index when images are added or removed from the data/input image directory, affecting only the newly added or removed images.
+
+
+<p align="center">
+<img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search_refresh_button.gif" height="325">
+</p>
