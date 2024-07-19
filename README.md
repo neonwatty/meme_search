@@ -9,6 +9,7 @@ Use Python and AI to index your memes by their content and text, making them eas
 <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search.gif" height="325">
 </p>
 
+
 A table of contents for the remainder of this README:
 
 - [Introduction](#introduction)
@@ -81,7 +82,15 @@ data/input/
 
 You can clear out the default test images in this location first, or leave them.
 
-Next - at your terminal - paste the following command
+Next, click the "refresh index" button to update your index when images are added or removed from the image directory, affecting only the newly added or removed images.
+
+
+<p align="center">
+<img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search_refresh_button.gif" height="200">
+</p>
+
+
+Alternatively - at your terminal - paste the following command
 
 ```sh
 python meme_search/utilities/create.py
