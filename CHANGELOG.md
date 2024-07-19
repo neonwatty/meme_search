@@ -12,5 +12,5 @@ All notable changes to this project will be documented in this file.
 
 
 <p align="center">
-<img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search_refresh_button.gif" height="325">
+<img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search_refresh_button.gif" height="200">
 </p>
