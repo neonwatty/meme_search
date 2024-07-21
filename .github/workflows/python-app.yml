@@ -4,12 +4,6 @@
 name: Python application
 
 on:
-  push:
-    branches: [ "main"]
-    paths-ignore:
-      - '**/README.md'
-      - '**/CONTRIBUTING.md'
-      - '**LICENSE'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
@@ -50,3 +44,4 @@ jobs:
         PYTHONPATH=. python3.10 -m pytest tests/test_app.py &&
         PYTHONPATH=. python3.10 -m pytest tests/utilities/test_imgs.py &&
         PYTHONPATH=. python3.10 -m pytest tests/utilities/test_query.py
+        # PYTHONPATH=. python3.10 -m pytest tests/utilities/test_add_remove.py ## requires large runner
