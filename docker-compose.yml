@@ -5,6 +5,7 @@ services:
     ports:
       - 8501:8501
     volumes:
+      - ./meme_search/database:/home/data/dbs   # database persistence
       - ./meme_search/memes:/home/data/input    # meme images
     ## uncomment to enable GPU support for the container
     # deploy:
