@@ -5,7 +5,7 @@ services:
     ports:
       - 8501:8501
     volumes:
-      - ./data:/home/data
+      - ./meme_search/memes:/home/data/input    # meme images
     ## uncomment to enable GPU support for the container
     # deploy:
     #   resources:
