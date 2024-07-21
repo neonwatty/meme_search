@@ -21,6 +21,6 @@ EXPOSE 8501
 
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-RUN chmod +x /home/meme_search/entrypoint.sh
+RUN chmod +x /home/entrypoint.sh
 COPY entrypoint.sh /home/entrypoint.sh
 ENTRYPOINT ["/home/entrypoint.sh"]
