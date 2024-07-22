@@ -1,13 +1,12 @@
 services:
   meme_search:
-    build:
-      context: .
-    image: meme_search
+    image: ghcr.io/neonwatty/meme_search:latest
     container_name: meme_search
     ports:
       - 8501:8501
     volumes:
-      - ./data:/home/data
+      - ./meme_search/database:/home/data/dbs   # database persistence
+      - ./meme_search/memes:/home/data/input    # meme images
     ## uncomment to enable GPU support for the container
     # deploy:
     #   resources:
