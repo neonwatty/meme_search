@@ -18,7 +18,7 @@ A table of contents for the remainder of this README:
 - [Start the streamlit server](#start-the-streamlit-server)
 - [Index your own memes](#index-your-own-memes)
 - [Changelog](#changelog)
-- [Contributing](#contributing)
+- [Feature requests and contributing](#feature-requests-and-contributing)
 - [Running tests](#running-tests)
 
 ## Introduction
@@ -117,11 +117,13 @@ You will see printouts at the terminal indicating success of the 3 main stages f
 
 Meme Search is under active development!  See the `CHANGELOG.md` in this repo for a record of the most recent changes.  
 
-## Contributing
+## Feature requests and contributing
 
-Contributions are welcome!  Please see `CONTRIBUTING.md` for basic instructions!
+Feature requests and contributions are welcome!  
 
-See [the issues of this repository](https://github.com/neonwatty/meme_search/issues) for suggested enhancements to contribute to / weight in on! 
+See [the discussion section of this repository](https://github.com/neonwatty/meme_search/discussions) for suggested enhancements to contribute to / weight in on! 
+
+Please see `CONTRIBUTING.md` for some boilerplate ground rules for contributing.
 
 
 ## Running tests
