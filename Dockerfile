@@ -9,14 +9,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /home
 
-ENV PYTHONPATH=.
-
 COPY requirements.txt .
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Runtime stage
 FROM python:3.10-slim
+
+ENV PYTHONPATH=.
 
 WORKDIR /home
 
