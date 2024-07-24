@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
- 
+
+## 2024-07-24
+
+Version 1.1.3 released with a range of great updates to docker version of app
+
+- Ability to use Nvidia GPU inside Docker Container added to compose file + other helpful cleanup from @thijsvanloef 
+- new action for docker build / docker-compose now pulls image from ghcr repo by default thanks to @jasonyang-ee 
+- docker build size roughly cut in half thanks to staged build commit by @StroescuTheo 
 
 ## 2024-07-17
 
