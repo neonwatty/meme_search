@@ -1,8 +1,8 @@
+version: '3.8'
+
 services:
   meme_search:
-    build:
-      context: .
-    image: meme_search
+    image: ghcr.io/neonwatty/meme-search:latest
     container_name: meme_search
     ports:
       - 8501:8501
