@@ -44,9 +44,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_224456) do
   end
 
   create_table "embeddings", force: :cascade do |t|
-    t.vector "snippet_embedding", limit: 384
+    t.bigint "meme_id", null: false
+    t.vector "embedding", limit: 384
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["meme_id"], name: "index_embeddings_on_meme_id"
+  end
+
+  create_table "meme_tags", force: :cascade do |t|
+    t.bigint "meme_id", null: false
+    t.bigint "tag_name_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meme_id"], name: "index_meme_tags_on_meme_id"
+    t.index ["tag_name_id"], name: "index_meme_tags_on_tag_name_id"
   end
 
   create_table "memes", force: :cascade do |t|
@@ -63,12 +74,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_224456) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "embeddings", "memes"
+  add_foreign_key "meme_tags", "memes"
+  add_foreign_key "meme_tags", "tag_names"
 end
