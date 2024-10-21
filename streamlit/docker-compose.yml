@@ -1,8 +1,8 @@
-version: '3.8'
+version: "3.8"
 
 services:
   meme_search:
-    image: ghcr.io/neonwatty/meme-search:latest
+    image: ghcr.io/neonwatty/meme-search:streamlit
     container_name: meme_search
     ports:
       - 8501:8501
