@@ -57,6 +57,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_224456) do
     t.index ["filename"], name: "index_memes_on_filename", unique: true
   end
 
+  create_table "tag_names", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
