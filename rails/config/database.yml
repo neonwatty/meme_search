@@ -3,19 +3,18 @@ test:
   encoding: unicode
   pool: 5
   timeout: 5000
-  database: meme_search_test
+  database: meme_test
 
 development:
   adapter: postgresql
   encoding: unicode
   pool: 5
   timeout: 5000
-  database: meme_search_development
+  database: meme_development
 
 production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  url: meme_search_production
   timeout: 5000
-  statement_limit: 200
+  database: meme_production
