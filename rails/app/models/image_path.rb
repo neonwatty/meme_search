@@ -1,6 +1,5 @@
 class ImagePath < ApplicationRecord
-  validates_uniqueness_of :name
-  validates_length_of :name, minimum: 1, maximum: 300
+  # validates :name, uniqueness: true, length: { minimum: 1, maximum: 300 }
   has_many :image_cores, dependent: :destroy
   has_many :image_tags, through: :image_cores
 
@@ -10,7 +9,7 @@ class ImagePath < ApplicationRecord
   private
 
     def valid_dir
-      unless File.directory?(self.name) && self.name > 0
+      unless self.name.length > 0 && File.directory?(self.name)
         self.errors.add(:base, "The input path - #{self.name} - is not valid.")
       end
     end

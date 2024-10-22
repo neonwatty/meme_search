@@ -20,19 +20,21 @@ class ImagePathsController < ApplicationController
   end
 
   # POST /image_paths or /image_paths.json
-  def create    
+  def create
     @image_path = ImagePath.new(image_path_params)
 
     begin
       respond_to do |format|
         if @image_path.save
-          format.html { redirect_to @image_path, notice: "Image path was successfully created." }
+          flash[:notice] = "Image path was successfully created."
+          format.html { redirect_to @image_path }
         else
           flash[:alert] = @image_path.errors.full_messages[0]
           format.html { render :new, status: :unprocessable_entity }
         end
-        rescue
-          flash[:alert] = "Validation failed: the image_path #{@image_path.name} already exists"
+        rescue # /Users/jeremywatt/Desktop/memes
+          # flash[:alert] = "Validation failed: the image_path #{@image_path.name} already exists"
+          flash[:alert] = @image_path.errors.full_messages[0]
           format.html { render :new, status: :unprocessable_entity }
         end
       end
