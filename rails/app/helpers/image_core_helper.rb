@@ -1,0 +1,2 @@
+module ImageCoreHelper
+end
