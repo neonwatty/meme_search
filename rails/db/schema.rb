@@ -33,10 +33,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_170426) do
   end
 
   create_table "image_paths", force: :cascade do |t|
-    t.string "path", limit: 300
+    t.string "name", limit: 300
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["path"], name: "index_image_paths_on_path", unique: true
+    t.index ["name"], name: "index_image_paths_on_name", unique: true
   end
 
   create_table "image_tags", force: :cascade do |t|

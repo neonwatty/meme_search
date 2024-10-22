@@ -20,23 +20,8 @@ class ImagePathsController < ApplicationController
   end
 
   # POST /image_paths or /image_paths.json
-  def create
-    path_data = image_path_params
-    puts "path data: #{path_data}"
-
-  
-    if path_data[:image_path][:path_selected].present?
-        path = path_data[:image_path][:path_selected]
-        puts path
-    elsif path_data[:image_path][:path_text].present?
-      path = path_data[:image_path][:path_text]
-      puts path
-    end
-    puts path
-    
-    @image_path = ImagePath.new({path: path})
-
-
+  def create    
+    @image_path = ImagePath.new(image_path_params)
     respond_to do |format|
       if @image_path.save
         format.html { redirect_to @image_path, notice: "Image path was successfully created." }
@@ -79,6 +64,6 @@ class ImagePathsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_path_params
-      params.require(:image_path).permit(:path_text, :path_selected)
+      params.require(:image_path).permit(:name)
     end
 end
