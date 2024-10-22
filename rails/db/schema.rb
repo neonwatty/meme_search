@@ -15,57 +15,37 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_224456) do
   enable_extension "plpgsql"
   enable_extension "vector"
 
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
-  end
-
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.string "service_name", null: false
-    t.bigint "byte_size", null: false
-    t.string "checksum"
-    t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
-    t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "embeddings", force: :cascade do |t|
-    t.bigint "meme_id", null: false
-    t.vector "embedding", limit: 384
+  create_table "image_cores", force: :cascade do |t|
+    t.bigint "image_path_id", null: false
+    t.string "image_name", limit: 100
+    t.string "image_description", limit: 500
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["meme_id"], name: "index_embeddings_on_meme_id"
+    t.index ["image_path_id"], name: "index_image_cores_on_image_path_id"
   end
 
-  create_table "meme_tags", force: :cascade do |t|
-    t.bigint "meme_id", null: false
+  create_table "image_embeddings", force: :cascade do |t|
+    t.bigint "image_core_id", null: false
+    t.vector "image_embedding", limit: 384
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_core_id"], name: "index_image_embeddings_on_image_core_id"
+  end
+
+  create_table "image_paths", force: :cascade do |t|
+    t.string "img_path", limit: 300
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["img_path"], name: "index_image_paths_on_img_path", unique: true
+  end
+
+  create_table "image_tags", force: :cascade do |t|
+    t.bigint "image_core_id", null: false
     t.bigint "tag_name_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["meme_id"], name: "index_meme_tags_on_meme_id"
-    t.index ["tag_name_id"], name: "index_meme_tags_on_tag_name_id"
-  end
-
-  create_table "memes", force: :cascade do |t|
-    t.string "filename", limit: 100
-    t.string "description", limit: 500
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["filename"], name: "index_memes_on_filename", unique: true
+    t.index ["image_core_id"], name: "index_image_tags_on_image_core_id"
+    t.index ["tag_name_id"], name: "index_image_tags_on_tag_name_id"
   end
 
   create_table "tag_names", force: :cascade do |t|
@@ -75,9 +55,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_224456) do
     t.index ["name"], name: "index_tag_names_on_name", unique: true
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "embeddings", "memes"
-  add_foreign_key "meme_tags", "memes"
-  add_foreign_key "meme_tags", "tag_names"
+  add_foreign_key "image_cores", "image_paths"
+  add_foreign_key "image_embeddings", "image_cores"
+  add_foreign_key "image_tags", "image_cores"
+  add_foreign_key "image_tags", "tag_names"
 end

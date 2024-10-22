@@ -1,3 +1,3 @@
-class Embedding < ApplicationRecord
+class ImageEmbedding < ApplicationRecord
   validates_length_of :embedding, maximum: 384, allow_blank: false
 end
