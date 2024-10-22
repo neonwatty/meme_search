@@ -61,17 +61,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_21_224456) do
   end
 
   create_table "memes", force: :cascade do |t|
-    t.string "filename"
-    t.string "description"
+    t.string "filename", limit: 100
+    t.string "description", limit: 500
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["filename"], name: "index_memes_on_filename", unique: true
   end
 
   create_table "tag_names", force: :cascade do |t|
-    t.string "name"
+    t.string "name", limit: 20
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tag_names_on_name", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
