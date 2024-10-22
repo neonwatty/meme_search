@@ -1,4 +1,4 @@
-class TagNameController < ApplicationController
+class TagNamesController < ApplicationController
   before_action :set_tag_name, only: %i[ show edit update destroy ]
 
   # GET /tag_names or /tag_names.json
@@ -25,7 +25,7 @@ class TagNameController < ApplicationController
 
     respond_to do |format|
       if @tag_name.save
-        format.html { redirect_to @tag_name, notice: "TagName was successfully created." }
+        format.html { redirect_to @tag_name, notice: "Tag name was successfully created." }
         format.json { render :show, status: :created, location: @tag_name }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class TagNameController < ApplicationController
   def update
     respond_to do |format|
       if @tag_name.update(tag_name_params)
-        format.html { redirect_to @tag_name, notice: "TagName was successfully updated." }
+        format.html { redirect_to @tag_name, notice: "Tag name was successfully updated." }
         format.json { render :show, status: :ok, location: @tag_name }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class TagNameController < ApplicationController
     @tag_name.destroy!
 
     respond_to do |format|
-      format.html { redirect_to tag_names_path, status: :see_other, notice: "TagName was successfully destroyed." }
+      format.html { redirect_to tag_names_path, status: :see_other, notice: "Tag name was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class TagNameController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tag_name_params
-      params.require(:tag_name)
+      params.fetch(:tag_name, {})
     end
 end

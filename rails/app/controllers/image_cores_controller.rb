@@ -1,4 +1,4 @@
-class ImageCoreController < ApplicationController
+class ImageCoresController < ApplicationController
   before_action :set_image_core, only: %i[ show edit update destroy ]
 
   # GET /image_cores or /image_cores.json
@@ -25,7 +25,7 @@ class ImageCoreController < ApplicationController
 
     respond_to do |format|
       if @image_core.save
-        format.html { redirect_to @image_core, notice: "ImageCore was successfully created." }
+        format.html { redirect_to @image_core, notice: "Image core was successfully created." }
         format.json { render :show, status: :created, location: @image_core }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ImageCoreController < ApplicationController
   def update
     respond_to do |format|
       if @image_core.update(image_core_params)
-        format.html { redirect_to @image_core, notice: "ImageCore was successfully updated." }
+        format.html { redirect_to @image_core, notice: "Image core was successfully updated." }
         format.json { render :show, status: :ok, location: @image_core }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ImageCoreController < ApplicationController
     @image_core.destroy!
 
     respond_to do |format|
-      format.html { redirect_to image_cores_path, status: :see_other, notice: "ImageCore was successfully destroyed." }
+      format.html { redirect_to image_cores_path, status: :see_other, notice: "Image core was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class ImageCoreController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_core_params
-      params.require(:image_name).permit(:image_description)
+      params.fetch(:image_core, {})
     end
 end

@@ -1,0 +1,17 @@
+<%= form_with(model: tag_name, class: "contents") do |form| %>
+  <% if tag_name.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(tag_name.errors.count, "error") %> prohibited this tag_name from being saved:</h2>
+
+      <ul>
+        <% tag_name.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

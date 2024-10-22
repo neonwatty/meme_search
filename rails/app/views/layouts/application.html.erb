@@ -6,9 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -17,10 +15,13 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
-</html>
+    <%= render 'shared/nav' %>
+    <div class="bg-white dark:bg-slate-800">
+      <div class="bg-white dark:bg-slate-800 text-black dark:text-white h-screen pb-10 pt-12">
+        <main class="container mx-auto mt-28 px-5 flex">
+          <%= yield %>
+        </main>
+      </div>
+    </body>
+  </html>

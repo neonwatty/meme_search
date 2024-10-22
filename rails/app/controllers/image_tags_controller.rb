@@ -1,4 +1,4 @@
-class ImageTagController < ApplicationController
+class ImageTagsController < ApplicationController
   before_action :set_image_tag, only: %i[ show edit update destroy ]
 
   # GET /image_tags or /image_tags.json
@@ -25,7 +25,7 @@ class ImageTagController < ApplicationController
 
     respond_to do |format|
       if @image_tag.save
-        format.html { redirect_to @image_tag, notice: "ImageTag was successfully created." }
+        format.html { redirect_to @image_tag, notice: "Image tag was successfully created." }
         format.json { render :show, status: :created, location: @image_tag }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ImageTagController < ApplicationController
   def update
     respond_to do |format|
       if @image_tag.update(image_tag_params)
-        format.html { redirect_to @image_tag, notice: "ImageTag was successfully updated." }
+        format.html { redirect_to @image_tag, notice: "Image tag was successfully updated." }
         format.json { render :show, status: :ok, location: @image_tag }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ImageTagController < ApplicationController
     @image_tag.destroy!
 
     respond_to do |format|
-      format.html { redirect_to image_tags_path, status: :see_other, notice: "ImageTag was successfully destroyed." }
+      format.html { redirect_to image_tags_path, status: :see_other, notice: "Image tag was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class ImageTagController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_tag_params
-      params.require(:image_tag).permit(:filename, :description)
+      params.fetch(:image_tag, {})
     end
 end

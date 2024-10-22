@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ImageTagControllerTest < ActionDispatch::IntegrationTest
+class ImageEmbeddingTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

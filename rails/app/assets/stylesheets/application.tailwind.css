@@ -2,12 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+  .back-button {
+    @apply ml-2 rounded-lg py-3 px-5 bg-amber-800 text-black dark:text-white inline-block font-medium;
+  }
+  .show-button {
+    @apply ml-2 rounded-lg py-3 px-5 bg-cyan-500 text-black dark:text-white inline-block font-medium;
+  }
+  .edit-button {
+    @apply ml-2 rounded-lg py-3 px-5 bg-fuchsia-500 text-black dark:text-white inline-block font-medium;
+  }
+  .delete-button {
+    @apply ml-2 rounded-lg py-3 px-5 bg-red-500 text-black dark:text-white inline-block font-medium;
+  }
+  .new-button {
+    @apply ml-2 rounded-lg py-3 px-5 bg-emerald-500 text-black dark:text-white inline-block font-medium;
   }
 }
-
-*/

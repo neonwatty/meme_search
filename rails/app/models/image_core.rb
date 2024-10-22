@@ -6,6 +6,4 @@ class ImageCore < ApplicationRecord
 
   has_many :image_tags, dependent: :destroy
 
-  scope :search_by_tags -> {  }
-
 end

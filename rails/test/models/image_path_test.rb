@@ -1,6 +1,6 @@
 require "test_helper"
 
-class TagNameControllerTest < ActionDispatch::IntegrationTest
+class ImagePathTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

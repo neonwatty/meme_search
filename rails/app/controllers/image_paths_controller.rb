@@ -1,4 +1,4 @@
-class ImagePathController < ApplicationController
+class ImagePathsController < ApplicationController
   before_action :set_image_path, only: %i[ show edit update destroy ]
 
   # GET /image_paths or /image_paths.json
@@ -25,7 +25,7 @@ class ImagePathController < ApplicationController
 
     respond_to do |format|
       if @image_path.save
-        format.html { redirect_to @image_path, notice: "ImagePath was successfully created." }
+        format.html { redirect_to @image_path, notice: "Image path was successfully created." }
         format.json { render :show, status: :created, location: @image_path }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ImagePathController < ApplicationController
   def update
     respond_to do |format|
       if @image_path.update(image_path_params)
-        format.html { redirect_to @image_path, notice: "ImagePath was successfully updated." }
+        format.html { redirect_to @image_path, notice: "Image path was successfully updated." }
         format.json { render :show, status: :ok, location: @image_path }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ImagePathController < ApplicationController
     @image_path.destroy!
 
     respond_to do |format|
-      format.html { redirect_to image_paths_path, status: :see_other, notice: "ImagePath was successfully destroyed." }
+      format.html { redirect_to image_paths_path, status: :see_other, notice: "Image path was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +65,6 @@ class ImagePathController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def image_path_params
-      params.require(:image_path)
+      params.require(:image_path).permit(:image_path)
     end
 end
