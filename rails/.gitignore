@@ -6,6 +6,7 @@
 
 # ignore mac os files
 **/.DS_Store
+scratch.rb
 
 # Ignore bundler config.
 /.bundle

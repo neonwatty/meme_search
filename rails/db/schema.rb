@@ -17,8 +17,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_170426) do
 
   create_table "image_cores", force: :cascade do |t|
     t.bigint "image_path_id", null: false
-    t.string "image_name", limit: 100
-    t.string "image_description", limit: 500
+    t.string "name", limit: 100
+    t.string "description", limit: 500
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_path_id"], name: "index_image_cores_on_image_path_id"
@@ -26,17 +26,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_170426) do
 
   create_table "image_embeddings", force: :cascade do |t|
     t.bigint "image_core_id", null: false
-    t.vector "image_embedding", limit: 384
+    t.vector "embedding", limit: 384
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_core_id"], name: "index_image_embeddings_on_image_core_id"
   end
 
   create_table "image_paths", force: :cascade do |t|
-    t.string "img_path", limit: 300
+    t.string "path", limit: 300
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["img_path"], name: "index_image_paths_on_img_path", unique: true
+    t.index ["path"], name: "index_image_paths_on_path", unique: true
   end
 
   create_table "image_tags", force: :cascade do |t|

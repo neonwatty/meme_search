@@ -9,10 +9,12 @@
   </div>
   <div id="image_paths" class="min-w-full">
     <% @image_paths.each do |image_path| %>
-      <%= render image_path %>
-      <p>
-        <%= link_to "Show this image path", image_path, class: "show-button" %>
-      </p>
+      <div class="flex flex-row">
+        <%= render image_path %>
+        <div class="mt-7 ml-5">
+          <%= link_to "Adjust / delete this image path", image_path, class: "" %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
