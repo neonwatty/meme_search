@@ -1,18 +1,17 @@
 class ImagePath < ApplicationRecord
   validates_uniqueness_of :name
-  validates_length_of :name, minimum: 0, maximum: 300, allow_blank: false
+  validates_length_of :name, minimum: 1, maximum: 300
   has_many :image_cores, dependent: :destroy
   has_many :image_tags, through: :image_cores
 
-  before_save :valid_dir
+  validate :valid_dir
   after_save :list_files_in_directory
 
   private
 
     def valid_dir
-      unless File.directory?(self.name)
-        errors.add(:name, "The input path - #{self.name} - is not a valid local path")
-        throw(:abort)
+      unless File.directory?(self.name) && self.name > 0
+        self.errors.add(:base, "The input path - #{self.name} - is not valid.")
       end
     end
 

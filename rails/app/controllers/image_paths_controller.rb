@@ -22,15 +22,20 @@ class ImagePathsController < ApplicationController
   # POST /image_paths or /image_paths.json
   def create    
     @image_path = ImagePath.new(image_path_params)
-    respond_to do |format|
-      if @image_path.save
-        format.html { redirect_to @image_path, notice: "Image path was successfully created." }
-        format.json { render :show, status: :created, location: @image_path }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @image_path.errors, status: :unprocessable_entity }
+
+    begin
+      respond_to do |format|
+        if @image_path.save
+          format.html { redirect_to @image_path, notice: "Image path was successfully created." }
+        else
+          flash[:alert] = @image_path.errors.full_messages[0]
+          format.html { render :new, status: :unprocessable_entity }
+        end
+        rescue
+          flash[:alert] = "Validation failed: the image_path #{@image_path.name} already exists"
+          format.html { render :new, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /image_paths/1 or /image_paths/1.json

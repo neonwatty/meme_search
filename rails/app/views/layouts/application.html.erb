@@ -19,6 +19,9 @@
     <%= render 'shared/nav' %>
     <div class="bg-white dark:bg-slate-800">
       <div class="bg-white dark:bg-slate-800 text-black dark:text-white h-screen pb-10 pt-12">
+        <% flash.each do |key, message| %>
+          <%= render partial: "shared/notifications", locals: {key: key, message: message} %>
+        <% end %>
         <main class="container mx-auto mt-28 px-5 flex">
           <%= yield %>
         </main>
