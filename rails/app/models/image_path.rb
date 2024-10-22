@@ -1,5 +1,11 @@
 class ImagePath < ApplicationRecord
-  # validates :name, uniqueness: true, length: { minimum: 1, maximum: 300 }
+  validates :name, uniqueness: { :message => "path already used" }
+  validates :name, length: { 
+    minimum: 1,
+    maximum: 300,
+    too_short: "Path name must have at least %{count} characters.",
+    too_long: "Path name must have no more than %{count} characters."
+  }
   has_many :image_cores, dependent: :destroy
   has_many :image_tags, through: :image_cores
 
