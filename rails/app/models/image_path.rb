@@ -1,5 +1,5 @@
 class ImagePath < ApplicationRecord
-  validates :name, uniqueness: { :message => "path already used" }
+  validates :name, presence: true, uniqueness: { :message => "path already used" }
   validates :name, length: { 
     minimum: 1,
     maximum: 300,

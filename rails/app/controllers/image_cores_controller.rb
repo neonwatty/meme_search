@@ -1,12 +1,13 @@
 class ImageCoresController < ApplicationController
   before_action :set_image_core, only: %i[ show edit update destroy ]
 
-  # GET /image_cores or /image_cores.json
+  # GET /image_cores
   def index
-    @image_cores = ImageCore.all
+    @image_cores = ImageCore.order(created_at: :desc)
+    @pagy, @image_cores = pagy(@image_cores)
   end
 
-  # GET /image_cores/1 or /image_cores/1.json
+  # GET /image_cores/1
   def show
   end
 
@@ -25,11 +26,11 @@ class ImageCoresController < ApplicationController
 
     respond_to do |format|
       if @image_core.save
-        format.html { redirect_to @image_core, notice: "Image core was successfully created." }
-        format.json { render :show, status: :created, location: @image_core }
+        flash[:notice] = "Image data was successfully created."
+        format.html { redirect_to @image_core }
       else
+        flash[:alert] = @image_path.errors.full_messages[0]
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @image_core.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,11 +39,11 @@ class ImageCoresController < ApplicationController
   def update
     respond_to do |format|
       if @image_core.update(image_core_params)
-        format.html { redirect_to @image_core, notice: "Image core was successfully updated." }
-        format.json { render :show, status: :ok, location: @image_core }
+        flash[:notice] = "Image data was updated succesfully."
+        format.html { redirect_to @image_core }
       else
+        flash[:alert] = @image_path.errors.full_messages[0]
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @image_core.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,8 +53,8 @@ class ImageCoresController < ApplicationController
     @image_core.destroy!
 
     respond_to do |format|
-      format.html { redirect_to image_cores_path, status: :see_other, notice: "Image core was successfully destroyed." }
-      format.json { head :no_content }
+      flash[:notice] = "Image data was successfully destroyed."
+      format.html { redirect_to image_cores_path, status: :see_other }
     end
   end
 
