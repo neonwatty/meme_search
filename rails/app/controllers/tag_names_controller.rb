@@ -3,7 +3,8 @@ class TagNamesController < ApplicationController
 
   # GET /tag_names
   def index
-    @tag_names = TagName.all
+    @tag_names = TagName.order(created_at: :desc)
+    @pagy, @tag_names = pagy(@tag_names)
   end
 
   # GET /tag_names/1
@@ -19,13 +20,13 @@ class TagNamesController < ApplicationController
   def edit
   end
 
-  # POST /tag_names or /tag_names.json
+  # POST /tag_names
   def create
     @tag_name = TagName.new(tag_name_params)
 
     respond_to do |format|
       if @tag_name.save
-        flash[:notice] = "Tag was successfully created."
+        flash[:notice] = "Tag successfully created."
         format.html { redirect_to @tag_name }
       else
         flash[:alert] = @image_path.errors.full_messages[0]
@@ -34,7 +35,7 @@ class TagNamesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tag_names/1 or /tag_names/1.json
+  # PATCH/PUT /tag_names/1
   def update
     respond_to do |format|
       if @tag_name.update(tag_name_params)
@@ -47,7 +48,7 @@ class TagNamesController < ApplicationController
     end
   end
 
-  # DELETE /tag_names/1 or /tag_names/1.json
+  # DELETE /tag_names/1
   def destroy
     @tag_name.destroy!
 
