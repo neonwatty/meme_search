@@ -1,11 +1,14 @@
-<div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-xl">
-  <div id="<%dom_id image_core %>">
-    <% image_path = image_core.image_path.name %>
-    <% meme_dir = image_path.split("/")[-1] %>
-    <% image_name = image_core.name  %>
-    <% full_path = meme_dir + "/" + image_name %>
-    <a href="<%= full_path %>" >
-      <img src="<%= full_path %>" alt="<%= image_name %>" width=300rem/>
-    </a>
+<div id="<%dom_id image_core %>" class="flex flex-row space-x-10 mb-5 mt-5">
+  <% image_path = image_core.image_path.name %>
+  <% meme_dir = image_path.split("/")[-1] %>
+  <% image_name = image_core.name %>
+  <% full_path = meme_dir + "/" + image_name %>
+  <% full_path = absolute_image_path(full_path) %>
+  <%= image_tag(full_path, size: "300", alt: image_name) %>
+  <div class="flex flex-col my-auto">
+    <h3> Image description </h3>
+    <textarea id="" rows="4" cols="50" disabled>
+  <%= image_core.description%>
+  </textarea>
   </div>
 </div>
