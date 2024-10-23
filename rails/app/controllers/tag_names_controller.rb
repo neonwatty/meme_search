@@ -1,12 +1,12 @@
 class TagNamesController < ApplicationController
   before_action :set_tag_name, only: %i[ show edit update destroy ]
 
-  # GET /tag_names or /tag_names.json
+  # GET /tag_names
   def index
     @tag_names = TagName.all
   end
 
-  # GET /tag_names/1 or /tag_names/1.json
+  # GET /tag_names/1
   def show
   end
 
@@ -25,11 +25,11 @@ class TagNamesController < ApplicationController
 
     respond_to do |format|
       if @tag_name.save
-        format.html { redirect_to @tag_name, notice: "Tag name was successfully created." }
-        format.json { render :show, status: :created, location: @tag_name }
+        flash[:notice] = "Tag was successfully created."
+        format.html { redirect_to @tag_name }
       else
+        flash[:alert] = @image_path.errors.full_messages[0]
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tag_name.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,11 +38,11 @@ class TagNamesController < ApplicationController
   def update
     respond_to do |format|
       if @tag_name.update(tag_name_params)
-        format.html { redirect_to @tag_name, notice: "Tag name was successfully updated." }
-        format.json { render :show, status: :ok, location: @tag_name }
+        flash[:notice] = "Tag was successfully updated."
+        format.html { redirect_to @tag_name }
       else
+        flash[:alert] = @image_path.errors.full_messages[0]
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tag_name.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,8 +52,8 @@ class TagNamesController < ApplicationController
     @tag_name.destroy!
 
     respond_to do |format|
-      format.html { redirect_to tag_names_path, status: :see_other, notice: "Tag name was successfully destroyed." }
-      format.json { head :no_content }
+      flash[:notice] = "Tag was successfully destroyed."
+      format.html { redirect_to tag_names_path, status: :see_other }
     end
   end
 
@@ -65,6 +65,6 @@ class TagNamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tag_name_params
-      params.fetch(:tag_name, {})
+      params.require(:tag_name).permit(:name, :color)
     end
 end

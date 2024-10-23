@@ -8,7 +8,7 @@
     <% @image_paths.each do |image_path| %>
       <div class="flex flex-row">
         <%= render image_path %>
-        <div class="mt-7 ml-5">
+        <div class="mt-7 ml-5 text-black">
           <%= link_to "Adjust / delete this image path", image_path, class: "bg-fuchsia-200 p-2 rounded-2xl" %>
         </div>
       </div>
