@@ -15,8 +15,11 @@ class ImagePath < ApplicationRecord
   private
 
     def valid_dir
-      unless self.name.length > 0 && File.directory?(self.name)
-        self.errors.add :name, message: "The input path - #{self.name} - is not valid."
+      base_dir = Dir.getwd
+      full_path = base_dir + self.name
+      puts full_path
+      unless self.name.length > 0 && File.directory?(full_path)
+        self.errors.add :name, message: "The input path - #{self.name} - is not a valid subdirectory in /app/assets/images."
       end
     end
 
@@ -25,13 +28,16 @@ class ImagePath < ApplicationRecord
     end
 
   def list_files_in_directory
-    if File.directory?(self.name)
+    base_dir = Dir.getwd
+    full_path = base_dir + self.name
+
+    if File.directory?(full_path)
       # allowed extensions
       allowed_extensions = ['.jpg', '.jpeg', '.png', '.webp']
 
       # get images
-      image_names = Dir.entries(self.name).select do |f|
-        file_path = File.join(self.name, f)
+      image_names = Dir.entries(full_path).select do |f|
+        file_path = File.join(full_path, f)
         File.file?(file_path) && allowed_extensions.include?(File.extname(f).downcase)
       end
 
@@ -43,7 +49,7 @@ class ImagePath < ApplicationRecord
 
       # map result to complete path
       image_paths = image_names.map do |f|
-        File.join(self.name, f)
+        File.join(full_path, f)
       end
 
       # Print the filtered files

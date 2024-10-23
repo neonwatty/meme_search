@@ -7,3 +7,5 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "@stimulus-components/notification", to: "@stimulus-components--notification.js" # @3.0.0
 pin "stimulus-use" # @0.52.2
+pin "@stimulus-components/lightbox", to: "@stimulus-components--lightbox.js" # @4.0.0
+pin "lightgallery" # @2.7.2
