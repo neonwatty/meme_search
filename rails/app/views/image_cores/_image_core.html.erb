@@ -3,7 +3,7 @@
   <%= image_tag(absolute_path, size: "300", alt: image_name) %>
   <div class="flex flex-col my-auto">
     <h3> Image description </h3>
-    <%= text_area_tag(image_core.description, :disabled, rows: 4, cols: 50) %>
-  </textarea>
-</div>
+    <textarea class="text-black" disabled rows=4 cols=50><%= image_core.description %>
+    </textarea>
+  </div>
 </div>
