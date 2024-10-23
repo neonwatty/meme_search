@@ -1,6 +1,6 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing image core</h1>
-  <%= render "form", image_core: @image_core %>
-  <%= link_to "Back", @image_core, class: "show-button" %>
-  <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <h1 class="font-bold text-4xl">Editing image description</h1>
+    <%= render "edit", image_core: @image_core %>
+  </div>
 </div>
