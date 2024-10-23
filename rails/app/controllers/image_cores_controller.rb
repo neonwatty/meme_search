@@ -12,28 +12,28 @@ class ImageCoresController < ApplicationController
   end
 
   # GET /image_cores/new
-  def new
-    @image_core = ImageCore.new
-  end
+  # def new
+  #   @image_core = ImageCore.new
+  # end
 
   # GET /image_cores/1/edit
   def edit
   end
 
   # POST /image_cores or /image_cores.json
-  def create
-    @image_core = ImageCore.new(image_core_params)
+  # def create
+  #   @image_core = ImageCore.new(image_core_params)
 
-    respond_to do |format|
-      if @image_core.save
-        flash[:notice] = "Image data was successfully created."
-        format.html { redirect_to @image_core }
-      else
-        flash[:alert] = @image_path.errors.full_messages[0]
-        format.html { render :new, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @image_core.save
+  #       flash[:notice] = "Image data was successfully created."
+  #       format.html { redirect_to @image_core }
+  #     else
+  #       flash[:alert] = @image_path.errors.full_messages[0]
+  #       format.html { render :new, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
