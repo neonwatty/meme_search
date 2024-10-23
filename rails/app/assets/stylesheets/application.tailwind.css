@@ -51,7 +51,7 @@
 
 @layer components {
   .back-button {
-    @apply ml-2 rounded-lg py-3 px-5 bg-amber-800 text-black dark:text-white inline-block font-medium;
+    @apply ml-2 rounded-lg py-3 px-5 bg-amber-400 text-black dark:text-white inline-block font-medium text-center;
   }
   .show-button {
     @apply ml-2 rounded-lg py-3 px-5 bg-cyan-500 text-black dark:text-white inline-block font-medium w-1/5 text-center;
@@ -64,5 +64,8 @@
   }
   .new-button {
     @apply ml-2 rounded-lg py-3 px-5 bg-emerald-500 text-black dark:text-white inline-block font-medium;
+  }
+  .submit-button {
+    @apply rounded-lg py-3 px-5 bg-emerald-300 text-black dark:text-white inline-block font-medium cursor-pointer;
   }
 }

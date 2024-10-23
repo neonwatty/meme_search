@@ -18,7 +18,7 @@
   <body>
     <%= render 'shared/nav' %>
     <div class="bg-white dark:bg-slate-800 h-screen">
-      <div class="bg-white dark:bg-slate-800 text-black dark:text-white h-auto pb-10 pt-12">
+      <div class="bg-white dark:bg-slate-800 text-black dark:text-white h-auto pb-10">
         <% flash.each do |key, message| %>
           <%= render partial: "shared/notifications", locals: {key: key, message: message} %>
         <% end %>

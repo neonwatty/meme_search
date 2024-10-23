@@ -4,12 +4,12 @@
     <h1 class="font-bold text-4xl">Image paths</h1>
     <%= link_to "New image path", new_image_path_path, class: "new-button" %>
   </div>
-  <div id="image_paths" class="min-w-full">
+  <div id="image_paths" class="min-w-full flex flex-col items-start">
     <% @image_paths.each do |image_path| %>
       <div class="flex flex-row">
         <%= render image_path %>
         <div class="mt-7 ml-5">
-          <%= link_to "Adjust / delete this image path", image_path, class: "" %>
+          <%= link_to "Adjust / delete this image path", image_path, class: "bg-fuchsia-200 p-2 rounded-2xl" %>
         </div>
       </div>
     <% end %>

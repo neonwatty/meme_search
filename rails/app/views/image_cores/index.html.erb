@@ -1,10 +1,6 @@
 <div class="w-full">
   <% content_for :title, "Image cores" %>
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Image cores</h1>
-    <%= link_to "New image core", new_image_core_path, class: "new-button" %>
-  </div>
-  <div id="image_cores" class="min-w-full flex flex-col ">
+  <div id="image_cores" class="min-w-full flex flex-col items-center">
     <% @image_cores.each do |image_core| %>
       <div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-2xl w-3/4 flex flex-row m-5">
         <%= render image_core %>
