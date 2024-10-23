@@ -1,13 +1,11 @@
 <div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-xl">
-  <div id="<%= dom_id image_core %>">
+  <div id="<%dom_id image_core %>">
     <% image_path = image_core.image_path.name %>
     <% meme_dir = image_path.split("/")[-1] %>
     <% image_name = image_core.name  %>
     <% full_path = meme_dir + "/" + image_name %>
-    <div data-controller="lightbox">
-      <a href="<%= full_path %>">
-        <img src="<%= full_path %>" alt="<%= image_name %>" width=300rem/>
-      </a>
-    </div>
+    <a href="<%= full_path %>" >
+      <img src="<%= full_path %>" alt="<%= image_name %>" width=300rem/>
+    </a>
   </div>
 </div>
