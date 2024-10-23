@@ -29,7 +29,7 @@ class TagNamesController < ApplicationController
         flash[:notice] = "Tag successfully created."
         format.html { redirect_to @tag_name }
       else
-        flash[:alert] = @image_path.errors.full_messages[0]
+        flash[:alert] = @tag_name.errors.full_messages[0]
         format.html { render :new, status: :unprocessable_entity }
       end
     end
@@ -42,7 +42,7 @@ class TagNamesController < ApplicationController
         flash[:notice] = "Tag was successfully updated."
         format.html { redirect_to @tag_name }
       else
-        flash[:alert] = @image_path.errors.full_messages[0]
+        flash[:alert] = @tag_name.errors.full_messages[0]
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
