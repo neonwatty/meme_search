@@ -1,12 +1,13 @@
 class ImagePathsController < ApplicationController
   before_action :set_image_path, only: %i[ show edit update destroy ]
 
-  # GET /image_paths or /image_paths.json
+  # GET /image_paths
   def index
-    @image_paths = ImagePath.all
+    @image_paths = ImagePath.order(created_at: :desc)
+    @pagy, @image_paths = pagy(@image_paths)
   end
 
-  # GET /image_paths/1 or /image_paths/1.json
+  # GET /image_paths/1
   def show
   end
 
@@ -19,47 +20,40 @@ class ImagePathsController < ApplicationController
   def edit
   end
 
-  # POST /image_paths or /image_paths.json
+  # POST /image_paths
   def create
     @image_path = ImagePath.new(image_path_params)
-
-    begin
-      respond_to do |format|
-        if @image_path.save
-          flash[:notice] = "Image path was successfully created."
-          format.html { redirect_to @image_path }
-        else
-          flash[:alert] = @image_path.errors.full_messages[0]
-          format.html { render :new, status: :unprocessable_entity }
-        end
-        rescue # /Users/jeremywatt/Desktop/memes
-          # flash[:alert] = "Validation failed: the image_path #{@image_path.name} already exists"
-          flash[:alert] = @image_path.errors.full_messages[0]
-          format.html { render :new, status: :unprocessable_entity }
-        end
-      end
-  end
-
-  # PATCH/PUT /image_paths/1 or /image_paths/1.json
-  def update
     respond_to do |format|
-      if @image_path.update(image_path_params)
-        format.html { redirect_to @image_path, notice: "Image path was successfully updated." }
-        format.json { render :show, status: :ok, location: @image_path }
+      if @image_path.save
+        flash[:notice] = "Image path was successfully created."
+        format.html { redirect_to @image_path }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @image_path.errors, status: :unprocessable_entity }
+        flash[:alert] = @image_path.errors.full_messages[0]
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /image_paths/1 or /image_paths/1.json
+  # PATCH/PUT /image_paths/1
+  def update
+    respond_to do |format|
+      if @image_path.update(image_path_params)
+        flash[:notice] = "Image path was updated succesfully."
+        format.html { redirect_to @image_path, notice: "Image path was successfully updated." }
+      else
+        flash[:alert] = @image_path.errors.full_messages[0]
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /image_paths/1
   def destroy
     @image_path.destroy!
 
     respond_to do |format|
-      format.html { redirect_to image_paths_path, status: :see_other, notice: "Image path was successfully destroyed." }
-      format.json { head :no_content }
+      flash[:notice] = "Image path was successfully destroyed."
+      format.html { redirect_to image_paths_path, status: :see_other }
     end
   end
 

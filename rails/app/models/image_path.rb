@@ -16,7 +16,7 @@ class ImagePath < ApplicationRecord
 
     def valid_dir
       unless self.name.length > 0 && File.directory?(self.name)
-        self.errors.add(:base, "The input path - #{self.name} - is not valid.")
+        self.errors.add :name, message: "The input path - #{self.name} - is not valid."
       end
     end
 
