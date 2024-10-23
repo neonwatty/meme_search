@@ -37,6 +37,8 @@ class ImageCoresController < ApplicationController
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
+    puts "params --> #{params}"
+    puts "image_core_params --> #{image_core_params}"
     respond_to do |format|
       if @image_core.update(image_core_params)
         flash[:notice] = "Image data was updated succesfully."

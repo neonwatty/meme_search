@@ -9,6 +9,20 @@
       </textarea>
     </div>
   </div>
+  <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
+    <input  
+                name="hi"
+                id="select"
+                data-multi-select-target="select" 
+                data-action="click->multi-select#toggleDropdown" 
+    class="flex items-center justify-between w-64 p-2 text-black bg-white border border-gray-300 rounded-md shadow cursor-pointer" 
+    value="Select options" />
+    <div 
+            data-multi-select-target="dropdown" 
+            class="absolute left-0 z-10 hidden w-64 mt-1 bg-white border border-gray-300 rounded-md shadow-lg text-black">
+      <div class="p-2" data-multi-select-target="checkboxContainer"></div>
+    </div>
+  </div>
   <div class="mx-auto w-full flex space-x-8 items-center">
     <div class="inline-block ml-2">
       <%= form.submit class: "submit-button" %>
