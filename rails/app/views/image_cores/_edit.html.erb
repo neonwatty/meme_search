@@ -7,14 +7,14 @@
         <h3> Image description </h3>
         <%= form.text_area(:description, rows: 4, cols: 50, placeholder: image_core.description, class:"text-black") %>
       </div>
-    </div>
-  </div>
-  <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
-  <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
-  <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name }&.compact&.join(", ") %>
-  <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
-    <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
-      <%= tag_fields.text_field :name,
+      <div class="flex flex-col my-auto">
+        <h3> Image tags </h3>
+        <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
+        <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
+        <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name }&.compact&.join(", ") %>
+        <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
+          <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
+            <%= tag_fields.text_field :name,
         id: 'select', 
         class: 'flex items-center justify-between w-64 p-2 text-black bg-white border border-gray-300 rounded-md shadow cursor-pointer', 
         placeholder: 'Select options', 
@@ -27,18 +27,21 @@
         value: image_tags || "Select tags"        
        
       %>
-      <div 
+            <div 
             data-multi-select-target="dropdown" 
             class="absolute left-0 z-10 hidden w-64 mt-1 bg-white border border-gray-300 rounded-md shadow-lg text-black">
-        <div class="p-2" data-multi-select-target="checkboxContainer"></div>
+              <div class="p-2" data-multi-select-target="checkboxContainer"></div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
-  <% end %>
-  <div class="mx-auto w-full flex space-x-8 items-center">
-    <div class="inline-block ml-2">
-      <%= form.submit class: "submit-button" %>
+    <div class="mx-auto w-full flex space-x-8 items-center">
+      <div class="inline-block ml-2">
+        <%= form.submit class: "submit-button" %>
+      </div>
+      <%= link_to "Back", @image_core, class: "show-button" %>
+      <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
     </div>
-    <%= link_to "Back", @image_core, class: "show-button" %>
-    <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
   </div>
 <%end%>

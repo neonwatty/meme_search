@@ -2,9 +2,9 @@
   <% content_for :title, "Image cores" %>
   <div id="image_cores" class="min-w-full flex flex-col items-center">
     <% @image_cores.each do |image_core| %>
-      <div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-2xl w-3/4 flex flex-row m-5">
+      <div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-2xl w-4/5 flex flex-row m-5">
         <%= render image_core %>
-        <%= link_to "Show image data", image_core, class: "show-button h-1/5 my-auto" %>
+        <%= link_to "Show image data", image_core, class: "show-button w-auto h-1/5 my-auto ml-5" %>
       </div>
     <% end %>
     <div class="pagy-nav flex my-5 mb-5 pb-5 justify-center center-content">

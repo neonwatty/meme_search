@@ -1,12 +1,15 @@
-<div id="<%dom_id image_core %>" class="flex flex-row space-x-10 mb-5 mt-5">
+<div class="flex flex-row space-x-10 mb-5 mt-5"  id="<%dom_id image_core %>">
   <% absolute_path, image_name = absolute_image_path(image_core) %>
   <%= image_tag(absolute_path, size: "300", alt: image_name) %>
   <div class="flex flex-col my-auto">
     <h3> Image description </h3>
     <textarea class="text-black" disabled rows=4 cols=50><%= image_core.description %>
     </textarea>
+  </div>
+  <div class="flex flex-col my-auto">
+    <h3> Image tags </h3>
     <% image_tags = image_core.image_tags.map {|assoc| assoc.tag_name}.map {|item| {name: item.name, color: item.color}} %>
-    <div class="flex flex-row space-x-3 mb-5 mt-5">
+    <div class="flex flex-col space-y-3 mb-5 mt-5 mx-auto text-center w-auto">
       <% image_tags.each do |tag| %>
         <div class="text-black dark:text-white p-2 rounded-xl" style="background-color: <%= tag[:color] %>;">
           <%= tag[:name] %>
