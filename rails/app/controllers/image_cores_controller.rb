@@ -22,7 +22,7 @@ class ImageCoresController < ApplicationController
         if @query.blank?
           render turbo_stream: turbo_stream.update("search_results", partial: "image_cores/no_search")
         else
-          render turbo_stream: turbo_stream.update("search_results", partial: "image_cores/search_results", locals: { verses: @verses, query: @query })
+          render turbo_stream: turbo_stream.update("search_results", partial: "image_cores/search_results", locals: { image_cores: @image_cores, query: @query })
         end
       end
 
