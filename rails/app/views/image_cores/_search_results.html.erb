@@ -1,21 +1,17 @@
 <div id="search-results-returned">
   <% if @image_cores.present? %>
-    <div class="h-full flex flex-col items-center justify-center p-5 bg-slate-200 dark:bg-slate-800 rounded-3xl">
-      <% @image_cores.each_with_index do |image_core, index| %>
-        <div class="h-1/3 w-1/3 bg-gray-100 dark:bg-slate-700 shadow-lg text-slate-900 dark:text-white p-3 mt-5 rounded-xl hover hover:shadow-amber-200">
-          <div class="w-full h-1/2 rounded-xl">
-            <div class="flex items-center gap-3">
-              <%= image_core.description%>
-              <% highlighted_description = image_core.description.dup %>
-              <% @query.split.each do |term| %>
-                <% highlighted_description.gsub!(/\b(#{Regexp.escape(term)})\b/i, '<span class="highlight">\1</span>') %>
-              <% end %>
-            </div>
+    <div class="w-full">
+      <% content_for :title, "Image cores" %>
+      <div id="image_cores" class="min-w-full flex flex-col items-center">
+        <% @image_cores.each do |image_core| %>
+          <div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-2xl w-auto flex flex-row m-5">
+            <%= render image_core %>
+            <%= link_to "Show image data", image_core, class: "show-button w-auto h-1/5 my-auto ml-5" %>
           </div>
-        </div>
-      <% end %>
-    <% else %>
-      <%= render 'image_cores/no_search_results' %>
-    <% end %>
-  </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <%= render 'image_cores/no_search_results' %>
+  <% end %>
 </div>
