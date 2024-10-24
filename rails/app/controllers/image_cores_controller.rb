@@ -18,6 +18,8 @@ class ImageCoresController < ApplicationController
 
   # GET /image_cores/1/edit
   def edit
+    @image_core = ImageCore.find(params[:id])
+    @image_core.image_tags.build if @image_core.image_tags.empty?
   end
 
   # POST /image_cores or /image_cores.json
@@ -37,10 +39,9 @@ class ImageCoresController < ApplicationController
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
-    puts "params --> #{params}"
     puts "image_update_params --> #{image_update_params}"
     respond_to do |format|
-      if @image_core.update(image_core_params)
+      if @image_core.update(image_update_params)
         flash[:notice] = "Image data was updated succesfully."
         format.html { redirect_to @image_core }
       else
@@ -72,6 +73,21 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      params.require(:image_core).permit(:description, :tag_names)
+      params.require(:image_core).permit(:description, :image_tags)
+      if params[:image_core][:image_tags].present?
+        test = params[:image_core][:image_tags].split(",")
+        puts "test -->#{test}"
+        test = test.map {|tag| {name: tag}}
+        puts "test -->#{test}"
+
+
+
+        params[:image_core][:image_tags_attributes] = test
+        puts params
+        params[:image_core].delete(:image_tags)  # Remove the old key
+      end
+      return params
+      # params.require(:image_core).permit(:description, image_tags_attributes: [:name])  
+
     end
 end
