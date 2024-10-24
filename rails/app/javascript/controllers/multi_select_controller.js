@@ -10,6 +10,20 @@ export default class extends Controller {
     this.options = optionsData.split(",").map((option) => option.trim());
     this.colors = this.selectTarget.dataset.colors.split(",");
     this.createCheckboxes(this.options);
+    document.addEventListener("click", this.handleClickOutside.bind(this));
+  }
+
+  disconnect() {
+    document.removeEventListener("click", this.handleClickOutside.bind(this));
+  }
+
+  handleClickOutside(event) {
+    if (
+      !this.selectTarget.contains(event.target) &&
+      !this.dropdownTarget.contains(event.target)
+    ) {
+      this.dropdownTarget.classList.add("hidden");
+    }
   }
 
   createCheckboxes(options) {
