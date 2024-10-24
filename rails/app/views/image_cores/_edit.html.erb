@@ -10,8 +10,8 @@
     </div>
   </div>
   <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
-  <% image_tags = image_core.image_tags.map {|tag| tag.tag_name}.map {|tag_name| tag_name.name} %>
-  <%= form.fields_for :image_tags do |tag_fields| %>
+  <% image_tags = image_core.image_tags.map {|tag| tag.tag_name}.map {|tag_name| tag_name.name}.join(", ") %>
+  <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
     <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
       <%= tag_fields.text_field :name,
         id: 'select', 

@@ -44,6 +44,8 @@ class ImageCoresController < ApplicationController
     image_tags.each do |tag|
       ImageTag.destroy(tag)
     end
+    @image_core.image_tags.build if @image_core.image_tags.empty?
+
     # image_tags = @image_core.image_tags.map {|tag| tag.id}
 
     # puts "image_update_params --> #{image_update_params}"
