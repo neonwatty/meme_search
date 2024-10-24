@@ -1,0 +1,20 @@
+<div id="search-results-returned">
+  <% if @image_cores.present? %>
+    <div class="h-full flex flex-col items-center justify-center p-5 bg-slate-200 dark:bg-slate-800 rounded-3xl">
+      <% @image_cores.each_with_index do |image_core, index| %>
+        <div class="h-1/3 w-1/3 bg-gray-100 dark:bg-slate-700 shadow-lg text-slate-900 dark:text-white p-3 mt-5 rounded-xl hover hover:shadow-amber-200">
+          <div class="w-full h-1/2 rounded-xl">
+            <div class="flex items-center gap-3">
+              <% highlighted_description = image_core.description.dup %>
+              <% @query.split.each do |term| %>
+                <% highlighted_description.gsub!(/\b(#{Regexp.escape(term)})\b/i, '<span class="highlight">\1</span>') %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <%= render 'image_cores/no_search_results' %>
+    <% end %>
+  </div>
+</div>

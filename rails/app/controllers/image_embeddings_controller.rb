@@ -67,4 +67,10 @@ class ImageEmbeddingsController < ApplicationController
     def image_embedding_params
       params.fetch(:image_embedding, {})
     end
+
+    def vector_search(query)
+      element = ImageEmbedding.new({embedding: query})
+      element.compute_embedding
+      element.get_neighbors
+    end
 end
