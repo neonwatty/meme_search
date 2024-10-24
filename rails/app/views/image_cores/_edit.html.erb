@@ -6,10 +6,11 @@
       <div class="flex flex-col my-auto">
         <h3> Image description </h3>
         <%= form.text_area(:description, rows: 4, cols: 50, placeholder: image_core.description, class:"text-black") %>
-      </textarea>
+      </div>
     </div>
   </div>
   <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
+  <% image_tags = image_core.image_tags.map {|tag| tag.tag_name}.map {|tag_name| tag_name.name} %>
   <%= form.fields_for :image_tags do |tag_fields| %>
     <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
       <%= tag_fields.text_field :name,
@@ -21,7 +22,7 @@
           options: tag_names,
           action: 'click->multi-select#toggleDropdown'
         },
-        value: "Select tags"
+        value: image_tags || "Select tags"
       %>
       <div 
             data-multi-select-target="dropdown" 
@@ -37,5 +38,4 @@
     <%= link_to "Back", @image_core, class: "show-button" %>
     <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
   </div>
-</div>
 <%end%>

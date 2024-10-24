@@ -31,7 +31,7 @@ class ImageCoresController < ApplicationController
   #       flash[:notice] = "Image data was successfully created."
   #       format.html { redirect_to @image_core }
   #     else
-  #       flash[:alert] = @image_path.errors.full_messages[0]
+  #       flash[:alert] = @image_core.errors.full_messages[0]
   #       format.html { render :new, status: :unprocessable_entity }
   #     end
   #   end
@@ -39,14 +39,25 @@ class ImageCoresController < ApplicationController
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
-    puts "params --> #{params}"
+    # destroy image tags before update
+    image_tags = @image_core.image_tags.map {|tag| tag.id}
+    image_tags.each do |tag|
+      ImageTag.destroy(tag)
+    end
+    # image_tags = @image_core.image_tags.map {|tag| tag.id}
+
+    # puts "image_update_params --> #{image_update_params}"
+    # new_tags = image_update_params[:image_tags_attributes]
+    # new_tags.each do |tag|
+    #   @image_core.image_tags.build
+    # end
     puts "image_update_params --> #{image_update_params}"
     respond_to do |format|
       if @image_core.update(image_update_params)
         flash[:notice] = "Image data was updated succesfully."
         format.html { redirect_to @image_core }
       else
-        flash[:alert] = @image_path.errors.full_messages[0]
+        flash[:alert] = @image_core.errors.full_messages[0]
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
@@ -77,34 +88,18 @@ class ImageCoresController < ApplicationController
       permitted_params = params.require(:image_core).permit(:description, image_tags_attributes: [:name, :_destroy])
       
       # Convert names TagName ids
-      puts "permitted_params --> #{permitted_params}"
       if permitted_params[:image_tags_attributes].present?
-        puts "hi"
         tag_names = permitted_params[:image_tags_attributes].values.map {|item| item[:name]}
-        tag_name_ids = tag_names.map {|name| TagName.find_by({name: name})}#.map {|result| result.id}
+        tag_names = tag_names[0].split(",").map {|name| name.strip}
+        puts "tag_names -> #{tag_names}"
+        tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
         permitted_params.delete(:image_tags_attributes)
-        tag_name_ids_hash = tag_name_ids.map {|key| {tag_name: key}}
-        permitted_params[:image_tags_attributes] = tag_name_ids_hash
+        puts "tag_names -> #{tag_names}"
+        tag_names_hash = tag_names.map {|key| {tag_name: key}}
+        permitted_params[:image_tags_attributes] = tag_names_hash
       end
 
       permitted_params
-
-
-      # params.require(:image_core).permit(:description, :image_tags)
-      # if params[:image_core][:image_tags].present?
-      #   test = params[:image_core][:image_tags].split(",")
-      #   puts "test -->#{test}"
-      #   test = test.map {|tag| {name: tag}}
-      #   puts "test -->#{test}"
-
-
-
-      #   params[:image_core][:image_tags_attributes] = test
-      #   puts params
-      #   params[:image_core].delete(:image_tags)  # Remove the old key
-      # end
-      # return params
-      # params.require(:image_core).permit(:description, image_tags_attributes: [:name])  
 
     end
 end
