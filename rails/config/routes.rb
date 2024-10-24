@@ -2,8 +2,17 @@ Rails.application.routes.draw do
   resources :image_embeddings
   resources :image_tags
   resources :tag_names
-  resources :image_cores
   resources :image_paths
+
+  # Configuring resources for 'image_cores' with custom collection route
+  get "search", to: "image_cores#search"
+
+  resources :image_cores do
+    collection do
+      post "search_items"
+    end
+  end
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

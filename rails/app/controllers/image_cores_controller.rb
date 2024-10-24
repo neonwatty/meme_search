@@ -136,4 +136,8 @@ class ImageCoresController < ApplicationController
     filtered_words.join(' ')
   end
 
+  def search_params
+    params.permit([ :query, :checkbox_value, :authenticity_token, :source, :controller, :action ])
+  end
+
 end
