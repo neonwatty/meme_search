@@ -1,4 +1,4 @@
-class ImageCore < ApplicationRecord
+class ImageCore < ApplicationRecord  
   belongs_to :image_path
 
   validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false

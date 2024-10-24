@@ -39,20 +39,11 @@ class ImageCoresController < ApplicationController
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
-    # destroy image tags before update
     image_tags = @image_core.image_tags.map {|tag| tag.id}
     image_tags.each do |tag|
       ImageTag.destroy(tag)
     end
-    @image_core.image_tags.build if @image_core.image_tags.empty?
 
-    # image_tags = @image_core.image_tags.map {|tag| tag.id}
-
-    # puts "image_update_params --> #{image_update_params}"
-    # new_tags = image_update_params[:image_tags_attributes]
-    # new_tags.each do |tag|
-    #   @image_core.image_tags.build
-    # end
     puts "image_update_params --> #{image_update_params}"
     respond_to do |format|
       if @image_core.update(image_update_params)
@@ -87,18 +78,25 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
+      # destroy image tags before update
+
       permitted_params = params.require(:image_core).permit(:description, image_tags_attributes: [:name, :_destroy])
       
       # Convert names TagName ids
       if permitted_params[:image_tags_attributes].present?
         tag_names = permitted_params[:image_tags_attributes].values.map {|item| item[:name]}
         tag_names = tag_names[0].split(",").map {|name| name.strip}
-        puts "tag_names -> #{tag_names}"
         tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
+        # tag_names.each do |tag_name|
+        #   puts "tag_name -> #{tag_name}"
+        #   @image_core.image_tags.new({tag_name: tag_name})
+        # end
+        # puts "all tags --> #{@image_core.image_tags}"
         permitted_params.delete(:image_tags_attributes)
-        puts "tag_names -> #{tag_names}"
-        tag_names_hash = tag_names.map {|key| {tag_name: key}}
+
+        tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
         permitted_params[:image_tags_attributes] = tag_names_hash
+        # puts "permitted_params -> #{permitted_params}"
       end
 
       permitted_params
