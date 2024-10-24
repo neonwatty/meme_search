@@ -5,5 +5,9 @@
     <h3> Image description </h3>
     <textarea class="text-black" disabled rows=4 cols=50><%= image_core.description %>
     </textarea>
+    <div>
+      <% tag_names = image_core.image_tags.map {|tag| tag.name} %>
+      <%= tag_names %>
+    </div>
   </div>
 </div>

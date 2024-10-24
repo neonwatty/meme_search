@@ -9,14 +9,17 @@
       </textarea>
     </div>
   </div>
+  <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
   <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
-    <input  
-                name="hi"
-                id="select"
-                data-multi-select-target="select" 
-                data-action="click->multi-select#toggleDropdown" 
-    class="flex items-center justify-between w-64 p-2 text-black bg-white border border-gray-300 rounded-md shadow cursor-pointer" 
-    value="Select options" />
+    <%= form.text_field :tag_names, 
+  id: 'select', 
+  class: 'flex items-center justify-between w-64 p-2 text-black bg-white border border-gray-300 rounded-md shadow cursor-pointer', 
+  placeholder: 'Select options', 
+  data: {
+    multi_select_target: 'select',
+    options: tag_names,
+    action: 'click->multi-select#toggleDropdown'
+  } %>
     <div 
             data-multi-select-target="dropdown" 
             class="absolute left-0 z-10 hidden w-64 mt-1 bg-white border border-gray-300 rounded-md shadow-lg text-black">

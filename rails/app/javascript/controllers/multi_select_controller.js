@@ -6,8 +6,8 @@ export default class extends Controller {
   static targets = ["dropdown", "select", "checkboxContainer"];
 
   connect() {
-    // Example options array
-    this.options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
+    const optionsData = this.selectTarget.dataset.options;
+    this.options = optionsData.split(",").map((option) => option.trim());
     this.createCheckboxes(this.options);
   }
 

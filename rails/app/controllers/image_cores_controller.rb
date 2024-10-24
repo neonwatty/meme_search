@@ -38,7 +38,7 @@ class ImageCoresController < ApplicationController
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
     puts "params --> #{params}"
-    puts "image_core_params --> #{image_core_params}"
+    puts "image_update_params --> #{image_update_params}"
     respond_to do |format|
       if @image_core.update(image_core_params)
         flash[:notice] = "Image data was updated succesfully."
@@ -69,5 +69,9 @@ class ImageCoresController < ApplicationController
     # Only allow a list of trusted parameters through.
     def image_core_params
       params.require(:image_core).permit(:description)
+    end
+
+    def image_update_params
+      params.require(:image_core).permit(:description, :tag_names)
     end
 end
