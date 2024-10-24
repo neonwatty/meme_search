@@ -10,6 +10,7 @@
     </div>
   </div>
   <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
+  <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
   <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name }&.compact&.join(", ") %>
   <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
     <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
@@ -20,9 +21,11 @@
         data: {
           multi_select_target: 'select',
           options: tag_names,
+          colors: tag_colors,
           action: 'click->multi-select#toggleDropdown'
         },
-        value: image_tags || "Select tags"
+        value: image_tags || "Select tags"        
+       
       %>
       <div 
             data-multi-select-target="dropdown" 

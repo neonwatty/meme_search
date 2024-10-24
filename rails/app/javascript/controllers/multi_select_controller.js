@@ -8,13 +8,15 @@ export default class extends Controller {
   connect() {
     const optionsData = this.selectTarget.dataset.options;
     this.options = optionsData.split(",").map((option) => option.trim());
+    this.colors = this.selectTarget.dataset.colors.split(",");
     this.createCheckboxes(this.options);
   }
 
   createCheckboxes(options) {
-    options.forEach((option) => {
+    options.forEach((option, index) => {
       const label = document.createElement("label");
-      label.className = "flex items-center";
+      label.className = `flex items-center text-black dark:text-white p-2 mb-1 rounded-xl bg-red-500`;
+      label.style = `background-color: ${this.colors[index]}`;
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
