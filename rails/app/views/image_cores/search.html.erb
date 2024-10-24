@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center mx-auto">
   <div>
     <h1 class="text-2xl text-center pb-10 text-slate-800 dark:text-slate-200">
       Search
@@ -16,9 +16,9 @@
       <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300" id="toggle-text">keyword</span>
     </label>
   </div>
-</div>
-<div id="search_results" class="flex-col gap-x-5 gap-y-10">
-  <%= render "image_cores/no_search" %>
+  <div id="search_results" class="flex-col gap-x-5 gap-y-10">
+    <%= render "image_cores/no_search" %>
+  </div>
 </div>
 <script>
   function updateText() {

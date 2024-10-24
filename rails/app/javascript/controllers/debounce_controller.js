@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   // connect() {
-  //   console.log("debounce controller connected")
+  //   console.log("debounce controller connected");
   // }
 
   static targets = ["form"];
