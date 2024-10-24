@@ -44,7 +44,6 @@ class ImageCoresController < ApplicationController
       ImageTag.destroy(tag)
     end
 
-    puts "image_update_params --> #{image_update_params}"
     respond_to do |format|
       if @image_core.update(image_update_params)
         flash[:notice] = "Image data was updated succesfully."
@@ -78,8 +77,6 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      # destroy image tags before update
-
       permitted_params = params.require(:image_core).permit(:description, image_tags_attributes: [:name, :_destroy])
       
       # Convert names TagName ids
@@ -87,16 +84,9 @@ class ImageCoresController < ApplicationController
         tag_names = permitted_params[:image_tags_attributes].values.map {|item| item[:name]}
         tag_names = tag_names[0].split(",").map {|name| name.strip}
         tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
-        # tag_names.each do |tag_name|
-        #   puts "tag_name -> #{tag_name}"
-        #   @image_core.image_tags.new({tag_name: tag_name})
-        # end
-        # puts "all tags --> #{@image_core.image_tags}"
-        permitted_params.delete(:image_tags_attributes)
-
         tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
+        permitted_params.delete(:image_tags_attributes)
         permitted_params[:image_tags_attributes] = tag_names_hash
-        # puts "permitted_params -> #{permitted_params}"
       end
 
       permitted_params
