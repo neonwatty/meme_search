@@ -5,9 +5,13 @@
     <h3> Image description </h3>
     <textarea class="text-black" disabled rows=4 cols=50><%= image_core.description %>
     </textarea>
-    <div>
-      <% tag_names = image_core.image_tags.map {|tag| tag.name} %>
-      <%= tag_names %>
+    <% image_tags = image_core.image_tags.map {|assoc| assoc.tag_name}.map {|item| {name: item.name, color: item.color}} %>
+    <div class="flex flex-row space-x-3 mb-5 mt-5">
+      <% image_tags.each do |tag| %>
+        <div class="text-black dark:text-white p-2 rounded-xl" style="background-color: <%= tag[:color] %>;">
+          <%= tag[:name] %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
