@@ -5,6 +5,7 @@ export default class extends Controller {
 
   connect() {
     document.addEventListener("click", this.handleOutsideClick.bind(this));
+    this.updateSelection();
   }
 
   disconnect() {

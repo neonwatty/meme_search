@@ -11,7 +11,7 @@
         <h3> Image tags </h3>
         <% tag_names = TagName.all.map {|item| item.name.strip} %>
         <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
-        <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name }&.compact&.join(", ") %>
+        <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name } # &.compact&.join(", ") %>
         <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
           <div data-controller="multi-select" class="relative">
             <div
@@ -32,7 +32,8 @@
                           action: "change->multi-select#updateSelection"
                         },
                         type: "checkbox",
-                        value: tag.to_s.downcase
+                        value: tag.to_s.downcase,
+                        checked: image_tags.include?(tag) ? true : false
                   %>
                   <%= tag_fields.label :tag, tag.to_s, class: "text-black"%>
                 </div>
