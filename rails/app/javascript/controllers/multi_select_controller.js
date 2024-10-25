@@ -23,7 +23,7 @@ export default class extends Controller {
       .filter((checkbox) => checkbox.checked)
       .map((checkbox) => checkbox.value);
 
-    this.selectedItemsTarget.textContent = selected.length
+    this.selectedItemsTarget.value = selected.length
       ? selected.join(", ")
       : "Select options";
   }
