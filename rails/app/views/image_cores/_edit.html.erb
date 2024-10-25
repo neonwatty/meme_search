@@ -9,28 +9,34 @@
       </div>
       <div class="flex flex-col my-auto">
         <h3> Image tags </h3>
-        <% tag_names = TagName.all.map {|item| item.name.strip}.join(",") %>
+        <% tag_names = TagName.all.map {|item| item.name.strip} %>
         <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
         <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name }&.compact&.join(", ") %>
         <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
-          <div class="relative" data-controller="multi-select" data-action="click->multi-select#closeDropdown">
-            <%= tag_fields.text_field :name,
-        id: 'select', 
-        class: 'flex items-center justify-between w-64 p-2 text-black bg-white border border-gray-300 rounded-md shadow cursor-pointer', 
-        placeholder: 'Select options', 
-        data: {
-          multi_select_target: 'select',
-          options: tag_names,
-          colors: tag_colors,
-          action: 'click->multi-select#toggleDropdown'
-        },
-        value: image_tags || "Select tags"        
-       
-      %>
-            <div 
-            data-multi-select-target="dropdown" 
-            class="absolute left-0 z-10 hidden w-64 mt-1 bg-white border border-gray-300 rounded-md shadow-lg text-black">
-              <div class="p-2" data-multi-select-target="checkboxContainer"></div>
+          <div data-controller="multi-select" class="relative">
+            <div
+    data-action="click->multi-select#toggle"
+              class="border rounded-md p-3 bg-white shadow-md cursor-pointer"
+              >
+              <span data-multi-select-target="selectedItems" class="text-gray-600">Select options</span>
+            </div>
+            <div
+    data-multi-select-target="options"
+    class="absolute left-0 right-0 mt-1 hidden bg-white border rounded-md shadow-lg z-10"
+  >
+              <% tag_names.each do |tag|  %>
+                <div class="p-2 flex items-center">
+                  <%= tag_fields.text_field :name,
+                        class: 'mr-2 pr-4', 
+                        data: {
+                          action: "change->multi-select#updateSelection"
+                        },
+                        type: "checkbox",
+                        value: tag.to_s.downcase
+                  %>
+                  <%= tag_fields.label :tag, tag.to_s, class: "text-black"%>
+                </div>
+              <% end %>
             </div>
           </div>
         <% end %>
