@@ -36,25 +36,14 @@ class ImageCore < ApplicationRecord
 
     # destroy current description embeddings 
     begin
-      puts "TEST BEGIN"
-      puts "SELF ID --> #{self.id}"
-      puts "HI THERE --> #{{image_core_id: self.id}}"
       current_embeddings = ImageEmbedding.where({image_core_id: self.id})
-      puts "TEST EBMEDDINGS --> #{test.length}"
-      puts "BEFORE_DELETE"
       current_embeddings.map {|item| item.destroy!}
-      puts "AFTER DELETE"
+      current_embeddings = ImageEmbedding.where({image_core_id: self.id})
     rescue StandardError => e
       puts "THE DESTROY EXCEPTION --> #{e}"
     end
-    puts "STARTING: building"
-    puts "EMBEDDINGS LENGTH --> #{embeddings.length}"
     embeddings_hash = embeddings.map {|embedding| {image_core_id: self.id, embedding: embedding}}
-
     embeddings_hash.map {|hash| ImageEmbedding.new(hash).save! } 
-
-    # load up new embeddings
-
   end
 
   private
