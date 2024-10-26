@@ -1,6 +1,13 @@
+require 'informers'
 
 class ImageCore < ApplicationRecord  
   include PgSearch::Model
+  attr_accessor :model
+
+  def initialize(attributes = {})
+    super
+    @model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
+  end
 
   pg_search_scope :search_any_word,
                   against: [:description],
@@ -23,9 +30,72 @@ class ImageCore < ApplicationRecord
   has_many :image_tags, dependent: :destroy
   accepts_nested_attributes_for :image_tags, allow_destroy: true
 
+  before_save: embed_description
+
   
   private
-    def window_description
+    def self.clean_word(text)
+      # clean input text - keeping only lower case letters, numbers, punctuation, and single quote symbols
+      cleaned_text = text.downcase.strip.gsub(/[^a-z0-9,.!?']/, ' ')
+      cleaned_text.gsub!(/\s+/, ' ')
+      cleaned_text
+    end
 
+    def self.chunk_text(text)
+      # split and clean input text
+      text_split = clean_word(text).split(" ")
+      text_split.reject!(&:empty?)
+
+      # use two pointers to create chunks
+      chunk_size = 4
+      overlap_size = 2
+
+      # create next chunk by moving right pointer until chunk_size is reached or line_number changes by more than 1 or end of word_sequence is reached
+      left_pointer = 0
+      right_pointer = chunk_size - 1
+      chunks = []
+
+      if right_pointer >= text_split.length
+        chunks << text_split.join(" ")
+      else
+        while right_pointer < text_split.length
+          # create chunk
+          chunk = text_split[left_pointer..right_pointer]
+
+          # move left pointer
+          left_pointer += chunk_size - overlap_size
+
+          # move right pointer
+          right_pointer += chunk_size - overlap_size
+
+          # store chunk
+          chunks << chunk.join(" ")
+        end
+
+        # check if there is final chunk
+        if left_pointer < text_split.length
+          last_chunk = text_split[left_pointer..-1]
+          chunks << last_chunk.join(" ")
+        end
+      end
+
+      # insert the full text
+      if chunks.length > 1
+        chunks.insert(0, text.downcase)
+      end
+
+      chunks
+    end
+
+    def self.embed_text(chunks)
+      embeddings = model.(chunks)
+    end
+
+    def embed_description
+      puts "INFO: STARTING EMBED"
+      chunks = chunk_text(self.description)
+      puts "DONE: CHUNKING"
+      embeddings = embed_text(chunks)
+      PUTS "DONE: EMBEDDINGS"
     end
 end
