@@ -48,6 +48,14 @@ class ImageCoresController < ApplicationController
   def index
     @image_cores = ImageCore.order(created_at: :desc)
     @pagy, @image_cores = pagy(@image_cores)
+
+    if params[:selected_tag_names].present?
+      selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
+      if selected_tag_names.length > 0
+        @image_cores = @image_cores.select {|item| (item.image_tags&.map { |tag| tag.tag_name&.name } & selected_tag_names).any?}
+      end
+    end
+
   end
 
   # GET /image_cores/1
