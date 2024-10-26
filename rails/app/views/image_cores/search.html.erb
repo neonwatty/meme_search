@@ -9,6 +9,7 @@
       <%= form.hidden_field :checkbox_value, value: '0', id: 'checkbox_value' %>
       <%= form.search_field :query, data: {action: "input->debounce#search"}, placeholder: 'search images', class: "search-input-field", id: "search-box" %>
       <%= form.hidden_field :source, value: 'form' %>
+      <%= render 'tag_toggle' %>
     <% end %>
     <label class="inline-flex items-center me-5 cursor-pointer">
       <input type="checkbox" value="" class="sr-only peer" id="toggle-checkbox" onchange="updateText()">
