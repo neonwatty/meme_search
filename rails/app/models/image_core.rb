@@ -24,16 +24,10 @@ class ImageCore < ApplicationRecord
   has_many :image_tags, dependent: :destroy
   accepts_nested_attributes_for :image_tags, allow_destroy: true
 
-  before_save :embed_description
+  before_save :refresh_description_embeddings
 
 
-
-  def embed_description
-    # generate embeddings
-    chunks = chunk_text(self.description)
-    model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
-    embeddings = model.(chunks)
-
+  def refresh_description_embeddings
     # destroy current description embeddings 
     begin
       current_embeddings = ImageEmbedding.where({image_core_id: self.id})
@@ -42,11 +36,17 @@ class ImageCore < ApplicationRecord
     rescue StandardError => e
       puts "THE DESTROY EXCEPTION --> #{e}"
     end
-    embeddings_hash = embeddings.map {|embedding| {image_core_id: self.id, embedding: embedding}}
-    embeddings_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+    if !self.description.nil?
+      chunks = chunk_text(self.description)
+      model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
+      embeddings = model.(chunks)
+      embeddings_hash = embeddings.map.with_index {|embedding, index| {image_core_id: self.id, snippet: chunks[index], embedding: embedding}}
+      embeddings_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+    end
   end
 
   private
+
     def clean_word(text)
       # clean input text - keeping only lower case letters, numbers, punctuation, and single quote symbols
       cleaned_text = text.downcase.strip.gsub(/[^a-z0-9,.!?']/, ' ')

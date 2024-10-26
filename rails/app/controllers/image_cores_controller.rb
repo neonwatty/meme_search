@@ -10,7 +10,8 @@ class ImageCoresController < ApplicationController
     search_params.delete(:selected_tag_names)
 
     @query = search_params["query"]
-    @checkbox_value = "0" #search_params["checkbox_value"]
+    @checkbox_value = search_params["checkbox_value"]
+    puts "CHECKBOX VALUE --> #{@checkbox_value}"
     if @checkbox_value == "0" # keyword
       @query = remove_stopwords(@query)
       @image_cores = ImageCore.search_any_word(@query).limit(10) || []
@@ -162,6 +163,7 @@ class ImageCoresController < ApplicationController
     selected_tag_names = permitted_params[:selected_tag_names].split(",").map {|tag| tag.strip}
     permitted_params.delete(:selected_tag_names)
     permitted_params[:selected_tag_names] = selected_tag_names
+    puts "CHECKBOX --> #{permitted_params[:checkbox_value]}"
     return permitted_params
   end
 

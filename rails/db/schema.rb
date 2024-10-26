@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_170426) do
 
   create_table "image_embeddings", force: :cascade do |t|
     t.bigint "image_core_id", null: false
+    t.string "snippet"
     t.vector "embedding", limit: 384
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,7 +51,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_170426) do
 
   create_table "tag_names", force: :cascade do |t|
     t.string "name", limit: 20
-    t.string "color", limit: 20
+    t.string "color", limit: 20, default: "red"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_tag_names_on_name", unique: true
