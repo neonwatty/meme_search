@@ -2,12 +2,6 @@ require 'informers'
 
 class ImageCore < ApplicationRecord  
   include PgSearch::Model
-  attr_accessor :model
-
-  def initialize(attributes = {})
-    super
-    @model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
-  end
 
   pg_search_scope :search_any_word,
                   against: [:description],
@@ -30,18 +24,26 @@ class ImageCore < ApplicationRecord
   has_many :image_tags, dependent: :destroy
   accepts_nested_attributes_for :image_tags, allow_destroy: true
 
-  before_save: embed_description
+  before_save :embed_description
 
-  
+
+
+  def embed_description
+    chunks = chunk_text(self.description)
+    model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
+    embeddings = model.(chunks)
+    
+  end
+
   private
-    def self.clean_word(text)
+    def clean_word(text)
       # clean input text - keeping only lower case letters, numbers, punctuation, and single quote symbols
       cleaned_text = text.downcase.strip.gsub(/[^a-z0-9,.!?']/, ' ')
       cleaned_text.gsub!(/\s+/, ' ')
       cleaned_text
     end
 
-    def self.chunk_text(text)
+    def chunk_text(text)
       # split and clean input text
       text_split = clean_word(text).split(" ")
       text_split.reject!(&:empty?)
@@ -87,15 +89,4 @@ class ImageCore < ApplicationRecord
       chunks
     end
 
-    def self.embed_text(chunks)
-      embeddings = model.(chunks)
-    end
-
-    def embed_description
-      puts "INFO: STARTING EMBED"
-      chunks = chunk_text(self.description)
-      puts "DONE: CHUNKING"
-      embeddings = embed_text(chunks)
-      PUTS "DONE: EMBEDDINGS"
-    end
 end
