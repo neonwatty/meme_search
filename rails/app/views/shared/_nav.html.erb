@@ -3,16 +3,16 @@
     <%= link_to 'MemeSearch', root_path, class: "btn btn-ghost text-xl left-4 top-5 absolute text-slate-800 dark:text-white" %>
     <ul class="flex flex-row space-x-10 items-center justify-start px-1 inset-x-44 w-3/4 absolute">
       <li>
-        <%= link_to 'Image cores', root_path, class: current_page?(root_path) ? "link link-hover text-black bg-fuchsia-300 px-2 py-3 rounded-xl" : "link link-hover hover:text-black hover:bg-indigo-300 hover:px-2 hover:py-3 hover:rounded-xl" %>
+        <%= link_to 'All images', root_path, class: current_page?(root_path) ? "link link-hover text-black bg-fuchsia-300 px-2 py-3 rounded-xl" : "link link-hover hover:text-black hover:bg-indigo-300 hover:px-2 hover:py-3 hover:rounded-xl" %>
+      </li>
+      <li>
+        <%= link_to 'Search images', search_path, class: current_page?(search_path) ? "link link-hover text-black bg-fuchsia-300 px-2 py-3 rounded-xl" : "link link-hover hover:text-black hover:bg-indigo-300 hover:px-2 hover:py-3 hover:rounded-xl" %>
       </li>
       <li>
         <%= link_to 'Image paths', image_paths_path, class: current_page?(image_paths_path) ? "link link-hover text-black bg-fuchsia-300 px-2 py-3 rounded-xl" : "link link-hover hover:text-black hover:bg-indigo-300 hover:px-2 hover:py-3 hover:rounded-xl" %>
       </li>
       <li>
         <%= link_to 'Image tags', tag_names_path, class: current_page?(tag_names_path) ? "link link-hover text-black bg-fuchsia-300 px-2 py-3 rounded-xl" : "link link-hover hover:text-black hover:bg-indigo-300 hover:px-2 hover:py-3 hover:rounded-xl" %>
-      </li>
-      <li>
-        <%= link_to 'Search', search_path, class: current_page?(search_path) ? "link link-hover text-black bg-fuchsia-300 px-2 py-3 rounded-xl" : "link link-hover hover:text-black hover:bg-indigo-300 hover:px-2 hover:py-3 hover:rounded-xl" %>
       </li>
     </ul>
   </div>
