@@ -112,20 +112,18 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      puts "params --> #{params}"
       permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, image_tags_attributes: [:name, :_destroy])
       
       # Convert names TagName ids
-      puts "permitted_params --> #{permitted_params}"
-      if permitted_params[:image_tags_attributes].present?
-        tag_names = permitted_params[:image_tags_attributes].values.map {|item| item[:name]}
-        puts " permitted_params[:image_tags_attributes] --> #{permitted_params[:image_tags_attributes]}"
-        puts "tag_names --> #{tag_names}"
+      if permitted_params[:selected_tag_names].present?
+        tag_names = permitted_params[:selected_tag_names]
+        tag_names = tag_names.split(",").map {|name| name.strip}
 
-        tag_names = tag_names[0].split(",").map {|name| name.strip}
         tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
         tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
         permitted_params.delete(:image_tags_attributes)
+        permitted_params.delete(:selected_tag_names)
+
         permitted_params[:image_tags_attributes] = tag_names_hash
       end
 
