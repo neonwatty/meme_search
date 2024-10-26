@@ -36,19 +36,20 @@ class ImageCore < ApplicationRecord
 
     # destroy current description embeddings
     begin
-      test = ImageEmbedding.find({image_core: @image_core})
-      puts "TEST EBMEDDINGS --> #{test}"
+      puts "TEST BEGIN"
+      test = ImageEmbedding.find_by({image_core_id: self.id})
+      puts "TEST EBMEDDINGS --> #{test.length}"
       puts "BEFORE_DELETE"
-      ImageEmbedding.destroy({image_core: @image_core})
+      ImageEmbedding.destroy({image_core_id: self.id})
       puts "AFTER DELETE"
     rescue
     end
     puts "STARTING: building"
     puts "EMBEDDINGS LENGTH --> #{embeddings.length}"
-    embeddings.map {|embedding| {image_core: @image_core, embedding: embedding}}
-    puts "EMBEDDINGS MAPPED --> #{embeddings}"
-    builds = ImageEmbedding.create(embeddings)  
-    puts "BUILDS --> #{builds}"
+    embeddings_hash = embeddings.map {|embedding| {image_core_id: self.id, embedding: embedding}}
+
+    embeddings_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+
     # load up new embeddings
 
   end
