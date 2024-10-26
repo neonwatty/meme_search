@@ -6,6 +6,12 @@ class ImageCoresController < ApplicationController
   end
 
   def search_items
+    puts "params --> #{params}"
+    puts "search_params --> #{search_params}"
+    selected_tag_names = search_params[:selected_tag_names]
+    puts "selected_tag_names --> #{selected_tag_names}"
+    search_params.delete(:selected_tag_names)
+
     @query = search_params["query"]
     @checkbox_value = "0" #search_params["checkbox_value"]
     if @checkbox_value == "0" # keyword
@@ -140,7 +146,12 @@ class ImageCoresController < ApplicationController
   end
 
   def search_params
-    params.permit([ :query, :checkbox_value, :authenticity_token, :source, :controller, :action ])
+    permitted_params = params.permit([:query, :checkbox_value, :authenticity_token, :source, :controller, :action, :search_tags, :selected_tag_names ])
+    permitted_params.delete(:search_tags)
+    selected_tag_names = permitted_params[:selected_tag_names].split(",").map {|tag| tag.strip}
+    permitted_params.delete(:selected_tag_names)
+    permitted_params[:selected_tag_names] = selected_tag_names
+    return permitted_params
   end
 
 end
