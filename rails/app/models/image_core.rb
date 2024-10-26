@@ -29,10 +29,28 @@ class ImageCore < ApplicationRecord
 
 
   def embed_description
+    # generate embeddings
     chunks = chunk_text(self.description)
     model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
     embeddings = model.(chunks)
-    
+
+    # destroy current description embeddings
+    begin
+      test = ImageEmbedding.find({image_core: @image_core})
+      puts "TEST EBMEDDINGS --> #{test}"
+      puts "BEFORE_DELETE"
+      ImageEmbedding.destroy({image_core: @image_core})
+      puts "AFTER DELETE"
+    rescue
+    end
+    puts "STARTING: building"
+    puts "EMBEDDINGS LENGTH --> #{embeddings.length}"
+    embeddings.map {|embedding| {image_core: @image_core, embedding: embedding}}
+    puts "EMBEDDINGS MAPPED --> #{embeddings}"
+    builds = ImageEmbedding.create(embeddings)  
+    puts "BUILDS --> #{builds}"
+    # load up new embeddings
+
   end
 
   private
