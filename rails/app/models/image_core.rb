@@ -34,15 +34,18 @@ class ImageCore < ApplicationRecord
     model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
     embeddings = model.(chunks)
 
-    # destroy current description embeddings
+    # destroy current description embeddings 
     begin
       puts "TEST BEGIN"
-      test = ImageEmbedding.find_by({image_core_id: self.id})
+      puts "SELF ID --> #{self.id}"
+      puts "HI THERE --> #{{image_core_id: self.id}}"
+      current_embeddings = ImageEmbedding.where({image_core_id: self.id})
       puts "TEST EBMEDDINGS --> #{test.length}"
       puts "BEFORE_DELETE"
-      ImageEmbedding.destroy({image_core_id: self.id})
+      current_embeddings.map {|item| item.destroy!}
       puts "AFTER DELETE"
-    rescue
+    rescue StandardError => e
+      puts "THE DESTROY EXCEPTION --> #{e}"
     end
     puts "STARTING: building"
     puts "EMBEDDINGS LENGTH --> #{embeddings.length}"
