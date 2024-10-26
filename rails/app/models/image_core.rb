@@ -26,12 +26,6 @@ class ImageCore < ApplicationRecord
 
   before_save :refresh_description_embeddings
 
-  def vector_search(query)
-    query_embedding = ImageEmbedding.new({image_core_id:ImageCore.first.id, snippet: query})
-    query_embedding.compute_embedding;
-    results = query_embedding.get_neighbors.map {|item| item.image_core_id}.uniq.map {|image_core_id| ImageCore.find(image_core_id)}
-  end
-
   def refresh_description_embeddings
     # destroy current description embeddings 
     begin

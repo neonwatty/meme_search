@@ -11,13 +11,12 @@ class ImageCoresController < ApplicationController
 
     @query = search_params["query"]
     @checkbox_value = search_params["checkbox_value"]
-    puts "CHECKBOX VALUE --> #{@checkbox_value}"
     if @checkbox_value == "0" # keyword
       @query = remove_stopwords(@query)
       @image_cores = ImageCore.search_any_word(@query).limit(10) || []
     end
     if @checkbox_value == "1" # vector
-      @image_cores = ImageCore.vector_search(@query)
+      @image_cores = vector_search(@query)
     end
 
     # filter search results via selected tags
@@ -118,6 +117,14 @@ class ImageCoresController < ApplicationController
   end
 
   private
+
+    def vector_search(query)
+      query_embedding = ImageEmbedding.new({image_core_id:ImageCore.first.id, snippet: query})
+      query_embedding.compute_embedding;
+      results = query_embedding.get_neighbors.map {|item| item.image_core_id}.uniq.map {|image_core_id| ImageCore.find(image_core_id)}
+      return results
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_image_core
       @image_core = ImageCore.find(params[:id])
