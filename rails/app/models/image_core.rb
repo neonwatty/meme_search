@@ -26,6 +26,11 @@ class ImageCore < ApplicationRecord
 
   before_save :refresh_description_embeddings
 
+  def vector_search(query)
+    query_embedding = ImageEmbedding.new({image_core_id:ImageCore.first.id, snippet: query})
+    query_embedding.compute_embedding;
+    results = query_embedding.get_neighbors.map {|item| item.image_core_id}.uniq.map {|image_core_id| ImageCore.find(image_core_id)}
+  end
 
   def refresh_description_embeddings
     # destroy current description embeddings 
@@ -37,11 +42,9 @@ class ImageCore < ApplicationRecord
       puts "THE DESTROY EXCEPTION --> #{e}"
     end
     if !self.description.nil?
-      chunks = chunk_text(self.description)
-      model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
-      embeddings = model.(chunks)
-      embeddings_hash = embeddings.map.with_index {|embedding, index| {image_core_id: self.id, snippet: chunks[index], embedding: embedding}}
-      embeddings_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+      snippets = chunk_text(self.description)
+      snippets_hash = snippets.map.with_index {|snippet, index| {image_core_id: self.id, snippet: snippet}}
+      snippets_hash.map {|hash| ImageEmbedding.new(hash).save! } 
     end
   end
 

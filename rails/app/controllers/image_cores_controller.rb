@@ -17,7 +17,7 @@ class ImageCoresController < ApplicationController
       @image_cores = ImageCore.search_any_word(@query).limit(10) || []
     end
     if @checkbox_value == "1" # vector
-      @image_cores = vector_search(@query)
+      @image_cores = ImageCore.vector_search(@query)
     end
 
     # filter search results via selected tags
