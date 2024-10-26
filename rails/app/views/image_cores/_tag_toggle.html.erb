@@ -1,7 +1,6 @@
 <% tag_names = TagName.all.map {|item| item.name.strip} %>
 <%= fields_for :search_tags do |tag_fields| %>
   <div class="flex flex-col my-auto">
-    <h3> Image tags </h3>
     <div data-controller="multi-select" class="relative">
       <div
     data-action="click->multi-select#toggle"

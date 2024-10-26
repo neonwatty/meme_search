@@ -6,10 +6,7 @@ class ImageCoresController < ApplicationController
   end
 
   def search_items
-    puts "params --> #{params}"
-    puts "search_params --> #{search_params}"
     selected_tag_names = search_params[:selected_tag_names]
-    puts "selected_tag_names --> #{selected_tag_names}"
     search_params.delete(:selected_tag_names)
 
     @query = search_params["query"]
@@ -20,6 +17,11 @@ class ImageCoresController < ApplicationController
     end
     if @checkbox_value == "1" # vector
       @image_cores = vector_search(@query)
+    end
+
+    # filter search results via selected tags
+    if selected_tag_names.length > 0
+      @image_cores = @image_cores.select {|item| (item.image_tags&.map { |tag| tag.tag_name&.name } & selected_tag_names).any?}
     end
 
     respond_to do |format|
