@@ -8,6 +8,13 @@ class ImageCore < ApplicationRecord
                     tsearch: { any_word: true }
                   }
 
+  scope :with_selected_tag_names, ->(selected_tag_names) {
+    joins(image_tags: :tag_name)
+      .where(tag_names: { name: selected_tag_names })
+      .distinct
+      .order(created_at: :desc) 
+  }
+
   belongs_to :image_path
 
   validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false
@@ -16,6 +23,7 @@ class ImageCore < ApplicationRecord
   has_many :image_tags, dependent: :destroy
   accepts_nested_attributes_for :image_tags, allow_destroy: true
 
+  
   private
     def window_description
 
