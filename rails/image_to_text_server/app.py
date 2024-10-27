@@ -47,7 +47,7 @@ def process_jobs():
 @app.get('/')
 def home():
     try:
-        url = 'http://host.docker.internal:4567/'
+        url = 'http://host.docker.internal:4567/receive'
         response = requests.get(url)
         if response.status_code == 200:
             print(response.json())  # For JSON response
