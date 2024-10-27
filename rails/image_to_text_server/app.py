@@ -5,6 +5,7 @@ import os
 import time
 import threading
 import logging
+import requests
 
 app = FastAPI()
 queue_file = 'job_queue.json'
@@ -41,6 +42,30 @@ def process_jobs():
                 # If there are no jobs, wait for a while before checking again
                 logging.info("No jobs in queue. Waiting...")
                 time.sleep(5)
+
+
+@app.get('/')
+def home():
+    print("START")
+    try:
+        print('INFO: A')
+        url = 'http://host.docker.internal:4567/'
+        response = requests.get(url)
+        print('INFO: B')
+        if response.status_code == 200:
+            print('INFO: C')
+            print(response.json())  # For JSON response
+            print('INFO: D')
+            return {"status": "SUCCESS: item queued"}
+        else:
+            print('INFO: E')
+            print(f'Error: {response.status_code}')
+            print('INFO: F')
+            return {"status": "FAILURE: item not queued"}
+    except Exception as e:
+        failure_message = f"FAILURE: queue failed with exception {e}"
+        print(failure_message)
+        return {"status": failure_message}
 
 @app.post('/enqueue')
 def enqueue_job(job: Job):
