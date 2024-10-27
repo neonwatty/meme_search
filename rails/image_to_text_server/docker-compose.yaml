@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  fastapi_app:
+    build: .
+    container_name: my_queue
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
