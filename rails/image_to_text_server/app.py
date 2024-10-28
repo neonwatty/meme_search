@@ -33,7 +33,7 @@ class Job(BaseModel):
 
 def send_result(output_job_details: dict) -> dict:
     try:
-        response = requests.post(APP_URL, json=output_job_details)
+        response = requests.post(APP_URL, json={"data": output_job_details})
         if response.status_code == 200:
             print(response.json()) 
             return {"data": "SUCCESS: item queued"}
@@ -48,7 +48,7 @@ def send_result(output_job_details: dict) -> dict:
 
 def proccess_job(input_job_details: dict) -> dict:
     # simulate job processing
-    time.sleep(5)
+    time.sleep(2)
     
     # create return payload
     output_job_details = {

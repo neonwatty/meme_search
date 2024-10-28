@@ -8,7 +8,20 @@ class ImageCoresController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :receiver ]
 
   def receiver
+    # unpack return data
     received_data = params[:data]
+    id = received_data[:image_core_id].to_i
+    description = received_data[:description]
+
+    image = ImageCore.find(id)
+    image.description = description
+    image.status = true
+
+    if image.save
+      puts "Description updated successfully."
+    else
+      puts "Error updating description: #{image.errors.full_messages.join(", ")}"
+    end    
     render json: { received: received_data }, status: :ok
   end
 
@@ -137,8 +150,25 @@ class ImageCoresController < ApplicationController
       ImageTag.destroy(tag)
     end
 
+    # check if description has changed to update status
+    original_description = @image_core.description
+    new_description = image_update_params[:description]
+    update_params = image_update_params
+    if original_description != new_description
+      update_params[:status] = false
+    else
+      update_params[:status] = true
+    end
+
+    # remove any nil tags
+    update_params[:image_tags_attributes].select! { |tag| !tag[:value].nil? }
+
+    puts "PARAMS --> #{update_params}"
+
+
+
     respond_to do |format|
-      if @image_core.update(image_update_params)
+      if @image_core.update(update_params)
         flash[:notice] = "Image data was updated succesfully."
         format.html { redirect_to @image_core }
       else
@@ -178,7 +208,7 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, image_tags_attributes: [:id, :name, :_destroy])
+      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, :status, image_tags_attributes: [:id, :name, :_destroy])
       
       # Convert names TagName ids
       if permitted_params[:selected_tag_names].present?

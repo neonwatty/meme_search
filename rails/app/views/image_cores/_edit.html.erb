@@ -6,6 +6,7 @@
       <div class="flex flex-col my-auto">
         <h3> Image description </h3>
         <%= form.text_area(:description, rows: 4, cols: 50, placeholder: image_core.description, class:"text-black") %>
+        <% form.hidden_field :status, value: false %>
       </div>
       <div class="flex flex-col my-auto">
         <h3> Image tags </h3>
