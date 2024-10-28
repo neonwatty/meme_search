@@ -1,5 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
+    <% form_with url: "/" do |form| %>
+      # add @image_core.status
+      <% form.submit %>
+    <% end %>
     <%= render @image_core %>
     <%= link_to "Edit this image core", edit_image_core_path(@image_core), class: "edit-button" %>
     <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>

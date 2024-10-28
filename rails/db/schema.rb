@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_170426) do
     t.bigint "image_path_id", null: false
     t.string "name", limit: 100
     t.string "description", limit: 500
+    t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_path_id"], name: "index_image_cores_on_image_path_id"

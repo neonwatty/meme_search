@@ -4,6 +4,7 @@ class CreateImageCores < ActiveRecord::Migration[7.2]
       t.references :image_path, foreign_key: true, index: true, null: false
       t.string :name, limit: 100
       t.string :description, limit: 500
+      t.boolean :status, :default => false
 
       t.timestamps
     end
