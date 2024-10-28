@@ -37,9 +37,11 @@ class ImageCore < ApplicationRecord
       puts "THE DESTROY EXCEPTION --> #{e}"
     end
     if !self.description.nil?
-      snippets = chunk_text(self.description)
-      snippets_hash = snippets.map.with_index {|snippet, index| {image_core_id: self.id, snippet: snippet}}
-      snippets_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+      if self.description.length > 0
+        snippets = chunk_text(self.description)
+        snippets_hash = snippets.map.with_index {|snippet, index| {image_core_id: self.id, snippet: snippet}}
+        snippets_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+      end
     end
   end
 
