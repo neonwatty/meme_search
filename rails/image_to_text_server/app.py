@@ -20,7 +20,28 @@ if not os.path.exists(queue_file):
 
 class Job(BaseModel):
     job_name: str
-    data: str
+    image_path: str
+    
+def process_job(job_details):
+    # simulate job processing
+    time.sleep(5)
+    
+    # return success or failure message to main host
+    try:
+        url = 'http://host.docker.internal:3000/receive'
+        response = requests.get(url)
+        if response.status_code == 200:
+            print(response.json())  # For JSON response
+            return {"status": "SUCCESS: item queued"}
+        else:
+            print(f'Error: {response.status_code}')
+            return {"status": "FAILURE: item not queued"}
+    except Exception as e:
+        failure_message = f"FAILURE: queue failed with exception {e}"
+        print(failure_message)
+        return {"status": failure_message}
+    
+    return
 
 def process_jobs():
     while True:
@@ -30,8 +51,11 @@ def process_jobs():
                 # Process the first job
                 job = jobs.pop(0)
                 logging.info("Processing job: %s", job)
-                # Simulate processing time
-                time.sleep(2)
+                
+                # Process job
+                process_job(job)
+                                
+                # log completion
                 logging.info("Finished processing job: %s", job)
                 
                 # Write back the updated queue

@@ -101,6 +101,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    dotenv (3.1.4)
     drb (2.2.1)
     e2mmap (0.1.0)
     error_highlight (0.6.0)
@@ -396,6 +397,7 @@ DEPENDENCIES
   brakeman
   capybara
   debug
+  dotenv
   error_highlight (>= 0.4.0)
   image_processing (~> 1.2)
   importmap-rails

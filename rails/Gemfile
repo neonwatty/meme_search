@@ -68,3 +68,4 @@ gem "tailwindcss-rails", "~> 3.0"
 gem 'neighbor'
 gem "informers"
 gem "pgvector"
+gem 'dotenv', groups: [:development, :test]
