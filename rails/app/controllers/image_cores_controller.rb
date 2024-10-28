@@ -1,12 +1,26 @@
+require 'uri'
+require 'net/http'
+
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
   before_action :set_image_core, only: %i[ show edit update destroy generate ]
+  skip_before_action :verify_authenticity_token, only: [ :receiver ]
+
+  def receiver
+    received_data = params[:data]
+    render json: { received: received_data }, status: :ok
+  end
 
   def generate
-    puts "generate params --> #{params}"
-
     status = @image_core.status
-    puts "status from gen --> #{status}"
+    if !status
+      uri = URI('http://localhost:8000')
+      res = Net::HTTP.get_response(uri)
+      puts res.body if res.is_a?(Net::HTTPSuccess)
+    else
+      flash[:notice] = "Image currently in queue for text description generation."
+      format.html { redirect_to @image_core }
+    end
   end
 
   def search

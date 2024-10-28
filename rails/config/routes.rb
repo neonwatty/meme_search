@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :image_cores do
     collection do
       post "search_items"
+      post "receiver"
     end
     member do
       post 'generate'
