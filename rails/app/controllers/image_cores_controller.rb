@@ -1,6 +1,13 @@
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
-  before_action :set_image_core, only: %i[ show edit update destroy ]
+  before_action :set_image_core, only: %i[ show edit update destroy generate ]
+
+  def generate
+    puts "generate params --> #{params}"
+
+    status = @image_core.status
+    puts "status from gen --> #{status}"
+  end
 
   def search
   end

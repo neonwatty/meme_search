@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     collection do
       post "search_items"
     end
+    member do
+      post 'generate'
+    end
   end
 
 
