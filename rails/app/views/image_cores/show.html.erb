@@ -1,7 +1,6 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <% status = @image_core.status %>
-    <%= status %>
     <%= form_with(url: generate_image_core_path(@image_core.id), local: true) do |form| %>
       <% form.text_field :status, status: status %>
       <% form.submit :generate, class: "bg-blue-500 w-1/4 h-1/4"%>

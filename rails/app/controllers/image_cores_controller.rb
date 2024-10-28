@@ -1,5 +1,6 @@
 require 'uri'
 require 'net/http'
+require 'json'
 
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
@@ -14,12 +15,32 @@ class ImageCoresController < ApplicationController
   def generate
     status = @image_core.status
     if !status
-      uri = URI('http://localhost:8000')
-      res = Net::HTTP.get_response(uri)
-      puts res.body if res.is_a?(Net::HTTPSuccess)
+      puts "INFO: starting"
+      uri = URI('http://localhost:8000/add_job')
+      http = Net::HTTP.new(uri.host, uri.port)
+
+      request = Net::HTTP::Post.new(uri)
+      request['Content-Type'] = 'application/json'
+
+      data = { image_core_id: @image_core.id, image_path: "test-path" }  
+      request.body = data.to_json
+      response = http.request(request)
+      puts response.body
+
+      respond_to do |format|
+        if response.is_a?(Net::HTTPSuccess)
+          puts response.body
+          flash[:notice] = "Image added to queue for automatic description generation."
+          format.html { redirect_to @image_core }
+        else
+          puts "Error: #{response.code} - #{response.message}"
+        end
+      end
     else
-      flash[:notice] = "Image currently in queue for text description generation."
-      format.html { redirect_to @image_core }
+      respond_to do |format|
+        flash[:notice] = "Image currently in queue for text description generation."
+        format.html { redirect_to @image_core }
+      end
     end
   end
 
