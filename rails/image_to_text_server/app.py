@@ -22,6 +22,7 @@ class Job(BaseModel):
     job_name: str
     image_path: str
     
+
 def process_job(job_details):
     # simulate job processing
     time.sleep(5)
@@ -42,6 +43,7 @@ def process_job(job_details):
         return {"status": failure_message}
     
     return
+
 
 def process_jobs():
     while True:
@@ -71,18 +73,25 @@ def process_jobs():
 @app.get('/')
 def home():
     try:
-        url = 'http://host.docker.internal:4567/receive'
-        response = requests.get(url)
+        url = 'http://host.docker.internal:3000/image_cores/receiver'
+        
+        # Define any data you want to send in the POST request
+        data = {"key": "value"}  # Replace with your actual data
+
+        response = requests.post(url, json=data)  # Use json parameter to send JSON data
+        print(response)
+        
         if response.status_code == 200:
             print(response.json())  # For JSON response
-            return {"status": "SUCCESS: item queued"}
+            return {"data": "SUCCESS: item queued"}
         else:
             print(f'Error: {response.status_code}')
-            return {"status": "FAILURE: item not queued"}
+            return {"data": "FAILURE: item not queued"}
     except Exception as e:
         failure_message = f"FAILURE: queue failed with exception {e}"
         print(failure_message)
-        return {"status": failure_message}
+        return {"data": failure_message}
+
 
 @app.post('/enqueue')
 def enqueue_job(job: Job):
@@ -95,6 +104,7 @@ def enqueue_job(job: Job):
     
     logging.info("Job added to queue: %s", job)
     return {"status": "Job added to queue"}
+
 
 if __name__ == '__main__':
     # Start the job processing thread
