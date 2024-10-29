@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-import json
-import os
+import sqlite3
 import time
 import threading
 import logging
@@ -12,17 +11,25 @@ lock = threading.Lock()
 
 # constants
 APP_URL = 'http://host.docker.internal:3000/image_cores/receiver'        
-QUEUE_FILE = 'job_queue.json'
+JOB_DB = 'job_queue.db'
 
+
+# initialize table
+def init_db():
+    conn = sqlite3.connect(JOB_DB)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS jobs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            image_core_id INTEGER,
+            image_path TEXT NOT NULL,
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 # configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
-# initialize the job queue
-if not os.path.exists(QUEUE_FILE):
-    with open(QUEUE_FILE, 'w') as f:
-        json.dump([], f)
 
 
 # model for received jobs
@@ -61,42 +68,45 @@ def proccess_job(input_job_details: dict) -> dict:
 def process_jobs():
     while True:
         with lock:
-            with open(QUEUE_FILE, 'r+') as f:
-                jobs = json.load(f)
-                if jobs:
-                    # Process the first job
-                    input_job_details = jobs.pop(0)
-                    logging.info("Processing job: %s", input_job_details)
-                    
-                    # process job
-                    output_job_details = proccess_job(input_job_details)
-                    
-                    # send results to main app
-                    response = send_result(output_job_details)
-                    logging.info(f"response from send --> {response}")
-                                    
-                    # log completion
-                    logging.info("Finished processing job: %s", input_job_details)
-                    
-                    # Write back the updated queue
-                    f.seek(0)
-                    json.dump(jobs, f)
-                    f.truncate()
-                else:
-                    # If there are no jobs, wait for a while before checking again
-                    logging.info("No jobs in queue. Waiting...")
-                    time.sleep(5)
+            conn = sqlite3.connect(JOB_DB)
+            cursor = conn.cursor()
+            
+            cursor.execute('SELECT * FROM jobs ORDER BY id LIMIT 1')
+            job = cursor.fetchone()
+            
+            if job:
+                job_id, image_core_id, image_path = job
+                input_job_details = {"image_core_id": image_core_id, "image_path": image_path}
+
+                logging.info("Processing job: %s", input_job_details)
+                
+                # process job
+                output_job_details = proccess_job(input_job_details)
+                
+                # send results to main app
+                response = send_result(output_job_details)
+                logging.info(f"response from send --> {response}")
+                                
+                # log completion
+                logging.info("Finished processing job: %s", input_job_details)
+                
+                # Remove the processed job from the queue
+                cursor.execute('DELETE FROM jobs WHERE id = ?', (job_id,))
+                conn.commit()
+            else:
+                # If there are no jobs, wait for a while before checking again
+                logging.info("No jobs in queue. Waiting...")
+                time.sleep(5)
 
 
 @app.post('/add_job')
 def add_job(job: Job):
-    logging.info(f"job info --> {job}")
-    with open(QUEUE_FILE, 'r+') as f:
-        jobs = json.load(f)
-        jobs.append(job.dict())
-        f.seek(0)
-        json.dump(jobs, f)
-        f.truncate()
+    conn = sqlite3.connect(JOB_DB)
+    cursor = conn.cursor()
+    
+    cursor.execute('INSERT INTO jobs (image_core_id, image_path) VALUES (?, ?)', (job.image_core_id, job.image_path))
+    conn.commit()
+    conn.close()
     
     logging.info("Job added to queue: %s", job)
     return {"status": "Job added to queue"}
