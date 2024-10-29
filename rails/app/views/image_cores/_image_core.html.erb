@@ -6,8 +6,8 @@
       <%= form_with(url: generate_description_image_core_path(image_core.id), local: true) do |form| %>
         <% form.submit "generate description", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
       <% end %>
+      <% status = image_core.status %>
       <div class="text-xs text-center">
-        <% status = image_core.status %>
         <% case status %>
         <% when "not_started" %>
           <div class="bg-purple-500 hover w-auto py-1 px-2 rounded-2xl">
