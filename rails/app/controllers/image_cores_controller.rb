@@ -56,7 +56,7 @@ class ImageCoresController < ApplicationController
         if response.is_a?(Net::HTTPSuccess)
           puts response.body
           flash[:notice] = "Image added to queue for automatic description generation."
-          format.html { redirect_to @image_core }
+          format.html { redirect_back_or_to root_path }
         else
           puts "Error: #{response.code} - #{response.message}"
         end
