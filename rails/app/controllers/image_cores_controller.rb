@@ -39,8 +39,9 @@ class ImageCoresController < ApplicationController
 
       request = Net::HTTP::Post.new(uri)
       request['Content-Type'] = 'application/json'
-
-      data = { image_core_id: @image_core.id, image_path: @image_core.image_path }  
+      puts "INFO: HERE"
+      data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }  
+      puts "DATA --> #{data}"
       request.body = data.to_json
       response = http.request(request)
       puts response.body

@@ -5,6 +5,7 @@ import time
 import threading
 import logging
 import requests
+from pathlib import Path
 
 app = FastAPI()
 lock = threading.Lock()
@@ -22,7 +23,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS jobs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             image_core_id INTEGER,
-            image_path TEXT NOT NULL,
+            image_path TEXT NOT NULL
         )
     ''')
     conn.commit()
@@ -57,6 +58,14 @@ def proccess_job(input_job_details: dict) -> dict:
     # simulate job processing
     time.sleep(2)
     
+    # Specify the file path
+    file_path = Path(input_job_details["image_path"])
+
+    # Get the size of the file in bytes
+    file_size = file_path.stat().st_size
+    
+    logging.info(f"SIZE OF TEST FILE --> {file_size}")
+    
     # create return payload
     output_job_details = {
         "image_core_id": input_job_details["image_core_id"],
@@ -76,7 +85,7 @@ def process_jobs():
             
             if job:
                 job_id, image_core_id, image_path = job
-                input_job_details = {"image_core_id": image_core_id, "image_path": image_path}
+                input_job_details = {"image_core_id": image_core_id, "image_path": "/public/" + image_path}
 
                 logging.info("Processing job: %s", input_job_details)
                 
@@ -118,6 +127,9 @@ def home():
 
         
 if __name__ == '__main__':
+    # Initialize the database
+    init_db()
+    
     # Start the job processing thread
     threading.Thread(target=process_jobs, daemon=True).start()
     
