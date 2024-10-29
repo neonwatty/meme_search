@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       post "status_receiver"
     end
     member do
-      post 'generate'
+      post 'generate_description'
     end
   end
 

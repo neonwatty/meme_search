@@ -4,7 +4,7 @@ require 'json'
 
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
-  before_action :set_image_core, only: %i[ show edit update destroy generate ]
+  before_action :set_image_core, only: %i[ show edit update destroy generate_description ]
   skip_before_action :verify_authenticity_token, only: [ :done_receiver, :status_receiver ]
 
   def status_receiver
@@ -33,7 +33,7 @@ class ImageCoresController < ApplicationController
     render json: { received: received_data }, status: :ok
   end
 
-  def generate
+  def generate_description
     status = @image_core.status
     if status != 0 && status != 4
       # update status of instance

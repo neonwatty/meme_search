@@ -5,7 +5,6 @@ import time
 import threading
 import logging
 import requests
-from pathlib import Path
 from image_to_text_generator import image_to_text
 
 app = FastAPI()
@@ -77,7 +76,7 @@ def status_sender(status_job_details: dict) -> None:
     try:
         logging.info(f"STATUS: update sent for image id --> {status_job_details["image_core_id"]}")
         response = requests.post(APP_URL + "status_receiver", json={"data": status_job_details})
-        if response.status_code == 200:
+        if response.status_code >= 200 and response.status_code < 300:
             logging.info(response.json()) 
         else:
             logging.info(f'FAILURE: {response.status_code}')
