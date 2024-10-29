@@ -1,6 +1,6 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
-    <%= render @image_core %>
+    <%= render partial: "image_core", locals: {image_core: @image_core} %>
     <%= link_to "Edit this image core", edit_image_core_path(@image_core), class: "edit-button" %>
     <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
     <div class="inline-block ml-2">
