@@ -1,2 +1,4 @@
 # ignore mac os files
 **/.DS_Store
+**/*.db
+**/*.pyc

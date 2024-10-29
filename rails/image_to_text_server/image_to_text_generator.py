@@ -8,7 +8,7 @@ transformers.logging.set_verbosity_error()
 def prompt_moondream(img_path: str, prompt: str) -> str:
     # copied from moondream demo readme --> https://github.com/vikhyat/moondream/tree/main
     model_id = "vikhyatk/moondream2"
-    revision = "2024-05-20"
+    revision = "2024-08-26"
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         trust_remote_code=True,
@@ -23,7 +23,7 @@ def prompt_moondream(img_path: str, prompt: str) -> str:
 
 def image_to_text(image_path: str) -> str:
     try:
-        print("STARTING: image_to_text extr")
+        print("STARTING: image_to_text extraction")
         prompt = "Describe this image."
 
         print(f"INFO: prompting moondream for a description of image: '{image_path}'")

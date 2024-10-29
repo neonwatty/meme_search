@@ -6,6 +6,9 @@
 
 # ignore mac os files
 **/.DS_Store
+**/*.db
+./image_to_text_server/job_queue.db
+**/*.pyc
 scratch.rb
 
 # Ignore bundler config.
