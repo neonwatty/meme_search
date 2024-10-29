@@ -5,7 +5,7 @@ require 'json'
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
   before_action :set_image_core, only: %i[ show edit update destroy generate ]
-  skip_before_action :verify_authenticity_token, only: [ :receiver ]
+  skip_before_action :verify_authenticity_token, only: [ :done_receiver, :status_receiver ]
 
   def status_receiver
     received_data = params[:data]
