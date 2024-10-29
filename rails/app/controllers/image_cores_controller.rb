@@ -101,7 +101,6 @@ class ImageCoresController < ApplicationController
 
   # GET /image_cores
   def index
-
     if params[:selected_tag_names].present?
       selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
       @image_cores = ImageCore.with_selected_tag_names(selected_tag_names)
@@ -160,13 +159,6 @@ class ImageCoresController < ApplicationController
       update_params[:status] = true
     end
 
-    # remove any nil tags
-    update_params[:image_tags_attributes].select! { |tag| !tag[:value].nil? }
-
-    puts "PARAMS --> #{update_params}"
-
-
-
     respond_to do |format|
       if @image_core.update(update_params)
         flash[:notice] = "Image data was updated succesfully."
@@ -217,7 +209,9 @@ class ImageCoresController < ApplicationController
 
         tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
         tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
-        puts "TAG NAME HASH --> #{tag_names_hash}"
+        if tag_names_hash[0][:tag_name].nil?
+          tag_names_hash = []
+        end
         permitted_params.delete(:image_tags_attributes)
         permitted_params.delete(:selected_tag_names)
 
