@@ -12,7 +12,7 @@ app = FastAPI()
 lock = threading.Lock()
 
 # constants
-APP_URL = 'http://host.docker.internal:3000/image_cores/receiver'        
+APP_URL = 'http://host.docker.internal:3000/image_cores/'        
 JOB_DB = 'job_queue.db'
 
 # initialize logging
@@ -33,6 +33,15 @@ def init_db():
     conn.close()
 
 
+# check queue length
+def check_queue():
+    conn = sqlite3.connect(JOB_DB)
+    cursor = conn.cursor()
+    cursor.execute('SELECT COUNT(*) FROM jobs')
+    count = cursor.fetchone()[0]
+    return {"queue_length": count}
+
+
 # initialize model - download weights
 def init_model():
     with lock:
@@ -49,9 +58,9 @@ class Job(BaseModel):
     image_path: str
 
 
-def send_result(output_job_details: dict) -> dict:
+def done_sender(output_job_details: dict) -> dict:
     try:
-        response = requests.post(APP_URL, json={"data": output_job_details})
+        response = requests.post(APP_URL + "done_receiver", json={"data": output_job_details})
         if response.status_code == 200:
             logging.info(response.json()) 
             return {"data": "SUCCESS: item queued"}
@@ -62,19 +71,23 @@ def send_result(output_job_details: dict) -> dict:
         failure_message = f"FAILURE: queue failed with exception {e}"
         logging.error(failure_message)
         return {"data": failure_message}
-
-
-def proccess_job(input_job_details: dict) -> dict:
-    # simulate job processing
-    # time.sleep(2)
     
-    # Specify the file path
-    # file_path = Path(input_job_details["image_path"])
-
-    # # Get the size of the file in bytes
-    # file_size = file_path.stat().st_size
-    # logging.info(f"SIZE OF TEST FILE --> {file_size}")
     
+def status_sender(status_job_details: dict) -> None:
+    try:
+        logging.info(f"STATUS: update sent for image id --> {status_job_details["image_core_id"]}")
+        response = requests.post(APP_URL + "status_receiver", json={"data": status_job_details})
+        if response.status_code == 200:
+            logging.info(response.json()) 
+        else:
+            logging.info(f'FAILURE: {response.status_code}')
+    except Exception as e:
+        failure_message = f"FAILURE: queue failed with exception {e}"
+        logging.error(failure_message)
+
+
+def proccess_job(input_job_details: dict) -> dict:    
+    # process image
     description = image_to_text(input_job_details["image_path"])
     
     # create return payload
@@ -95,16 +108,24 @@ def process_jobs():
             job = cursor.fetchone()
             
             if job:
+                # unpack job
                 job_id, image_core_id, image_path = job
+                
+                # pack up data for processing / status update
                 input_job_details = {"image_core_id": image_core_id, "image_path": "/public/" + image_path}
+                status_job_details = {"image_core_id": image_core_id, "status": 2}
+                
+                # send status update (image out of queue and in process)
+                status_sender(status_job_details)
 
+                # report that processing has begun
                 logging.info("Processing job: %s", input_job_details)
                 
                 # process job
                 output_job_details = proccess_job(input_job_details)
                 
                 # send results to main app
-                response = send_result(output_job_details)
+                response = done_sender(output_job_details)
                 logging.info(f"response from send --> {response}")
                                 
                 # log completion
@@ -141,8 +162,8 @@ if __name__ == '__main__':
     # Initialize the database
     init_db()
     
-    # initialize model
-    init_model()
+    # initialize model (optional)
+    # init_model()
     
     # Start the job processing thread
     threading.Thread(target=process_jobs, daemon=True).start()

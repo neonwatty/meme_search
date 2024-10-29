@@ -7,15 +7,23 @@ class ImageCoresController < ApplicationController
   before_action :set_image_core, only: %i[ show edit update destroy generate ]
   skip_before_action :verify_authenticity_token, only: [ :receiver ]
 
-  def receiver
-    # unpack return data
+  def status_receiver
+    received_data = params[:data]
+    id = received_data[:image_core_id].to_i
+    status = received_data[:status].to_i
+    image = ImageCore.find(id)
+    image.status = status
+    image.save
+  end
+
+  def done_receiver
     received_data = params[:data]
     id = received_data[:image_core_id].to_i
     description = received_data[:description]
 
     image = ImageCore.find(id)
     image.description = description
-    image.status = false
+    image.status = 3
 
     if image.save
       puts "Description updated successfully."
@@ -27,9 +35,9 @@ class ImageCoresController < ApplicationController
 
   def generate
     status = @image_core.status
-    if !status
+    if status != 0 && status != 4
       # update status of instance
-      @image_core.status = true
+      @image_core.status = 1
       @image_core.save
 
       # send request
@@ -39,9 +47,7 @@ class ImageCoresController < ApplicationController
 
       request = Net::HTTP::Post.new(uri)
       request['Content-Type'] = 'application/json'
-      puts "INFO: HERE"
       data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }  
-      puts "DATA --> #{data}"
       request.body = data.to_json
       response = http.request(request)
       puts response.body

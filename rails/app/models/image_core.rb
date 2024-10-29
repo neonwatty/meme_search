@@ -1,14 +1,15 @@
 require 'informers'
 
 class ImageCore < ApplicationRecord  
+  # keyword search scope
   include PgSearch::Model
-
   pg_search_scope :search_any_word,
                   against: [:description],
                   using: {
                     tsearch: { any_word: true }
                   }
-
+  
+  # tag lookup scope
   scope :with_selected_tag_names, ->(selected_tag_names) {
     joins(image_tags: :tag_name)
       .where(tag_names: { name: selected_tag_names })
@@ -16,15 +17,24 @@ class ImageCore < ApplicationRecord
       .order(created_at: :desc) 
   }
 
+  # associations
   belongs_to :image_path
-
-  validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false
-  validates_length_of :description, minimum: 0, maximum: 500, allow_blank: true
-  # validates :status, presence: true
-
   has_many :image_tags, dependent: :destroy
   accepts_nested_attributes_for :image_tags, allow_destroy: true
 
+  # validations
+  validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false
+  validates_length_of :description, minimum: 0, maximum: 500, allow_blank: true
+  enum status: {
+    not_started: 0,
+    in_queue: 1,
+    processing: 2,
+    done: 3,
+    failed: 4
+  }
+  validates :status, presence: true
+
+  # before save create description embeddings
   before_save :refresh_description_embeddings
 
   def refresh_description_embeddings
