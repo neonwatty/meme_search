@@ -35,7 +35,7 @@ class ImageCoresController < ApplicationController
 
   def generate_description
     status = @image_core.status
-    if status != 0 && status != 4
+    if status != 1 && status != 2
       # update status of instance
       @image_core.status = 1
       @image_core.save
