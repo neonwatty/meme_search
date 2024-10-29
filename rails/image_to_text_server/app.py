@@ -53,14 +53,14 @@ def send_result(output_job_details: dict) -> dict:
     try:
         response = requests.post(APP_URL, json={"data": output_job_details})
         if response.status_code == 200:
-            print(response.json()) 
+            logging.info(response.json()) 
             return {"data": "SUCCESS: item queued"}
         else:
-            print(f'Error: {response.status_code}')
+            logging.info(f'Error: {response.status_code}')
             return {"data": "FAILURE: item not queued"}
     except Exception as e:
         failure_message = f"FAILURE: queue failed with exception {e}"
-        print(failure_message)
+        logging.error(failure_message)
         return {"data": failure_message}
 
 
