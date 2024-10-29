@@ -15,7 +15,7 @@ class ImageCoresController < ApplicationController
 
     image = ImageCore.find(id)
     image.description = description
-    image.status = true
+    image.status = false
 
     if image.save
       puts "Description updated successfully."
@@ -28,6 +28,11 @@ class ImageCoresController < ApplicationController
   def generate
     status = @image_core.status
     if !status
+      # update status of instance
+      @image_core.status = true
+      @image_core.save
+
+      # send request
       puts "INFO: starting"
       uri = URI('http://localhost:8000/add_job')
       http = Net::HTTP.new(uri.host, uri.port)
@@ -150,14 +155,10 @@ class ImageCoresController < ApplicationController
     end
 
     # check if description has changed to update status
-    original_description = @image_core.description
-    new_description = image_update_params[:description]
     update_params = image_update_params
-    if original_description != new_description
-      update_params[:status] = false
-    else
-      update_params[:status] = true
-    end
+
+    puts "params --> #{params}"
+    puts "update_params --> #{update_params}"
 
     respond_to do |format|
       if @image_core.update(update_params)
@@ -200,6 +201,7 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
+      puts "permitted_params --> #{params}"
       permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, :status, image_tags_attributes: [:id, :name, :_destroy])
       
       # Convert names TagName ids
