@@ -6,6 +6,7 @@ import threading
 import logging
 import requests
 from pathlib import Path
+from image_to_text_generator import image_to_text
 
 app = FastAPI()
 lock = threading.Lock()
@@ -56,20 +57,21 @@ def send_result(output_job_details: dict) -> dict:
 
 def proccess_job(input_job_details: dict) -> dict:
     # simulate job processing
-    time.sleep(2)
+    # time.sleep(2)
     
     # Specify the file path
-    file_path = Path(input_job_details["image_path"])
+    # file_path = Path(input_job_details["image_path"])
 
-    # Get the size of the file in bytes
-    file_size = file_path.stat().st_size
+    # # Get the size of the file in bytes
+    # file_size = file_path.stat().st_size
+    # logging.info(f"SIZE OF TEST FILE --> {file_size}")
     
-    logging.info(f"SIZE OF TEST FILE --> {file_size}")
+    description = image_to_text(input_job_details["image_path"])
     
     # create return payload
     output_job_details = {
         "image_core_id": input_job_details["image_core_id"],
-        "description": "this is a test"
+        "description": description
     }
     return output_job_details
 
