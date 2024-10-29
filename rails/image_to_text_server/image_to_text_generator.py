@@ -2,33 +2,38 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from PIL import Image
 import transformers
 
+# turn down transformers verbose logs
 transformers.logging.set_verbosity_error()
 
-
-def prompt_moondream(img_path: str, prompt: str) -> str:
-    # copied from moondream demo readme --> https://github.com/vikhyat/moondream/tree/main
-    model_id = "vikhyatk/moondream2"
-    revision = "2024-08-26"
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        trust_remote_code=True,
-        revision=revision,
-    )
-    tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
-    image = Image.open(img_path)
-    enc_image = model.encode_image(image)
-    moondream_response = model.answer_question(enc_image, prompt, tokenizer)
-    return moondream_response
+# model identifiers
+model_id = "vikhyatk/moondream2"
+revision = "2024-08-26"
 
 
 def image_to_text(image_path: str) -> str:
     try:
-        print("STARTING: image_to_text extraction")
-        prompt = "Describe this image."
+        print(f"STARTING: image_to_text extraction of image --> {image_path}")
+        prompt = "Describe this image, including any text you see on the image."
 
-        print(f"INFO: prompting moondream for a description of image: '{image_path}'")
-        answer = prompt_moondream(image_path, prompt)
-        return answer
+        # instantiate model and tokenizer
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id,
+            trust_remote_code=True,
+            revision=revision,
+        )
+        tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
+        
+        # load in image
+        image = Image.open(image_path)
+        
+        # process image
+        enc_image = model.encode_image(image)
+        description = model.answer_question(enc_image, prompt, tokenizer)
+        print(f"DONE: image_to_text extraction of image --> {image_path}")
+
+        return description
     except Exception as e:
-        print(f"FAILURE: image_to_text failed with exception {e}")
+        error_msg = f"FAILURE: image_to_text extraction of image --> {image_path} failed with exception --> {e}"
+        print(error_msg)
         raise e
+

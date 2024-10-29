@@ -15,8 +15,10 @@ lock = threading.Lock()
 APP_URL = 'http://host.docker.internal:3000/image_cores/receiver'        
 JOB_DB = 'job_queue.db'
 
+# initialize logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# initialize table
+# initialize local db / table
 def init_db():
     conn = sqlite3.connect(JOB_DB)
     cursor = conn.cursor()
@@ -30,8 +32,15 @@ def init_db():
     conn.commit()
     conn.close()
 
-# configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# initialize model - download weights
+def init_model():
+    with lock:
+        image_path = "do_not_remove.jpg"
+        description = image_to_text(image_path)
+        logging.info("Finished model download and initial test - image description: %s", description)
+        logging.info("INFO: ready to process jobs!")
+
 
 
 # model for received jobs
@@ -131,6 +140,9 @@ def home():
 if __name__ == '__main__':
     # Initialize the database
     init_db()
+    
+    # initialize model
+    init_model()
     
     # Start the job processing thread
     threading.Thread(target=process_jobs, daemon=True).start()

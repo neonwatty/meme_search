@@ -8,8 +8,12 @@
 **/.DS_Store
 **/*.db
 ./image_to_text_server/job_queue.db
+./image_to_text_server/.venv
+./image_to_text_server/scratch.ipynb
+
 **/*.pyc
 scratch.rb
+
 
 # Ignore bundler config.
 /.bundle
