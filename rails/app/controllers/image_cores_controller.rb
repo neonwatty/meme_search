@@ -122,8 +122,6 @@ class ImageCoresController < ApplicationController
 
   # GET /image_cores
   def index
-    puts "params for paths --> #{params}"
-
     if params[:selected_tag_names].present?
         if params[:selected_tag_names].length > 0
           selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
@@ -136,14 +134,20 @@ class ImageCoresController < ApplicationController
     if params[:selected_path_names].present?
       if params[:selected_path_names].length > 0
         selected_path_names = params[:selected_path_names].split(",").map {|path| path.strip}
-        puts "selected_path_names --> #{selected_path_names}"
         keeper_ids = @image_cores.select {|item| selected_path_names.include?(item.image_path.name.strip)}.map {|item| item.id}
-        puts "keeper_ids -- #{keeper_ids}"
         @image_cores = ImageCore.where(id: keeper_ids)
       end
     end
-    @pagy, @image_cores = pagy(@image_cores)
 
+    if params[:has_embeddings].present?
+        keeper_ids = @image_cores.select { |item| item.image_embeddings.length > 0 }.map { |item| item.id }
+        @image_cores = ImageCore.where(id: keeper_ids)
+    else
+        keeper_ids = @image_cores.select { |item| item.image_embeddings.length == 0 }.map { |item| item.id }
+        @image_cores = ImageCore.where(id: keeper_ids)
+    end
+
+    @pagy, @image_cores = pagy(@image_cores)
 
   end
 
