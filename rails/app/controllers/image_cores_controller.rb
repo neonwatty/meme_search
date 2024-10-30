@@ -133,8 +133,6 @@ class ImageCoresController < ApplicationController
       @image_cores = ImageCore.order(created_at: :desc)
     end
 
-    puts "params[:selected_path_names] --> #{params[:selected_path_names]}"
-
     if params[:selected_path_names].present?
       if params[:selected_path_names].length > 0
         selected_path_names = params[:selected_path_names].split(",").map {|path| path.strip}

@@ -9,6 +9,11 @@ class ImageCore < ApplicationRecord
                     tsearch: { any_word: true }
                   }
 
+  # tag association + lookup scope
+  belongs_to :image_path
+  has_many :image_tags, dependent: :destroy
+  accepts_nested_attributes_for :image_tags, allow_destroy: true
+
   # tag lookup scope
   scope :with_selected_tag_names, ->(selected_tag_names) {
     joins(image_tags: :tag_name)
@@ -17,10 +22,13 @@ class ImageCore < ApplicationRecord
       .order(created_at: :desc)
   }
 
-  # associations
-  belongs_to :image_path
-  has_many :image_tags, dependent: :destroy
-  accepts_nested_attributes_for :image_tags, allow_destroy: true
+  # embedding association + lookup scope
+  has_many :image_embeddings, dependent: :destroy
+
+  # embedding lookup scope
+  scope :without_embeddings, -> {
+    left_outer_joins(:image_embeddings).where(image_embeddings: { id: nil })
+  }
 
   # validations
   validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false

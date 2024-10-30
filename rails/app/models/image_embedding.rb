@@ -1,6 +1,8 @@
 require 'informers'
 
 class ImageEmbedding < ApplicationRecord
+  belongs_to :image_core
+
   validates :snippet, presence: true
   validates_length_of :embedding, maximum: 384, allow_blank: true
   has_neighbors :embedding
