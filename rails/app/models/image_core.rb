@@ -25,13 +25,13 @@ class ImageCore < ApplicationRecord
   # validations
   validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false
   validates_length_of :description, minimum: 0, maximum: 500, allow_blank: true
-  enum status: {
-    not_started: 0,
-    in_queue: 1,
-    processing: 2,
-    done: 3,
-    failed: 4
-  }
+  enum status: [ 
+    :not_started, 
+    :in_queue, 
+    :processing, 
+    :done, 
+    :failed 
+  ]
   validates :status, presence: true
 
   # before save create description embeddings
