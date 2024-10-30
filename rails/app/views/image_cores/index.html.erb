@@ -12,8 +12,8 @@
           <%= render 'path_toggle' %>
         </div>
         <div class="flex flex-col">
+          <%= check_box_tag :has_embeddings %>
           <%= label_tag :has_embeddings, 'has embeddings?', class: "my-auto mr-4" %>
-          <%= check_box_tag :has_embeddings, value: '0', id: 'checkbox_value' %>
         </div>
         <%= submit_tag 'Filter', class: "bg-emerald-400 hover hover:bg-emerald-300 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer" %>
       </div>
