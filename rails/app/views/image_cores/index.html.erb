@@ -11,9 +11,11 @@
           <%= label_tag :search, ' paths', class: "my-auto mr-4" %>
           <%= render 'path_toggle' %>
         </div>
-        <div class="flex flex-col">
-          <%= check_box_tag :has_embeddings %>
-          <%= label_tag :has_embeddings, 'has embeddings?', class: "my-auto mr-4" %>
+        <div class="flex flex-col content-center justify-center">
+          <%= label_tag :has_embeddings, 'has embeddings?', class: "ms-3" %>
+          <div class="flex flex-row content-center justify-center">
+            <%= check_box_tag :has_embeddings, checked: true, class:"mt-2" %>
+          </div>
         </div>
         <%= submit_tag 'Filter', class: "bg-emerald-400 hover hover:bg-emerald-300 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer" %>
       </div>

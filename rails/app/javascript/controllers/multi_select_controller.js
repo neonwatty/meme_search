@@ -26,7 +26,7 @@ export default class extends Controller {
 
     this.selectedItemsTarget.value = selected.length
       ? selected.join(", ")
-      : nil;
+      : null;
   }
 
   handleOutsideClick(event) {
