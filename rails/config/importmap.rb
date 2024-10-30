@@ -11,3 +11,5 @@ pin "non-stimulus/venobox-init"
 
 pin "tailwindcss-stimulus-components" # @6.1.2
 pin "@hotwired/stimulus", to: "@hotwired--stimulus.js" # @3.2.2
+pin "@rails/actioncable", to: "actioncable.esm.js"
+pin_all_from "app/javascript/channels", under: "channels"

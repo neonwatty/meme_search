@@ -5,25 +5,29 @@ require 'json'
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
   before_action :set_image_core, only: %i[ show edit update destroy generate_description ]
-  skip_before_action :verify_authenticity_token, only: [ :done_receiver, :status_receiver ]
+  skip_before_action :verify_authenticity_token, only: [ :description_receiver, :status_receiver ]
 
   def status_receiver
     received_data = params[:data]
     id = received_data[:image_core_id].to_i
     status = received_data[:status].to_i
-    image = ImageCore.find(id)
-    image.status = status
-    image.save
+    image_core = ImageCore.find(id)
+    image_core.status = status
+    div_id = "status-image-core-id-#{image_core.id}"
+    if image_core.save
+      status_html = ApplicationController.renderer.render(partial: "image_cores/generate_status", locals: { div_id: div_id, status: image_core.status })
+      ActionCable.server.broadcast "image_status_channel", { div_id: div_id, status_html: status_html }
+    else
+    end
   end
 
-  def done_receiver
+  def description_receiver
     received_data = params[:data]
     id = received_data[:image_core_id].to_i
     description = received_data[:description]
 
     image = ImageCore.find(id)
     image.description = description
-    image.status = 3
 
     if image.save
       puts "Description updated successfully."

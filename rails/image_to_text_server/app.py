@@ -59,9 +59,9 @@ class Job(BaseModel):
     image_path: str
 
 
-def done_sender(output_job_details: dict) -> dict:
+def description_sender(output_job_details: dict) -> dict:
     try:
-        response = requests.post(APP_URL + "done_receiver", json={"data": output_job_details})
+        response = requests.post(APP_URL + "description_receiver", json={"data": output_job_details})
         if response.status_code == 200:
             logging.info(response.json()) 
             return {"data": "SUCCESS: item queued"}
@@ -139,8 +139,12 @@ def process_jobs():
                 output_job_details = proccess_job(input_job_details)
                 
                 # send results to main app
-                response = done_sender(output_job_details)
+                response = description_sender(output_job_details)
                 logging.info(f"response from send --> {response}")
+                
+                # send status update (image out of queue and in process)
+                status_job_details["status"] = 3
+                status_sender(status_job_details)
                                 
                 # log completion
                 logging.info("Finished processing job: %s", input_job_details)

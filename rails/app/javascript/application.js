@@ -3,3 +3,4 @@ import "@hotwired/stimulus";
 import "@hotwired/turbo-rails";
 import "controllers";
 import "non-stimulus/venobox-init";
+import "channels"
