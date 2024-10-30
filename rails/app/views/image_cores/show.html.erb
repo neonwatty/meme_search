@@ -1,10 +1,10 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <%= render partial: "image_core", locals: {image_core: @image_core} %>
-    <%= link_to "Edit this image core", edit_image_core_path(@image_core), class: "edit-button" %>
-    <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
+    <%= link_to "Edit", edit_image_core_path(@image_core), class: "edit-button" %>
+    <%= link_to "Back", image_cores_path, class: "back-button" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this image core", @image_core, method: :delete, class: "delete-button" %>
+      <%= button_to "Destroy", @image_core, method: :delete, class: "delete-button" %>
     </div>
   </div>
 </div>
