@@ -89,8 +89,8 @@ def status_sender(status_job_details: dict) -> None:
 
 def proccess_job(input_job_details: dict) -> dict:
     
-    # # simulate job processing
-    # time.sleep(1)
+    # simulate job processing
+    # time.sleep(5)
     
     # # Specify the file path
     # file_path = Path(input_job_details["image_path"])

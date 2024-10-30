@@ -43,7 +43,8 @@ class ImageCoresController < ApplicationController
 
   def generate_description
     status = @image_core.status
-    if status != 1 && status != 2
+    puts "STATUS CHECK --> #{status}"
+    if status != "in_queue" && status != "processing"
       # update status of instance
       @image_core.status = 1
       @image_core.save
@@ -71,7 +72,7 @@ class ImageCoresController < ApplicationController
       end
     else
       respond_to do |format|
-        flash[:alert] = "Image currently in queue for text description generation."
+        flash[:alert] = "Image currently in queue for text description generation or processing."
         format.html { redirect_back_or_to root_path }
       end
     end
