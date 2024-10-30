@@ -8,7 +8,7 @@ class ImageCore < ApplicationRecord
                   using: {
                     tsearch: { any_word: true }
                   }
-  
+
   # tag lookup scope
   scope :with_selected_tag_names, ->(selected_tag_names) {
     joins(image_tags: :tag_name)
@@ -35,7 +35,7 @@ class ImageCore < ApplicationRecord
   validates :status, presence: true
 
   # before save create description embeddings
-  before_save :refresh_description_embeddings
+  # before_save :refresh_description_embeddings
 
   def refresh_description_embeddings
     # destroy current description embeddings 

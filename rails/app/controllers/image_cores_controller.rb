@@ -31,7 +31,11 @@ class ImageCoresController < ApplicationController
     div_id = "description-image-core-id-#{image_core.id}"
 
     if image_core.save
+      # update view with newly generated description
       ActionCable.server.broadcast "image_description_channel", { div_id: div_id, description: description }
+
+      # re-compute embeddings
+      image_core.refresh_description_embeddings
     else
       puts "Error updating description: #{image.errors.full_messages.join(", ")}"
     end
@@ -54,21 +58,21 @@ class ImageCoresController < ApplicationController
       data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }  
       request.body = data.to_json
       response = http.request(request)
-      puts response.body
 
       respond_to do |format|
         if response.is_a?(Net::HTTPSuccess)
-          puts response.body
-          flash[:notice] = "Image added to queue for automatic description generation."
-          format.html { redirect_back_or_to root_path }
+          # flash[:notice] = "Image added to queue for automatic description generation."
+          # format.html { redirect_back_or_to root_path }
         else
-          puts "Error: #{response.code} - #{response.message}"
+          puts 
+          flash[:alert] = "Error: #{response.code} - #{response.message}"
+          format.html { redirect_back_or_to root_path }
         end
       end
     else
       respond_to do |format|
-        flash[:notice] = "Image currently in queue for text description generation."
-        format.html { redirect_to @image_core }
+        flash[:alert] = "Image currently in queue for text description generation."
+        format.html { redirect_back_or_to root_path }
       end
     end
   end
@@ -167,9 +171,18 @@ class ImageCoresController < ApplicationController
 
     # check if description has changed to update status
     update_params = image_update_params
+    update_description_embeddings = false
+    if @image_core.description != update_params[:description]
+      update_description_embeddings = true
+    end
 
     respond_to do |format|
       if @image_core.update(update_params)
+        # recompute embeddings if description has changed
+        if update_description_embeddings
+          @image_core.refresh_description_embeddings
+        end
+
         flash[:notice] = "Image data was updated succesfully."
         format.html { redirect_to @image_core }
       else

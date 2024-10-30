@@ -34,7 +34,11 @@ def image_to_text(image_path: str) -> str:
         enc_image = model.encode_image(image)
         description = model.answer_question(enc_image, prompt, tokenizer)
         logging.info(f"DONE: image_to_text extraction of image --> {image_path}")
-
+        
+        # cleanup description
+        description = description.strip().split(" ")[3:]
+        description[0] = description[0].capitalize()
+        description = " ".join(description)
         return description
     except Exception as e:
         error_msg = f"FAILURE: image_to_text extraction of image --> {image_path} failed with exception --> {e}"
