@@ -25,7 +25,7 @@ class ImageCore < ApplicationRecord
   # validations
   validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false
   validates_length_of :description, minimum: 0, maximum: 500, allow_blank: true
-  enum status: [ 
+  enum :status, [ 
     :not_started, 
     :in_queue, 
     :processing, 

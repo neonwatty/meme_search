@@ -1,10 +1,9 @@
 import { Application } from "@hotwired/stimulus";
-import Notification from "@stimulus-components/notification";
-import { ColorPreview } from "tailwindcss-stimulus-components";
+import { Alert, ColorPreview } from "tailwindcss-stimulus-components";
 
 const application = Application.start();
-application.register("notification", Notification);
 application.register("color-preview", ColorPreview);
+application.register("alert", Alert);
 
 // Configure Stimulus development experience
 application.debug = false;

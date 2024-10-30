@@ -172,6 +172,7 @@ class ImageCoresController < ApplicationController
 
     # check if description has changed to update status
     update_params = image_update_params
+    puts "update_params --> #{update_params}"
     update_description_embeddings = false
     if @image_core.description != update_params[:description]
       update_description_embeddings = true
@@ -227,20 +228,21 @@ class ImageCoresController < ApplicationController
       
       # Convert names TagName ids
       if permitted_params[:selected_tag_names].present?
-        tag_names = permitted_params[:selected_tag_names]
-        tag_names = tag_names.split(",").map {|name| name.strip}
+        if permitted_params[:selected_tag_names].length > 0
+          tag_names = permitted_params[:selected_tag_names]
+          tag_names = tag_names.split(",").map {|name| name.strip}
 
-        tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
-        tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
-        if tag_names_hash[0][:tag_name].nil?
-          tag_names_hash = []
+          tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
+          tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
+          if tag_names_hash[0][:tag_name].nil?
+            tag_names_hash = []
+          end
+          permitted_params.delete(:image_tags_attributes)
+
+          permitted_params[:image_tags_attributes] = tag_names_hash
         end
-        permitted_params.delete(:image_tags_attributes)
-        permitted_params.delete(:selected_tag_names)
-
-        permitted_params[:image_tags_attributes] = tag_names_hash
       end
-
+      permitted_params.delete(:selected_tag_names)
       permitted_params
     end
 
