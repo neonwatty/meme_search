@@ -45,10 +45,10 @@
     </div>
     <div class="mx-auto w-full flex space-x-8 items-center">
       <div class="inline-block ml-2">
-        <%= form.submit class: "submit-button" %>
+        <%= form.submit "Update", class: "submit-button" %>
       </div>
       <%= link_to "Back", @image_core, class: "show-button" %>
-      <%= link_to "Back to image cores", image_cores_path, class: "back-button" %>
+      <%= link_to "Back to index", image_cores_path, class: "back-button" %>
     </div>
   </div>
 <%end%>

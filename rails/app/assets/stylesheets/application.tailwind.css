@@ -51,21 +51,21 @@
 
 @layer components {
   .back-button {
-    @apply ml-2 rounded-lg py-3 px-5 bg-amber-400 text-black inline-block font-semibold text-center;
+    @apply ml-2 rounded-lg py-3 px-5 bg-amber-400 text-black border border-black inline-block font-semibold text-center;
   }
   .show-button {
-    @apply rounded-lg py-3 px-5 bg-fuchsia-500 text-black inline-block font-semibold border border-black;
+    @apply rounded-lg py-3 px-5 bg-fuchsia-500 text-black inline-block font-semibold border border-black text-center;
   }
   .edit-button {
-    @apply ml-2 rounded-lg py-3 px-5 bg-fuchsia-500 text-black inline-block font-semibold;
+    @apply ml-2 rounded-lg py-3 px-5 bg-fuchsia-500 text-black border border-black inline-block font-semibold text-center;
   }
   .delete-button {
-    @apply ml-2 rounded-lg py-3 px-5 bg-red-500 text-black inline-block font-semibold;
+    @apply ml-2 rounded-lg py-3 px-5 bg-red-500 text-black border border-black inline-block font-semibold text-center;
   }
   .new-button {
-    @apply ml-2 rounded-lg py-3 px-5 bg-emerald-500 text-black inline-block font-semibold;
+    @apply ml-2 rounded-lg py-3 px-5 bg-emerald-500 text-black border border-black inline-block font-semibold text-center;
   }
   .submit-button {
-    @apply rounded-lg py-3 px-5 bg-emerald-300 text-black inline-block font-semibold cursor-pointer;
+    @apply rounded-lg py-3 px-5 bg-emerald-300 text-black border border-black inline-block font-semibold cursor-pointer text-center;
   }
 }

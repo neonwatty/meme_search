@@ -16,6 +16,7 @@
     <%= javascript_importmap_tags %>
     <style>
       textarea {
+      height: 7rem;
       padding: 12px 20px;
       box-sizing: border-box;
       border: 2px solid #ccc;
@@ -26,16 +27,15 @@
       }
     </style>
   </head>
-  <body>
+  <body class="bg-white dark:bg-slate-800 text-black dark:text-white">
     <%= render 'shared/nav' %>
-    <div class="bg-white dark:bg-slate-800 h-screen">
-      <div class="bg-white dark:bg-slate-800 text-black dark:text-white h-auto pb-10 pt-10">
-        <% flash.each do |key, message| %>
-          <%= render partial: "shared/notifications", locals: {key: key, message: message} %>
-        <% end %>
-        <main class="container mx-auto px-5 flex content-center items-center justify-center">
-          <%= yield %>
-        </main>
-      </div>
-    </body>
-  </html>
+    <div class="pt-10 h-full">
+      <% flash.each do |key, message| %>
+        <%= render partial: "shared/notifications", locals: {key: key, message: message} %>
+      <% end %>
+      <main class="container mx-auto px-5 flex content-center items-center justify-center h-auto">
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

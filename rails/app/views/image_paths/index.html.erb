@@ -1,10 +1,10 @@
-<div class="w-full">
+<div class="w-full h-screen">
   <% content_for :title, "Image paths" %>
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Image paths</h1>
     <%= link_to "New image path", new_image_path_path, class: "new-button" %>
   </div>
-  <div id="image_paths" class="min-w-full flex flex-col items-start">
+  <div id="image_paths" class="min-w-full h-full flex flex-col items-start">
     <% @image_paths.each do |image_path| %>
       <div class="flex flex-row">
         <%= render image_path %>
@@ -13,7 +13,7 @@
         </div>
       </div>
     <% end %>
-    <div class="pagy-nav flex my-5 mb-5 pb-5 justify-center center-content">
+    <div class="pagy-nav flex pb-5 justify-center center-content bg-white dark:bg-slate-800">
       <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
     </div>
   </div>

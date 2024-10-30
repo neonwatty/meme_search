@@ -6,9 +6,9 @@
       <div class="flex flex-col my-auto space-y-2 w-full items-center mt-3">
         <div class="flex flex-row items-center w-full justify-between">
           <h3 class="mx-2"> description: </h3>
-          <div class="flex flex-row items-center justify-center">
+          <div class="flex flex-row items-center justify-center space-x-2 mr-1">
             <%= form_with(url: generate_description_image_core_path(image_core.id), local: true) do |form| %>
-              <% form.submit "generate", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
+              <% form.submit "generate 🪄", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
             <% end %>
             <% div_id = "status-image-core-id-#{image_core.id}" %>
             <%= render partial: "generate_status", locals: {div_id: "status-image-core-id-#{image_core.id}", status: image_core.status} %>
@@ -19,7 +19,7 @@
       <div class="flex flex-row my-auto ml-5 h-full items-center">
         <h3 class="mr-2"> tags: </h3>
         <% image_tags = image_core.image_tags.map {|assoc| assoc.tag_name}.map {|item| {name: item.name, color: item.color}} %>
-        <div class="flex flex-col space-y-3 mb-5 mt-5 mx-auto text-center w-auto">
+        <div class="flex flex-row space-x-3 mb-5 mt-5 mx-auto text-center w-auto">
           <% image_tags.each do |tag| %>
             <div class="text-black dark:text-white p-2 rounded-xl" style="background-color: <%= tag[:color] %>;">
               <%= tag[:name] %>
