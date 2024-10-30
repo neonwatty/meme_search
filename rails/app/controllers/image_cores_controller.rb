@@ -50,7 +50,6 @@ class ImageCoresController < ApplicationController
       @image_core.save
 
       # send request
-      puts "INFO: starting"
       uri = URI('http://localhost:8000/add_job')
       http = Net::HTTP.new(uri.host, uri.port)
 
@@ -122,32 +121,38 @@ class ImageCoresController < ApplicationController
 
   # GET /image_cores
   def index
-    if params[:selected_tag_names].present?
-        if params[:selected_tag_names].length > 0
-          selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
-          @image_cores = ImageCore.with_selected_tag_names(selected_tag_names)
-        end
+    if !params[:selected_tag_names].present? && !params[:selected_path_names].present? && !params[:has_embeddings].present?
+      @image_cores = ImageCore.all
+      @pagy, @image_cores = pagy(@image_cores)
     else
-      @image_cores = ImageCore.order(created_at: :desc)
-    end
 
-    if params[:selected_path_names].present?
-      if params[:selected_path_names].length > 0
-        selected_path_names = params[:selected_path_names].split(",").map {|path| path.strip}
-        keeper_ids = @image_cores.select {|item| selected_path_names.include?(item.image_path.name.strip)}.map {|item| item.id}
-        @image_cores = ImageCore.where(id: keeper_ids)
+      if params[:selected_tag_names].present?
+          if params[:selected_tag_names].length > 0
+            selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
+            @image_cores = ImageCore.with_selected_tag_names(selected_tag_names)
+          end
+      else
+        @image_cores = ImageCore.order(created_at: :desc)
       end
-    end
 
-    if params[:has_embeddings].present?
-        keeper_ids = @image_cores.select { |item| item.image_embeddings.length > 0 }.map { |item| item.id }
-        @image_cores = ImageCore.where(id: keeper_ids)
-    else
-        keeper_ids = @image_cores.select { |item| item.image_embeddings.length == 0 }.map { |item| item.id }
-        @image_cores = ImageCore.where(id: keeper_ids)
-    end
+      if params[:selected_path_names].present?
+        if params[:selected_path_names].length > 0
+          selected_path_names = params[:selected_path_names].split(",").map {|path| path.strip}
+          keeper_ids = @image_cores.select {|item| selected_path_names.include?(item.image_path.name.strip)}.map {|item| item.id}
+          @image_cores = ImageCore.where(id: keeper_ids)
+        end
+      end
 
-    @pagy, @image_cores = pagy(@image_cores)
+      if params[:has_embeddings].present?
+          keeper_ids = @image_cores.select { |item| item.image_embeddings.length > 0 }.map { |item| item.id }
+          @image_cores = ImageCore.where(id: keeper_ids)
+      else
+          keeper_ids = @image_cores.select { |item| item.image_embeddings.length == 0 }.map { |item| item.id }
+          @image_cores = ImageCore.where(id: keeper_ids)
+      end
+
+      @pagy, @image_cores = pagy(@image_cores)
+    end
 
   end
 

@@ -1,26 +1,6 @@
 <div class="w-full">
   <% content_for :title, "Image cores" %>
-  <div class="min-w-full flex flex-col items-center">
-    <%= form_with url: image_cores_path, method: :get do %>
-      <div class="flex flex-row">
-        <div class="flex flex-col">
-          <%= label_tag :search, ' tags', class: "my-auto mr-4" %>
-          <%= render 'tag_toggle' %>
-        </div>
-        <div class="flex flex-col">
-          <%= label_tag :search, ' paths', class: "my-auto mr-4" %>
-          <%= render 'path_toggle' %>
-        </div>
-        <div class="flex flex-col content-center justify-center">
-          <%= label_tag :has_embeddings, 'has embeddings?', class: "ms-3" %>
-          <div class="flex flex-row content-center justify-center">
-            <%= check_box_tag :has_embeddings, checked: true, id: "has_embeddings_checkbox", class:"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %>
-          </div>
-        </div>
-        <%= submit_tag 'Filter', class: "bg-emerald-400 hover hover:bg-emerald-300 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer" %>
-      </div>
-    <% end %>
-  </div>
+  <%= render "filters" %>
   <div id="index_image_cores">
     <% @image_cores.each do |image_core| %>
       <div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 p-2 rounded-2xl w-auto flex flex-row m-5">
@@ -33,25 +13,3 @@
     <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 </div>
-<script>
-  // Function to save the checkbox state in local storage
-  function saveCheckboxState() {
-  const checkbox = document.getElementById('has_embeddings_checkbox');
-  localStorage.setItem('has_embeddings_checkbox', checkbox.checked);
-  }
-  // Function to load the checkbox state from local storage
-  function loadCheckboxState() {
-  const checkbox = document.getElementById('has_embeddings_checkbox');
-  const savedState = localStorage.getItem('has_embeddings_checkbox');
-  // Check if the saved state is 'true' and set the checkbox accordingly
-  if (savedState === 'true') {
-  checkbox.checked = true;
-  } else {
-  checkbox.checked = false;
-  }
-  }
-  // Event listener to save the state when the checkbox is clicked
-  document.getElementById('has_embeddings_checkbox').addEventListener('change', saveCheckboxState);
-  // Load the checkbox state when the page is loaded
-  window.onload = loadCheckboxState;
-</script>
