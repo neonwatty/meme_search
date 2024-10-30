@@ -26,15 +26,15 @@ class ImageCoresController < ApplicationController
     id = received_data[:image_core_id].to_i
     description = received_data[:description]
 
-    image = ImageCore.find(id)
-    image.description = description
+    image_core = ImageCore.find(id)
+    image_core.description = description
+    div_id = "description-image-core-id-#{image_core.id}"
 
-    if image.save
-      puts "Description updated successfully."
+    if image_core.save
+      ActionCable.server.broadcast "image_description_channel", { div_id: div_id, description: description }
     else
       puts "Error updating description: #{image.errors.full_messages.join(", ")}"
-    end    
-    render json: { received: received_data }, status: :ok
+    end
   end
 
   def generate_description
@@ -168,9 +168,6 @@ class ImageCoresController < ApplicationController
     # check if description has changed to update status
     update_params = image_update_params
 
-    puts "params --> #{params}"
-    puts "update_params --> #{update_params}"
-
     respond_to do |format|
       if @image_core.update(update_params)
         flash[:notice] = "Image data was updated succesfully."
@@ -212,8 +209,7 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      puts "permitted_params --> #{params}"
-      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, :status, image_tags_attributes: [:id, :name, :_destroy])
+      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, image_tags_attributes: [:id, :name, :_destroy])
       
       # Convert names TagName ids
       if permitted_params[:selected_tag_names].present?
