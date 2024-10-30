@@ -62,7 +62,7 @@ Rails.application.configure do
   config.active_job.verbose_enqueue_logs = true
 
   # keep log output to warnings and above
-  config.log_level = :warn
+  # config.log_level = :warn
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true

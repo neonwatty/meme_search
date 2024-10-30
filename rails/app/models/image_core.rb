@@ -14,7 +14,7 @@ class ImageCore < ApplicationRecord
     joins(image_tags: :tag_name)
       .where(tag_names: { name: selected_tag_names })
       .distinct
-      .order(created_at: :desc) 
+      .order(created_at: :desc)
   }
 
   # associations
