@@ -224,8 +224,8 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, image_tags_attributes: [:id, :name, :_destroy])
-      
+      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, :selected_path_names, image_tags_attributes: [:id, :name, :_destroy])
+      puts "permitted_params[:selected_path_names] --> #{permitted_params[:selected_path_names]}"
       # Convert names TagName ids
       if permitted_params[:selected_tag_names].present?
         if permitted_params[:selected_tag_names].length > 0
