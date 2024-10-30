@@ -10,7 +10,7 @@
       <%= render partial: "generate_status", locals: {div_id: "status-image-core-id-#{image_core.id}", status: image_core.status} %>
     </div>
     <h3> Image description </h3>
-    <textarea class="text-black" disabled rows=4 cols=20 id="description-image-core-id-<%image_core.id%>">
+    <textarea class="text-black" disabled rows=4 cols=20 id="description-image-core-id-<%=image_core.id%>">
     <%= image_core.description %>
     </textarea>
   </div>

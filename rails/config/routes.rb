@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :image_cores do
     collection do
       post "search_items"
-      post "done_receiver"
+      post "description_receiver"
       post "status_receiver"
     end
     member do
