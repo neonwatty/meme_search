@@ -2,11 +2,22 @@
   <div data-controller="slideover">
     <style>
       dialog.slideover[open] {
-        animation: slide-in-from-left 250ms forwards ease;
+        animation: slide-in-from-left 300ms forwards ease-in-out;
+      }
+
+      dialog.slideover[closing] {
+        pointer-events: none;
+        animation: slide-out-to-left 300ms forwards ease-in-out;
       }
 
       @keyframes slide-in-from-left{
         from {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes slide-out-to-left{
+        to {
           transform: translateX(-100%);
         }
       }
