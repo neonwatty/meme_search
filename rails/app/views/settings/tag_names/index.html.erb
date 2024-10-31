@@ -2,14 +2,14 @@
   <% content_for :title, "tag names" %>
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">tag names</h1>
-    <%= link_to "New tag name", new_tag_name_path, class: "new-button" %>
+    <%= link_to "New tag name",[:new, :settings, :tag_name], class: "new-button" %>
   </div>
   <div id="tag_names" class="min-w-full flex flex-col items-start">
     <% @tag_names.each do |tag_name| %>
       <div class="flex flex-row">
         <%= render tag_name %>
         <div class="mt-7 ml-5 text-black">
-          <%= link_to "Adjust / delete this tag name", tag_name, class: "bg-fuchsia-200 p-2 rounded-2xl" %>
+          <%= link_to "Adjust / delete this tag name", settings_tag_name_path(tag_name), class: "bg-fuchsia-200 p-2 rounded-2xl" %>
         </div>
       </div>
     <% end %>

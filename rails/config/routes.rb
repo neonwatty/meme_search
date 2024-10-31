@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :image_embeddings
   resources :image_tags
-  resources :tag_names
+
+  resources :settings, only: [ :index ]
+  namespace :settings do
+    resources :tag_names
+  end
+
+  # resources :tag_names
   resources :image_paths
   resources :image_cores do
     collection do
@@ -15,7 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :settings, only: [:index]
+
 
   # Root
   root "image_cores#index"
