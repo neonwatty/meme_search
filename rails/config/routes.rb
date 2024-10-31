@@ -5,10 +5,15 @@ Rails.application.routes.draw do
   resources :image_paths
 
   # Configuring resources for 'image_cores' with custom collection route
-  get "search", to: "image_cores#search"
+  # get "search", to: "image_cores#search"
 
+  # Settings routes
+  # get "settings"
+
+  # Full set of resources for image_cores
   resources :image_cores do
     collection do
+      get "search"
       post "search_items"
       post "description_receiver"
       post "status_receiver"
