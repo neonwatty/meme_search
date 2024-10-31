@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  rails_app:
+    build:
+      context: ./rails_app
+      dockerfile: Dockerfile
+    container_name: meme_search_rails_app
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@meme-search-db:5432/meme_search_production
+    ports:
+      - "3000:3000"
+    depends_on:
+      meme-search-db:
+        condition: service_healthy
+
+  meme-search-db:
+    image: pgvector/pgvector:pg17
+    container_name: meme-search-db
+    volumes:
+      - ./data/meme-search-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: meme_search_production
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  image_to_text_app:
+    build:
+      context: ./image_to_text_app
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./image_to_text_app:/app
+      - ./rails_app/public:/public
+    container_name: meme_search_image_to_text_app
+    deploy:
+      resources:
+        limits: # <-- roughly tested min memory for cpu usage
+          memory: 12GB
+        # reservations: # <-- uncomment for gpu usage
+        #   devices:
+        #     - driver: nvidia
+        #       count: 1
+        #       capabilities: [gpu]

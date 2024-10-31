@@ -17,4 +17,4 @@ production:
   encoding: unicode
   pool: 5
   timeout: 5000
-  database: meme_production
+  url: <%= ENV["DATABASE_URL_PRODUCTION"] %>
