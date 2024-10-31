@@ -9,7 +9,7 @@
       <div class="flex flex-row">
         <%= render tag_name %>
         <div class="mt-7 ml-5 text-black">
-          <%= link_to "Adjust / delete this tag name", settings_tag_name_path(tag_name), class: "bg-fuchsia-200 p-2 rounded-2xl" %>
+          <%= link_to "Adjust / delete this tag name", [:settings, tag_name], class: "bg-fuchsia-200 p-2 rounded-2xl" %>
         </div>
       </div>
     <% end %>
