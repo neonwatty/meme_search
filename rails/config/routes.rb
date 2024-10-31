@@ -5,10 +5,9 @@ Rails.application.routes.draw do
   resources :settings, only: [ :index ]
   namespace :settings do
     resources :tag_names
+    resources :image_paths
   end
 
-  # resources :tag_names
-  resources :image_paths
   resources :image_cores do
     collection do
       get "search"

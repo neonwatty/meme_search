@@ -68,4 +68,7 @@
   .submit-button {
     @apply rounded-lg py-3 px-5 bg-emerald-300 text-black border border-black inline-block font-semibold cursor-pointer text-center;
   }
+  .index-button {
+    @apply rounded-lg py-3 px-5 bg-amber-500 text-black border border-black inline-block font-semibold cursor-pointer text-center;
+  }
 }

@@ -2,13 +2,13 @@ module Settings
   class TagNamesController < ApplicationController
     before_action :set_tag_name, only: %i[ show edit update destroy ]
 
-    # GET /tag_names
+    # GET /settings/tag_names
     def index
       @tag_names = TagName.order(created_at: :desc)
       @pagy, @tag_names = pagy(@tag_names)
     end
 
-    # GET /tag_names/1
+    # GET /settings/tag_names/1
     def show
     end
 
@@ -17,11 +17,11 @@ module Settings
       @tag_name = TagName.new
     end
 
-    # GET /tag_names/1/edit
+    # GET /settings/tag_names/1/edit
     def edit
     end
 
-    # POST /tag_names
+    # POST /settings/tag_names
     def create
       @tag_name = TagName.new(tag_name_params)
 
@@ -36,7 +36,7 @@ module Settings
       end
     end
 
-    # PATCH/PUT /tag_names/1
+    # PATCH/PUT /settings/tag_names/1
     def update
       respond_to do |format|
         if @tag_name.update(tag_name_params)
@@ -49,7 +49,7 @@ module Settings
       end
     end
 
-    # DELETE /tag_names/1
+    # DELETE /settings/tag_names/1
     def destroy
       @tag_name.destroy!
 

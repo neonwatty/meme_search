@@ -1,4 +1,4 @@
-<%= form_with(model: image_path, class: "contents") do |form| %>
+<%= form_with(model: [:settings, image_path], class: "contents") do |form| %>
   <div class="my-5">
     <div class="text-black dark:text-white">
       enter a valid subdirectory in /public (browser cannot verify its validity)

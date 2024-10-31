@@ -1,0 +1,10 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <%= render @image_path %>
+    <%= link_to "Edit this image path", [:edit, :settings, @image_path], class: "edit-button" %>
+    <%= link_to "Back to image paths", [:settings, :image_paths], class: "back-button" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this image path", [:settings, @image_path], method: :delete, class: "delete-button" %>
+    </div>
+  </div>
+</div>

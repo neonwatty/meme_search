@@ -1,9 +1,12 @@
 <div class="w-full">
-  <% content_for :title, "tag names" %>
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">tag names</h1>
-    <%= link_to "New tag name",[:new, :settings, :tag_name], class: "new-button" %>
+  <div class="flex flex-row items-center justify-between w-full border border-b-2 border-t-0 border-r-0 border-l-0 border-black">
+    <h1 class="font-bold text-4xl mb-2">Current tags</h1>
+    <div class="flex ml-16 mb-2">
+      <%= link_to "Create new tag",[:new, :settings, :tag_name], class: "new-button" %>
+      <%= link_to "Back to settings",[:settings], class: "back-button" %>
+    </div>
   </div>
+  <% content_for :title, "Current tags" %>
   <div id="tag_names" class="min-w-full flex flex-col items-start">
     <% @tag_names.each do |tag_name| %>
       <div class="flex flex-row">
