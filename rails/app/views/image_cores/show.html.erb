@@ -1,6 +1,6 @@
 <div class="flex flex-col h-full items-center justify-center">
   <div class="flex flex-row space-x-4 mb-3">
-    <%= link_to "Edit", edit_image_core_path(@image_core), class: "edit-button" %>
+    <%= link_to "Edit", [:edit, @image_core], class: "edit-button" %>
     <%= link_to "Back to Index", root_path, class: "back-button" %>
     <%= button_to "Destroy", @image_core, method: :delete,  data: { confirm: 'Are you sure you want to delete this upload?' }, class: "delete-button" %>
   </div>
