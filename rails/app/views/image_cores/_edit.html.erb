@@ -1,32 +1,42 @@
-<%= form_with(model: image_core, class: "contents") do |form| %>
-  <div class="flex flex-col">
-    <div class="flex flex-row space-x-10 mb-5 mt-5">
-      <% absolute_path, image_name = absolute_image_path(image_core) %>
-      <%= image_tag(absolute_path, size: "300", alt: image_name) %>
-      <div class="flex flex-col my-auto">
-        <h3> Image description </h3>
-        <%= form.text_area(:description, rows: 4, cols: 50, placeholder: image_core.description, class:"text-black") %>
-      </div>
-      <div class="flex flex-col my-auto">
-        <h3> Image tags </h3>
-        <% tag_names = TagName.all.map {|item| item.name.strip} %>
-        <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
-        <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name } # &.compact&.join(", ") %>
-        <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
-          <div data-controller="multi-select" class="relative">
-            <div
-    data-action="click->multi-select#toggle"
-              class="border rounded-md p-3 bg-white shadow-md cursor-pointer"
-              >
-              <input readonly name="image_core[selected_tag_names]" data-multi-select-target="selectedItems" class="text-gray-600" placeholder="Choose tags">
+<div class="text-black dark:text-white bg-slate-200 dark:bg-slate-700 rounded-2xl w-auto px-4 flex flex-row">
+  <%= form_with(model: image_core, class: "contents") do |form| %>
+    <div class="flex flex-col space-x-10 mb-5 mt-5 w-auto content-center"  id="<%dom_id image_core %>">
+      <div class="flex flex-col items-center content-center h-full w-auto">
+        <% absolute_path, image_name = absolute_image_path(image_core) %>
+        <%= image_tag(absolute_path, size: "450", alt: image_name) %>
+        <div class="flex flex-col my-auto space-y-2 w-full items-center mt-3">
+          <div class="flex flex-row items-center w-full justify-between">
+            <h3 class="mx-2"> description: </h3>
+            <div class="flex flex-row items-center justify-center space-x-2 mr-1">
+              <%= form_with(url: generate_description_image_core_path(image_core.id), local: true) do |form| %>
+                <% form.submit "generate 🪄", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
+              <% end %>
+              <% div_id = "status-image-core-id-#{image_core.id}" %>
+              <%= render partial: "generate_status", locals: {div_id: "status-image-core-id-#{image_core.id}", status: image_core.status} %>
             </div>
-            <div
-    data-multi-select-target="options"
-    class="absolute left-0 right-0 mt-1 hidden bg-white border rounded-md shadow-lg z-10"
-  >
-              <% tag_names.each_with_index do |tag, index|  %>
-                <div class="p-2 flex items-center">
-                  <%= tag_fields.text_field :name,
+          </div>
+          <%= form.text_area(:description, placeholder: image_core.description, class:"text-black w-full") %>
+        </div>
+        <div class="flex flex-col my-auto mt-5 h-full items-center">
+          <h3 class="mb-2"> tags: </h3>
+          <% tag_names = TagName.all.map {|item| item.name.strip} %>
+          <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
+          <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name } # &.compact&.join(", ") %>
+          <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
+            <div data-controller="multi-select" class="relative">
+              <div
+                 data-action="click->multi-select#toggle"
+                class="border rounded-md p-3 bg-white shadow-md cursor-pointer"
+                >
+                <input readonly name="image_core[selected_tag_names]" data-multi-select-target="selectedItems" class="text-gray-900" placeholder="Choose tags">
+              </div>
+              <div
+                  data-multi-select-target="options"
+                  class="absolute left-0 right-0 mt-1 hidden bg-white border rounded-md shadow-lg z-10"
+                >
+                <% tag_names.each_with_index do |tag, index|  %>
+                  <div class="p-2 flex items-center">
+                    <%= tag_fields.text_field :name,
                         class: 'mr-2 pr-4', 
                         data: {
                           action: "change->multi-select#updateSelection"
@@ -35,20 +45,19 @@
                         value: tag.to_s.downcase,
                         checked: image_tags.include?(tag) ? true : false
                   %>
-                  <%= tag_fields.label :tag, tag.to_s, class: "text-black"%>
-                </div>
-              <% end %>
+                    <%= tag_fields.label :tag, tag.to_s, class: "text-black"%>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="w-full flex items-center justify-center">
+            <div class="mt-5">
+              <%= form.submit "Update", class: "submit-button" %>
             </div>
           </div>
-        <% end %>
+        </div>
       </div>
     </div>
-    <div class="mx-auto w-full flex space-x-8 items-center justify-center">
-      <div class="inline-block ml-2">
-        <%= form.submit "Update", class: "submit-button" %>
-      </div>
-      <%= link_to "Back", @image_core, class: "show-button" %>
-      <%= link_to "Back to index", :image_cores, class: "back-button" %>
-    </div>
-  </div>
-<%end%>
+  <% end %>
+</div>

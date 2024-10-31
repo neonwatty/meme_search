@@ -1,7 +1,7 @@
 <div id="<%= div_id %>">
   <% case status %>
   <% when "not_started" %>
-    <div class="bg-purple-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm">
+    <div class="bg-purple-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm hidden">
       not started
     </div>
   <% when "in_queue" %>
@@ -13,7 +13,7 @@
       processing
     </div>
   <% when "done" %>
-    <div class="bg-emerald-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm">
+    <div class="bg-emerald-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm hidden">
       done
     </div>
   <% when "failed" %>
