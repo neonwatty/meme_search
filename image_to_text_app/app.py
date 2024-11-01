@@ -63,27 +63,23 @@ def description_sender(output_job_details: dict) -> dict:
     try:
         response = requests.post(APP_URL + "description_receiver", json={"data": output_job_details})
         if response.status_code == 200:
-            logging.info(response.json()) 
-            return {"data": "SUCCESS: item queued"}
+            logging.info(f"SUCCESS: description_sender successfully delivered {output_job_details}") 
         else:
-            logging.info(f'Error: {response.status_code}')
-            return {"data": "FAILURE: item not queued"}
+            logging.info(f'FAILURE: description_sender failed to deliver {output_job_details} with response code {response.status_code}')
     except Exception as e:
-        failure_message = f"FAILURE: queue failed with exception {e}"
+        failure_message = f"FAILURE: description_sender failed with exception {e}"
         logging.error(failure_message)
-        return {"data": failure_message}
     
     
 def status_sender(status_job_details: dict) -> None:
     try:
-        logging.info(f"STATUS: update sent for image id --> {status_job_details["image_core_id"]}")
         response = requests.post(APP_URL + "status_receiver", json={"data": status_job_details})
         if response.status_code >= 200 and response.status_code < 300:
-            logging.info(response.json()) 
+            logging.info(f"SUCCESS: status_sender successfully delivered {status_job_details}") 
         else:
-            logging.info(f'FAILURE: {response.status_code}')
+            logging.info(f'FAILURE: status_sender failed to deliver {status_job_details} with response code {response.status_code}')
     except Exception as e:
-        failure_message = f"FAILURE: queue failed with exception {e}"
+        failure_message = f"FAILURE: status_sender failed with exception {e}"
         logging.error(failure_message)
 
 
@@ -138,8 +134,7 @@ def process_jobs():
                 output_job_details = proccess_job(input_job_details)
                 
                 # send results to main app
-                response = description_sender(output_job_details)
-                logging.info(f"response from send --> {response}")
+                description_sender(output_job_details)
                 
                 # send status update (image out of queue and in process)
                 status_job_details["status"] = 3
@@ -167,6 +162,13 @@ def add_job(job: Job):
     conn.close()
     
     logging.info("Job added to queue: %s", job)
+    
+    # update status
+    status_job_details = {"image_core_id": job.image_core_id, "status": 1}
+    
+    # send status update (image out of queue and in process)
+    status_sender(status_job_details)
+    
     return {"status": "Job added to queue"}
 
 

@@ -43,7 +43,6 @@ class ImageCoresController < ApplicationController
 
   def generate_description
     status = @image_core.status
-    puts "STATUS CHECK --> #{status}"
     if status != "in_queue" && status != "processing"
       # update status of instance
       @image_core.status = 1
@@ -64,7 +63,6 @@ class ImageCoresController < ApplicationController
           # flash[:notice] = "Image added to queue for automatic description generation."
           # format.html { redirect_back_or_to root_path }
         else
-          puts 
           flash[:alert] = "Error: #{response.code} - #{response.message}"
           format.html { redirect_back_or_to root_path }
         end
@@ -122,33 +120,33 @@ class ImageCoresController < ApplicationController
   # GET /image_cores
   def index
     if !params[:selected_tag_names].present? && !params[:selected_path_names].present? && !params[:has_embeddings].present?
-      @image_cores = ImageCore.all
+      @image_cores = ImageCore.order(updated_at: :desc)
       @pagy, @image_cores = pagy(@image_cores)
     else
 
       if params[:selected_tag_names].present?
           if params[:selected_tag_names].length > 0
             selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
-            @image_cores = ImageCore.with_selected_tag_names(selected_tag_names)
+            @image_cores = ImageCore.with_selected_tag_names(selected_tag_names).order(updated_at: :asc)
           end
       else
-        @image_cores = ImageCore.order(created_at: :desc)
+        @image_cores = ImageCore.order(updated_at: :desc)
       end
 
       if params[:selected_path_names].present?
         if params[:selected_path_names].length > 0
           selected_path_names = params[:selected_path_names].split(",").map {|path| path.strip}
           keeper_ids = @image_cores.select {|item| selected_path_names.include?(item.image_path.name.strip)}.map {|item| item.id}
-          @image_cores = ImageCore.where(id: keeper_ids)
+          @image_cores = ImageCore.where(id: keeper_ids).order(updated_at: :asc)
         end
       end
 
       if params[:has_embeddings].present?
           keeper_ids = @image_cores.select { |item| item.image_embeddings.length > 0 }.map { |item| item.id }
-          @image_cores = ImageCore.where(id: keeper_ids)
+          @image_cores = ImageCore.where(id: keeper_ids).order(updated_at: :asc)
       else
           keeper_ids = @image_cores.select { |item| item.image_embeddings.length == 0 }.map { |item| item.id }
-          @image_cores = ImageCore.where(id: keeper_ids)
+          @image_cores = ImageCore.where(id: keeper_ids).order(updated_at: :asc)
       end
 
       @pagy, @image_cores = pagy(@image_cores)
@@ -195,7 +193,6 @@ class ImageCoresController < ApplicationController
 
     # check if description has changed to update status
     update_params = image_update_params
-    puts "update_params --> #{update_params}"
     update_description_embeddings = false
     if @image_core.description != update_params[:description]
       update_description_embeddings = true
@@ -284,7 +281,6 @@ class ImageCoresController < ApplicationController
     selected_tag_names = permitted_params[:selected_tag_names].split(",").map {|tag| tag.strip}
     permitted_params.delete(:selected_tag_names)
     permitted_params[:selected_tag_names] = selected_tag_names
-    puts "CHECKBOX --> #{permitted_params[:checkbox_value]}"
     return permitted_params
   end
 

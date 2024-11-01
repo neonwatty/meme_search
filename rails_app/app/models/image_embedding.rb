@@ -1,5 +1,3 @@
-require 'informers'
-
 class ImageEmbedding < ApplicationRecord
   belongs_to :image_core
 
@@ -8,18 +6,11 @@ class ImageEmbedding < ApplicationRecord
   has_neighbors :embedding
   before_save :compute_embedding, if: -> { embedding.nil? }
 
-  attr_accessor :model
-
-  def initialize(attributes = {})
-    super
-    @model = Informers.pipeline("embedding", "sentence-transformers/all-MiniLM-L6-v2")
-  end
-
   def get_neighbors
     nearest_neighbors(:embedding, distance: "cosine").first(10)
   end
-  
+
   def compute_embedding
-    self.embedding = model.(self.snippet)
+    self.embedding = $embedding_model.call(self.snippet)
   end
 end

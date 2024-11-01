@@ -11,10 +11,11 @@ development:
   pool: 5
   timeout: 5000
   database: meme_development
+  # url: <%= ENV["DATABASE_URL"] %>
 
 production:
   adapter: postgresql
   encoding: unicode
   pool: 5
   timeout: 5000
-  url: <%= ENV["DATABASE_URL_PRODUCTION"] %>
+  url: <%= ENV["DATABASE_URL"] %>

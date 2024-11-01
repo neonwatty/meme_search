@@ -2,7 +2,7 @@
 FROM python:3.12-slim
 
 # install uv
-RUN pip install uv
+RUN pip --timeout=1000 install uv
 
 # Set the working directory
 WORKDIR /app
