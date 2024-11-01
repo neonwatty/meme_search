@@ -173,6 +173,7 @@ def add_job(job: Job):
 @app.get('/')
 def home():
     logging.info("HELLO WORLD")
+    return {"status", "HELLO WORLD"}
 
         
 if __name__ == '__main__':
