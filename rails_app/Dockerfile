@@ -17,7 +17,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
-ENV RAILS_ENV="development" \
+ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development" \
@@ -47,8 +47,6 @@ RUN bundle exec bootsnap precompile app/ lib/
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
-
-
 # Final stage for app image
 FROM base
 
@@ -64,6 +62,9 @@ USER 1000:1000
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Downlaod model weights by running test embedding
+RUN ruby embedding_model_download.rb
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000

@@ -1,30 +1,13 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from PIL import Image
 import transformers
 import logging
+from model_init import model, tokenizer
 
 # turn down transformers verbose logs
 # transformers.logging.set_verbosity_error()
 
 # initialize logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# model identifiers
-model_id = "vikhyatk/moondream2"
-revision = "2024-08-26"
-
-# instantiate model and tokenizer
-logging.info("INFO: instantiating model...")
-model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    trust_remote_code=True,
-    revision=revision,
-    timeout=180
-)
-logging.info("INFO:... complete")
-logging.info("INFO: instantiating tokenizer...")
-tokenizer = AutoTokenizer.from_pretrained(model_id, revision=revision)
-logging.info("...complete")
 
 
 def image_to_text(image_path: str) -> str:

@@ -38,7 +38,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./image_to_text_app:/app
+      # - ./image_to_text_app:/app
       - ./rails_app/public:/public
     container_name: meme_search_image_to_text_app
     deploy:
