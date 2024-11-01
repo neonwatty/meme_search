@@ -12,6 +12,10 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 def image_to_text(image_path: str) -> str:
     try:
+        # normalize image_path to working directory
+        image_path = "/app" + image_path
+        
+        # create prompt
         logging.info(f"STARTING: image_to_text extraction of image --> {image_path}")
         prompt = "Describe this image, including any text you see on the image."
         
