@@ -16,10 +16,10 @@ class ImagePath < ApplicationRecord
 
     def valid_dir
       base_dir = Dir.getwd
-      full_path = base_dir + "/public/" + self.name
+      full_path = base_dir + "/public/memes/" + self.name
       puts full_path
       unless self.name.length > 0 && File.directory?(full_path)
-        self.errors.add :name, message: "The input path - #{self.name} - is not a valid subdirectory in /public"
+        self.errors.add :name, message: "The input path - #{self.name} - is not a valid subdirectory in /public/memes"
       end
     end
 
@@ -29,7 +29,7 @@ class ImagePath < ApplicationRecord
 
   def list_files_in_directory
     base_dir = Dir.getwd
-    full_path = base_dir + "/public/" + self.name
+    full_path = base_dir + "/public/memes/" + self.name
 
     if File.directory?(full_path)
       # allowed extensions

@@ -121,7 +121,7 @@ def process_jobs():
                 job_id, image_core_id, image_path = job
                 
                 # pack up data for processing / status update
-                input_job_details = {"image_core_id": image_core_id, "image_path": "/public/" + image_path}
+                input_job_details = {"image_core_id": image_core_id, "image_path": "/public/memes/" + image_path}
                 status_job_details = {"image_core_id": image_core_id, "status": 2}
                 
                 # send status update (image out of queue and in process)

@@ -13,6 +13,27 @@ services:
     depends_on:
       meme-search-db:
         condition: service_healthy
+    volumes:
+      - ./memes/:/rails/public/memes
+
+  image_to_text_app:
+    build:
+      context: ./image_to_text_app
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./memes/:/app/public/memes
+    container_name: meme_search_image_to_text_app
+    deploy:
+      resources:
+        limits: # <-- roughly tested min memory for cpu usage
+          memory: 12GB
+        # reservations: # <-- uncomment for gpu usage
+        #   devices:
+        #     - driver: nvidia
+        #       count: 1
+        #       capabilities: [gpu]
 
   meme-search-db:
     image: pgvector/pgvector:pg17
@@ -30,23 +51,3 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  image_to_text_app:
-    build:
-      context: ./image_to_text_app
-      dockerfile: Dockerfile
-    ports:
-      - 8000:8000
-    volumes:
-      # - ./image_to_text_app:/app
-      - ./rails_app/public:/public
-    container_name: meme_search_image_to_text_app
-    deploy:
-      resources:
-        limits: # <-- roughly tested min memory for cpu usage
-          memory: 12GB
-        # reservations: # <-- uncomment for gpu usage
-        #   devices:
-        #     - driver: nvidia
-        #       count: 1
-        #       capabilities: [gpu]

@@ -4,7 +4,7 @@ module Settings
 
     # GET /settings/image_paths
     def index
-      @image_paths = ImagePath.order(created_at: :desc)
+      @image_paths = ImagePath.order(updated_at: :desc)
       @pagy, @image_paths = pagy(@image_paths)
     end
 
@@ -27,7 +27,7 @@ module Settings
       respond_to do |format|
         if @image_path.save
           flash[:notice] = "Image path was successfully created."
-          format.html { redirect_to @image_path }
+          format.html { redirect_to [:settings, @image_path] }
         else
           flash[:alert] = @image_path.errors.full_messages[0]
           format.html { render :new, status: :unprocessable_entity }
@@ -40,10 +40,10 @@ module Settings
       respond_to do |format|
         if @image_path.update(image_path_params)
           flash[:notice] = "Image path was updated succesfully."
-          format.html { redirect_to @image_path, notice: "Image path was successfully updated." }
+          format.html { redirect_to [:settings, @image_path], notice: "Image path was successfully updated." }
         else
           flash[:alert] = @image_path.errors.full_messages[0]
-          format.html { render :edit, status: :unprocessable_entity }
+          format.html { render [:settings, :edit], status: :unprocessable_entity }
         end
       end
     end
@@ -54,7 +54,7 @@ module Settings
 
       respond_to do |format|
         flash[:notice] = "Image path was successfully destroyed."
-        format.html { redirect_to image_paths_path, status: :see_other }
+        format.html { redirect_to [:settings, :image_paths], status: :see_other }
       end
     end
 
