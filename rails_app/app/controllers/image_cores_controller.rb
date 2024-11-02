@@ -1,6 +1,6 @@
-require 'uri'
-require 'net/http'
-require 'json'
+require "uri"
+require "net/http"
+require "json"
 
 class ImageCoresController < ApplicationController
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
@@ -49,12 +49,12 @@ class ImageCoresController < ApplicationController
       @image_core.save
 
       # send request
-      uri = URI('http://image_to_text_app:8000/add_job')
+      uri = URI("http://image_to_text_app:8000/add_job")
       http = Net::HTTP.new(uri.host, uri.port)
 
       request = Net::HTTP::Post.new(uri)
-      request['Content-Type'] = 'application/json'
-      data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }  
+      request["Content-Type"] = "application/json"
+      data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
       request.body = data.to_json
       response = http.request(request)
 
@@ -94,7 +94,7 @@ class ImageCoresController < ApplicationController
 
     # filter search results via selected tags
     if selected_tag_names.length > 0
-      @image_cores = @image_cores.select {|item| (item.image_tags&.map { |tag| tag.tag_name&.name } & selected_tag_names).any?}
+      @image_cores = @image_cores.select { |item| (item.image_tags&.map { |tag| tag.tag_name&.name } & selected_tag_names).any? }
     end
 
     respond_to do |format|
@@ -125,7 +125,7 @@ class ImageCoresController < ApplicationController
     else
       if params[:selected_tag_names].present?
           if params[:selected_tag_names].length > 0
-            selected_tag_names = params[:selected_tag_names].split(",").map {|tag| tag.strip}
+            selected_tag_names = params[:selected_tag_names].split(",").map { |tag| tag.strip }
             @image_cores = ImageCore.with_selected_tag_names(selected_tag_names).order(updated_at: :desc)
           end
       else
@@ -134,8 +134,8 @@ class ImageCoresController < ApplicationController
 
       if params[:selected_path_names].present?
         if params[:selected_path_names].length > 0
-          selected_path_names = params[:selected_path_names].split(",").map {|path| path.strip}
-          keeper_ids = @image_cores.select {|item| selected_path_names.include?(item.image_path.name.strip)}.map {|item| item.id}
+          selected_path_names = params[:selected_path_names].split(",").map { |path| path.strip }
+          keeper_ids = @image_cores.select { |item| selected_path_names.include?(item.image_path.name.strip) }.map { |item| item.id }
           @image_cores = ImageCore.where(id: keeper_ids).order(updated_at: :desc)
         end
       end
@@ -147,10 +147,9 @@ class ImageCoresController < ApplicationController
           keeper_ids = @image_cores.select { |item| item.image_embeddings.length == 0 }.map { |item| item.id }
           @image_cores = ImageCore.where(id: keeper_ids).order(updated_at: :desc)
       end
-      
+
       @pagy, @image_cores = pagy(@image_cores)
     end
-
   end
 
   # GET /image_cores/1
@@ -185,7 +184,7 @@ class ImageCoresController < ApplicationController
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
-    image_tags = @image_core.image_tags.map {|tag| tag.id}
+    image_tags = @image_core.image_tags.map { |tag| tag.id }
     image_tags.each do |tag|
       ImageTag.destroy(tag)
     end
@@ -226,10 +225,10 @@ class ImageCoresController < ApplicationController
   private
 
     def vector_search(query)
-      query_embedding = ImageEmbedding.new({image_core_id:ImageCore.first.id, snippet: query})
-      query_embedding.compute_embedding;
-      results = query_embedding.get_neighbors.map {|item| item.image_core_id}.uniq.map {|image_core_id| ImageCore.find(image_core_id)}
-      return results
+      query_embedding = ImageEmbedding.new({ image_core_id: ImageCore.first.id, snippet: query })
+      query_embedding.compute_embedding
+      results = query_embedding.get_neighbors.map { |item| item.image_core_id }.uniq.map { |image_core_id| ImageCore.find(image_core_id) }
+      results
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -243,16 +242,16 @@ class ImageCoresController < ApplicationController
     end
 
     def image_update_params
-      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, image_tags_attributes: [:id, :name, :_destroy])
+      permitted_params = params.require(:image_core).permit(:description, :selected_tag_names, image_tags_attributes: [ :id, :name, :_destroy ])
 
       # Convert names TagName ids
       if permitted_params[:selected_tag_names].present?
         if permitted_params[:selected_tag_names].length > 0
           tag_names = permitted_params[:selected_tag_names]
-          tag_names = tag_names.split(",").map {|name| name.strip}
+          tag_names = tag_names.split(",").map { |name| name.strip }
 
-          tag_names = tag_names.map {|name| TagName.find_by({name: name})} #.map {|result| result.id}
-          tag_names_hash = tag_names.map {|tag| {tag_name: tag}}
+          tag_names = tag_names.map { |name| TagName.find_by({ name: name }) } # .map {|result| result.id}
+          tag_names_hash = tag_names.map { |tag| { tag_name: tag } }
           if tag_names_hash[0][:tag_name].nil?
             tag_names_hash = []
           end
@@ -270,17 +269,16 @@ class ImageCoresController < ApplicationController
 
     words = input_string.split
     filtered_words = words.reject { |word| stopwords.include?(word.downcase) }
-    
-    filtered_words.join(' ')
+
+    filtered_words.join(" ")
   end
 
   def search_params
-    permitted_params = params.permit([:query, :checkbox_value, :authenticity_token, :source, :controller, :action, :selected_tag_names, search_tags: [:tag] ])
+    permitted_params = params.permit([ :query, :checkbox_value, :authenticity_token, :source, :controller, :action, :selected_tag_names, search_tags: [ :tag ] ])
     permitted_params.delete(:search_tags)
-    selected_tag_names = permitted_params[:selected_tag_names].split(",").map {|tag| tag.strip}
+    selected_tag_names = permitted_params[:selected_tag_names].split(",").map { |tag| tag.strip }
     permitted_params.delete(:selected_tag_names)
     permitted_params[:selected_tag_names] = selected_tag_names
-    return permitted_params
+    permitted_params
   end
-
 end

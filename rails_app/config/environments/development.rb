@@ -84,5 +84,4 @@ Rails.application.configure do
 
   # allow communication with local docker network
   config.hosts << "host.docker.internal"
-
 end

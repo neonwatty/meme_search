@@ -1,10 +1,10 @@
-require 'informers'
+require "informers"
 
-class ImageCore < ApplicationRecord  
+class ImageCore < ApplicationRecord
   # keyword search scope
   include PgSearch::Model
   pg_search_scope :search_any_word,
-                  against: [:description],
+                  against: [ :description ],
                   using: {
                     tsearch: { any_word: true }
                   }
@@ -33,12 +33,12 @@ class ImageCore < ApplicationRecord
   # validations
   validates_length_of :name, presence: true, minimum: 0, maximum: 100, allow_blank: false
   validates_length_of :description, minimum: 0, maximum: 500, allow_blank: true
-  enum :status, [ 
-    :not_started, 
-    :in_queue, 
-    :processing, 
-    :done, 
-    :failed 
+  enum :status, [
+    :not_started,
+    :in_queue,
+    :processing,
+    :done,
+    :failed
   ]
   validates :status, presence: true
 
@@ -46,19 +46,19 @@ class ImageCore < ApplicationRecord
   # before_save :refresh_description_embeddings
 
   def refresh_description_embeddings
-    # destroy current description embeddings 
+    # destroy current description embeddings
     begin
-      current_embeddings = ImageEmbedding.where({image_core_id: self.id})
-      current_embeddings.map {|item| item.destroy!}
-      current_embeddings = ImageEmbedding.where({image_core_id: self.id})
+      current_embeddings = ImageEmbedding.where({ image_core_id: self.id })
+      current_embeddings.map { |item| item.destroy! }
+      current_embeddings = ImageEmbedding.where({ image_core_id: self.id })
     rescue StandardError => e
       puts "THE DESTROY EXCEPTION --> #{e}"
     end
     if !self.description.nil?
       if self.description.length > 0
         snippets = chunk_text(self.description)
-        snippets_hash = snippets.map.with_index {|snippet, index| {image_core_id: self.id, snippet: snippet}}
-        snippets_hash.map {|hash| ImageEmbedding.new(hash).save! } 
+        snippets_hash = snippets.map.with_index { |snippet, index| { image_core_id: self.id, snippet: snippet } }
+        snippets_hash.map { |hash| ImageEmbedding.new(hash).save! }
       end
     end
   end
@@ -67,8 +67,8 @@ class ImageCore < ApplicationRecord
 
     def clean_word(text)
       # clean input text - keeping only lower case letters, numbers, punctuation, and single quote symbols
-      cleaned_text = text.downcase.strip.gsub(/[^a-z0-9,.!?']/, ' ')
-      cleaned_text.gsub!(/\s+/, ' ')
+      cleaned_text = text.downcase.strip.gsub(/[^a-z0-9,.!?']/, " ")
+      cleaned_text.gsub!(/\s+/, " ")
       cleaned_text
     end
 
@@ -117,5 +117,4 @@ class ImageCore < ApplicationRecord
 
       chunks
     end
-
 end

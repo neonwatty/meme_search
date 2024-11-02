@@ -2,7 +2,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 # model identifiers
 model_id = "vikhyatk/moondream2"
@@ -11,9 +13,7 @@ revision = "2024-08-26"
 # instantiate model and tokenizer
 logging.info("INFO: instantiating model...")
 model = AutoModelForCausalLM.from_pretrained(
-    model_id,
-    trust_remote_code=True,
-    revision=revision
+    model_id, trust_remote_code=True, revision=revision
 )
 logging.info("INFO:... complete")
 logging.info("INFO: instantiating tokenizer...")

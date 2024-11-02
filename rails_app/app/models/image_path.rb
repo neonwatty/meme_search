@@ -1,6 +1,6 @@
 class ImagePath < ApplicationRecord
-  validates :name, presence: true, uniqueness: { :message => "path already used" }
-  validates :name, length: { 
+  validates :name, presence: true, uniqueness: { message: "path already used" }
+  validates :name, length: {
     minimum: 1,
     maximum: 300,
     too_short: "Path name must have at least %{count} characters.",
@@ -24,7 +24,6 @@ class ImagePath < ApplicationRecord
     end
 
     def count_images
-      
     end
 
   def list_files_in_directory
@@ -33,7 +32,7 @@ class ImagePath < ApplicationRecord
 
     if File.directory?(full_path)
       # allowed extensions
-      allowed_extensions = ['.jpg', '.jpeg', '.png', '.webp']
+      allowed_extensions = [ ".jpg", ".jpeg", ".png", ".webp" ]
 
       # get images
       image_names = Dir.entries(full_path).select do |f|
@@ -43,7 +42,7 @@ class ImagePath < ApplicationRecord
 
       # save each image
       image_names.each do |f|
-        image_core = ImageCore.new({image_path: self, name: f})
+        image_core = ImageCore.new({ image_path: self, name: f })
         image_core.save!
       end
 

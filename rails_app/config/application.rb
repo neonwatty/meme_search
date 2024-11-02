@@ -29,5 +29,7 @@ module MemeSearch
       dotenv_path = File.join(root, ".env")
       Dotenv.load(dotenv_path) if File.exist?(dotenv_path)
     end
+
+    config.active_job.queue_adapter = :async
   end
 end

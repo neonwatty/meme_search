@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       post "status_receiver"
     end
     member do
-      post 'generate_description'
+      post "generate_description"
     end
   end
 
@@ -27,5 +27,4 @@ Rails.application.routes.draw do
 
   # Healthcheck
   get "up" => "rails/health#show", as: :rails_health_check
-
 end

@@ -69,7 +69,7 @@ class ImageEmbeddingsController < ApplicationController
     end
 
     def vector_search(query)
-      element = ImageEmbedding.new({embedding: query})
+      element = ImageEmbedding.new({ embedding: query })
       element.compute_embedding
       element.get_neighbors
     end

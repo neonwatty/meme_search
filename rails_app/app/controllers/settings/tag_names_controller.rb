@@ -28,7 +28,7 @@ module Settings
       respond_to do |format|
         if @tag_name.save
           flash[:notice] = "Tag successfully created."
-          format.html { redirect_to [:settings, @tag_name] }
+          format.html { redirect_to [ :settings, @tag_name ] }
         else
           flash[:alert] = @tag_name.errors.full_messages[0]
           format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ module Settings
       respond_to do |format|
         if @tag_name.update(tag_name_params)
           flash[:notice] = "Tag was successfully updated."
-          format.html { redirect_to [:settings, @tag_name] }
+          format.html { redirect_to [ :settings, @tag_name ] }
         else
           flash[:alert] = @tag_name.errors.full_messages[0]
           format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ module Settings
 
       respond_to do |format|
         flash[:notice] = "Tag was successfully destroyed."
-        format.html { redirect_to [:settings, :tag_names], status: :see_other }
+        format.html { redirect_to [ :settings, :tag_names ], status: :see_other }
       end
     end
 
