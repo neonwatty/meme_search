@@ -49,7 +49,7 @@ class ImageCoresController < ApplicationController
       @image_core.save
 
       # send request
-      uri = URI("http://image_to_text_app:8000/add_job")
+      uri = URI("http://host.docker.internal:8000/add_job")
       http = Net::HTTP.new(uri.host, uri.port)
 
       request = Net::HTTP::Post.new(uri)

@@ -1,4 +1,7 @@
 require "informers"
+require 'net/http'
+require 'uri'
+
 
 class ImageCore < ApplicationRecord
   # keyword search scope
@@ -42,8 +45,26 @@ class ImageCore < ApplicationRecord
   ]
   validates :status, presence: true
 
+  before_destroy :remove_image_text_job
+
   # before save create description embeddings
   # before_save :refresh_description_embeddings
+
+  def remove_image_text_job
+    # Call image to text service to remove job from queue
+    uri = URI.parse("http://image_to_text_app:8000/remove_job/#{self.id}")
+    
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Delete.new(uri.request_uri)
+    
+    response = http.request(request)
+    
+    if response.is_a?(Net::HTTPSuccess)
+      puts "Job removed successfully for image core #{self.id}: #{response.body}"
+    else
+      puts "Failed to remove job for #{self.id}: #{response.code} - #{response.body}"
+    end
+  end
 
   def refresh_description_embeddings
     # destroy current description embeddings
