@@ -22,4 +22,4 @@ first_example_meme = ImageCore.first
 first_example_meme.update({image_tags_attributes: [{ tag_name: tag_one }]})
 
 second_example_meme = ImageCore.last
-second_example_meme.update({image_tags_attributes: [{ tag_name: tag_two }]})
+second_example_meme.update({image_tags_attributes: [{ tag_name: tag_one }, { tag_name: tag_two }]})

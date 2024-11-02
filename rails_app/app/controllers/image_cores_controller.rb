@@ -49,14 +49,76 @@ class ImageCoresController < ApplicationController
       @image_core.save
 
       # send request
-      uri = URI("http://host.docker.internal:8000/add_job")
-      http = Net::HTTP.new(uri.host, uri.port)
+      begin # For local / native metal testing
+        uri = URI("http://localhost:8000/add_job")
+        http = Net::HTTP.new(uri.host, uri.port)
+        
+        # Try to make a request to the first URI
+        request = Net::HTTP::Post.new(uri)
+        request["Content-Type"] = "application/json"
+        data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
+        request.body = data.to_json
+        response = http.request(request)
 
-      request = Net::HTTP::Post.new(uri)
-      request["Content-Type"] = "application/json"
-      data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
-      request.body = data.to_json
-      response = http.request(request)
+      rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
+        # If the connection fails, use the backup URI
+        puts "Failed to connect to localhost: #{e.message}"
+
+        uri = URI('http://image_to_text_app:8000/add_job')
+        http = Net::HTTP.new(uri.host, uri.port)
+
+        # Try to make a request to the backup URI
+        request = Net::HTTP::Post.new(uri)
+        request["Content-Type"] = "application/json"
+        data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
+        request.body = data.to_json
+        response = http.request(request)
+      end
+
+      respond_to do |format|
+        if response.is_a?(Net::HTTPSuccess)
+          # flash[:notice] = "Image added to queue for automatic description generation."
+          # format.html { redirect_back_or_to root_path }
+        else
+          flash[:alert] = "Error: #{response.code} - #{response.message}"
+          format.html { redirect_back_or_to root_path }
+        end
+      end
+    else
+      respond_to do |format|
+        flash[:alert] = "Image currently in queue for text description generation or processing."
+        format.html { redirect_back_or_to root_path }
+      end
+    end
+  end
+
+  def generate_stopper
+    status = @image_core.status
+    if status == "in_queue"
+      # update status of instance
+      @image_core.status = 0
+      @image_core.save
+
+      # send request
+      begin # For local / native metal testing
+        uri = URI.parse("http://localhost:8000/remove_job/#{@image_core.id}")        
+        http = Net::HTTP.new(uri.host, uri.port)
+
+        # Try to make a request to the first URI
+        request = Net::HTTP::Delete.new(uri.request_uri)
+        request["Content-Type"] = "application/json"
+        response = http.request(request)
+
+      rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
+        # If the connection fails, use the backup URI
+        uri = URI.parse("http://image_to_text_app:8000/remove_job/#{@image_core.id}")        
+        http = Net::HTTP.new(uri.host, uri.port)
+
+        # Try to make a request to the first URI
+        request = Net::HTTP::Delete.new(uri.request_uri)
+        request["Content-Type"] = "application/json"
+        response = http.request(request)
+      end
 
       respond_to do |format|
         if response.is_a?(Net::HTTPSuccess)
