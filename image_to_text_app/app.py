@@ -216,7 +216,12 @@ def remove_job(image_core_id: int):
     conn.close()
 
     logging.info("Job removed from queue: %s", image_core_id)
+    
+    # run status update
+    status_job_details = {"image_core_id": image_core_id, "status": 0}
+    status_sender(status_job_details)
 
+    
     return {"status": "Job removed from queue"}
 
 

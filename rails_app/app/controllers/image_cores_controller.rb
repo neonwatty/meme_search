@@ -96,8 +96,8 @@ class ImageCoresController < ApplicationController
     status = @image_core.status
     if status == "in_queue"
       # update status of instance
-      @image_core.status = 0
-      @image_core.save
+      @image_core.status = 4
+      @image_core.save!
 
       # send request
       begin # For local / native metal testing
@@ -122,8 +122,8 @@ class ImageCoresController < ApplicationController
 
       respond_to do |format|
         if response.is_a?(Net::HTTPSuccess)
-          # flash[:notice] = "Image added to queue for automatic description generation."
-          # format.html { redirect_back_or_to root_path }
+          flash[:notice] = "Removing from process queue."
+          format.html { redirect_back_or_to root_path }
         else
           flash[:alert] = "Error: #{response.code} - #{response.message}"
           format.html { redirect_back_or_to root_path }
