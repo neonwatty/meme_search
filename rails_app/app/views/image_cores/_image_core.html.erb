@@ -7,18 +7,14 @@
         <div class="flex flex-row items-center w-full justify-between">
           <h3 class="mx-2"> description: </h3>
           <div class="flex flex-row items-center justify-center space-x-2 mr-1">
-            <%= form_with(url: generate_description_image_core_path(image_core.id), local: true) do |form| %>
+            <% div_id = "status-image-core-id-#{image_core.id}" %>
+            <%= render partial: "generate_status", locals: {img_id: image_core.id, div_id: "status-image-core-id-#{image_core.id}", status: image_core.status} %>
+          </div>
+
+                      <%= form_with(url: generate_description_image_core_path(image_core.id), local: true) do |form| %>
               <% form.submit "generate 🪄", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
             <% end %>
-            <% div_id = "status-image-core-id-#{image_core.id}" %>
-            <%= render partial: "generate_status", locals: {div_id: "status-image-core-id-#{image_core.id}", status: image_core.status} %>
-            <% cancel_class = "bg-red-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm"%>
-            <% if image_core.id == 1 %>
-              <%= form_with(url: generate_stopper_image_core_path(image_core.id), local: true) do |form| %>
-                <% form.submit "cancel", class: "bg-red-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm", data: { confirm: 'Are you sure?' } %> 
-              <% end %>
-            <% end %>
-          </div>
+            
         </div>
         <textarea class="text-black w-full" disabled id="description-image-core-id-<%=image_core.id%>"><%= image_core.description %></textarea>
       </div>
