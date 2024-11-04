@@ -19,11 +19,11 @@ if File.directory?(example_dir)
 end
 
 # create two tags
-my_tag_name = "one"
+my_tag_name = "tag_one"
 tag_one = TagName.new({ name: my_tag_name, color: "black" })
 tag_one.save!
 
-my_tag_name = "two"
+my_tag_name = "tag_two"
 tag_two = TagName.new({ name: my_tag_name, color: "red" })
 tag_two.save!
 
