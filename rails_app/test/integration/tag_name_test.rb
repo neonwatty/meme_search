@@ -10,9 +10,14 @@ class TagNameTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
 
-    # confirm settings li exists in navbar
+    # confirm settings li exists in navbar and that Tags exist underneath it
     assert_select "ul#navigation" do
-      assert_select "li#settings"
+      assert_select "li#settings" do 
+        assert_select "#dropdown_tags"
+        
+        # redirect to tag_names settings page
+        assert_current_path [:settings, :tag_names]
+      end
     end
   end
 
