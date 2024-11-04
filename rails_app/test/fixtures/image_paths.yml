@@ -1,5 +1,5 @@
 one:
-  image_path: <%= Dir.getwd %> + "/public/memes/example_memes_1"
+  name: <%= Dir.getwd %> + "/public/memes/example_memes_1"
 
 two:
-  image_path: <%= Dir.getwd %> + "/public/memes/example_memes_2"
+  name: <%= Dir.getwd %> + "/public/memes/example_memes_2"
