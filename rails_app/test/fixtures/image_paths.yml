@@ -1,7 +1,5 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  image_path: MyString
+  image_path: <%= Dir.getwd %> + "/public/memes/example_memes_1"
 
 two:
-  image_path: MyString
+  image_path: <%= Dir.getwd %> + "/public/memes/example_memes_2"

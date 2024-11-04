@@ -1,8 +1,7 @@
 one:
   name: tag_one
-  color: "upload_one.png"
+  color: "#ff00d0"
 
-# column: value
-#
-two: {}
-# column: value
+two:
+  name: tag_two
+  color: "#001eff"
