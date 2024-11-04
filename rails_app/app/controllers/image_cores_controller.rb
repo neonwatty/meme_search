@@ -13,9 +13,10 @@ class ImageCoresController < ApplicationController
     status = received_data[:status].to_i
     image_core = ImageCore.find(id)
     image_core.status = status
+    img_id = image_core.id
     div_id = "status-image-core-id-#{image_core.id}"
     if image_core.save
-      status_html = ApplicationController.renderer.render(partial: "image_cores/generate_status", locals: { div_id: div_id, status: image_core.status })
+      status_html = ApplicationController.renderer.render(partial: "image_cores/generate_status", locals: { img_id: img_id, div_id: div_id, status: image_core.status })
       ActionCable.server.broadcast "image_status_channel", { div_id: div_id, status_html: status_html }
     else
     end
@@ -52,7 +53,7 @@ class ImageCoresController < ApplicationController
       begin # For local / native metal testing
         uri = URI("http://localhost:8000/add_job")
         http = Net::HTTP.new(uri.host, uri.port)
-        
+
         # Try to make a request to the first URI
         request = Net::HTTP::Post.new(uri)
         request["Content-Type"] = "application/json"
@@ -64,7 +65,7 @@ class ImageCoresController < ApplicationController
         # If the connection fails, use the backup URI
         puts "Failed to connect to localhost: #{e.message}"
 
-        uri = URI('http://image_to_text_app:8000/add_job')
+        uri = URI("http://image_to_text_app:8000/add_job")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the backup URI
@@ -92,7 +93,12 @@ class ImageCoresController < ApplicationController
     end
   end
 
+
   def generate_stopper
+    puts "STOPPER PARAMS --> #{params}"
+    if @image_core.nil?
+      @image_core = ImageCore.find(params[:id])
+    end
     status = @image_core.status
     if status == "in_queue"
       # update status of instance
@@ -101,7 +107,7 @@ class ImageCoresController < ApplicationController
 
       # send request
       begin # For local / native metal testing
-        uri = URI.parse("http://localhost:8000/remove_job/#{@image_core.id}")        
+        uri = URI.parse("http://localhost:8000/remove_job/#{@image_core.id}")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the first URI
@@ -111,7 +117,7 @@ class ImageCoresController < ApplicationController
 
       rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
         # If the connection fails, use the backup URI
-        uri = URI.parse("http://image_to_text_app:8000/remove_job/#{@image_core.id}")        
+        uri = URI.parse("http://image_to_text_app:8000/remove_job/#{@image_core.id}")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the first URI

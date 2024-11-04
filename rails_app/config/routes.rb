@@ -21,8 +21,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-
   # Root
   root "image_cores#index"
 

@@ -1,6 +1,6 @@
 require "informers"
-require 'net/http'
-require 'uri'
+require "net/http"
+require "uri"
 
 
 class ImageCore < ApplicationRecord
@@ -54,7 +54,7 @@ class ImageCore < ApplicationRecord
   def remove_image_text_job
     # send request
     begin # For local / native metal testing
-      uri = URI.parse("http://localhost:8000/remove_job/#{self.id}")        
+      uri = URI.parse("http://localhost:8000/remove_job/#{self.id}")
       http = Net::HTTP.new(uri.host, uri.port)
 
       # Try to make a request to the first URI
@@ -64,7 +64,7 @@ class ImageCore < ApplicationRecord
 
     rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
       # If the connection fails, use the backup URI
-      uri = URI.parse("http://image_to_text_app:8000/remove_job/#{self.id}")        
+      uri = URI.parse("http://image_to_text_app:8000/remove_job/#{self.id}")
       http = Net::HTTP.new(uri.host, uri.port)
 
       # Try to make a request to the first URI
@@ -72,7 +72,7 @@ class ImageCore < ApplicationRecord
       request["Content-Type"] = "application/json"
       response = http.request(request)
     end
-    
+
     if response.is_a?(Net::HTTPSuccess)
       puts "Job removed successfully for image core #{self.id}: #{response.body}"
     else
