@@ -56,7 +56,7 @@ class ImageCoresTest < ApplicationSystemTestCase
     click_on "Back to memes"
   end
 
-  test "should destroy Image core" do
+  test "should destroy image core" do
     # count current memes
     first_meme_count = all("div[id^='image_core_card_]").count
 
@@ -74,5 +74,5 @@ class ImageCoresTest < ApplicationSystemTestCase
     # confirm second_meme_count < first_meme_count
     assert second_meme_count == first_meme_count - 1
   end
-  
+
 end
