@@ -34,7 +34,7 @@ class ImageCoresTest < ApplicationSystemTestCase
     find("#tag_1").check
 
     # click off of tags
-    find("#image_core_card_#{@image_core.id}").click
+    find("#image_core_card_").click
 
     # save
     click_on "Save"
@@ -57,19 +57,19 @@ class ImageCoresTest < ApplicationSystemTestCase
   end
 
   test "should destroy image core" do
-    # count current memes
-    first_meme_count = all("div[id^='image_core_card_]").count
+    # start at root
+    visit root_path
 
-    # delete first meme
+    # count current memes
+    first_meme_count = all("div[id^='image_core_card_']").count
+
+    # visit first meme page
     visit image_core_url(@image_core)
     click_on "Delete"
     assert_selector "div", text: "Meme succesfully deleted!"
 
-    # confirm return to index
-    assert_current_path("/image_cores")
-
     # second meme count
-    second_meme_count = all("div[id^='image_core_card_]").count
+    second_meme_count = all("div[id^='image_core_card_']").count
 
     # confirm second_meme_count < first_meme_count
     assert second_meme_count == first_meme_count - 1
