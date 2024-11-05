@@ -26,14 +26,26 @@ class ImageCoresTest < ApplicationSystemTestCase
     fill_in "image_core_update_description_area", with: "this is a description"
 
     # update tags
-    click_on "#edit_image_core_edit_tags"
-    click_on "tag_0"
+    assert_selector "div#edit_image_core_edit_tags"
+    find("#edit_image_core_edit_tags").click
+    find("#tag_0").click do
+      check("image_core_image_tags_attributes_0_name")
+    end
+    find("#tag_1").click do
+      check("image_core_image_tags_attributes_0_name")
+    end
+    find("#edit_image_core_edit_tags STOP").click
 
     # save
     click_on "Save"
     assert_selector "div", text: "Meme succesfully updated!"
     click_on "Back to memes"
 
+    # record second tag count
+    all_tags = all("div[id^='tag']")
+    second_tag_count = all_tags.count
+    puts "first_tag_count --> #{first_tag_count}"
+    puts "second_tag_count --> #{second_tag_count}"
 
   end
 
