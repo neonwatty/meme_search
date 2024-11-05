@@ -15,9 +15,27 @@ class ImageCoresTest < ApplicationSystemTestCase
     # click on first
     click_on "generate description 🪄", match: :first
 
-    # 
+    # record initial tag count
+    all_tags = all("div[id^='tag']")
+    first_tag_count = all_tags.count
 
-    puts "first_core_count --> #{first_core_count}"
+    # click on update
+    click_on "Edit details"
+
+    # update description
+    fill_in "image_core_update_description_area", with: "this is a description"
+
+    # update tags
+    click_on "edit_image_core_edit_tags"
+    click_on "tag_0"
+
+    # save
+    click_on "Save"
+
+    assert_selector "div", text: "Invalid directory path!"
+    click_on "Back to directory paths"
+
+
   end
 
   test "should create image core" do

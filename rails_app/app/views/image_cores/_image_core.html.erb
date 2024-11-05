@@ -15,8 +15,8 @@
       <div class="flex flex-row my-auto ml-5 h-full items-center">
         <% image_tags = image_core.image_tags.map {|assoc| assoc.tag_name}.map {|item| {name: item.name, color: item.color}} %>
         <div class="flex flex-row space-x-3 mb-5 mt-5 mx-auto text-center w-auto">
-          <% image_tags.each do |tag| %>
-            <div class="text-black dark:text-white p-2 rounded-xl" style="background-color: <%= tag[:color] %>;">
+          <% image_tags.each_with_index do |tag, index| %>
+            <div id='tag_"<% index %>"' class="text-black dark:text-white p-2 rounded-xl" style="background-color: <%= tag[:color] %>;">
               <%= tag[:name] %>
             </div>
           <% end %>

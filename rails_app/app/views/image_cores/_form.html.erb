@@ -4,12 +4,12 @@
     <%= image_tag(absolute_path, size: "300", alt: image_name) %>
     <div class="flex flex-col my-auto">
       <h3> Image description </h3>
-      <textarea id="" rows="4" cols="50" class="text-black">
+      <textarea id="image_core_update_description_area" rows="4" cols="50" class="text-black">
   <%= image_core.description%>
   </textarea>
     </div>
   </div>
   <div class="inline">
-    <%= form.submit class: "submit-button" %>
+    <%= form.submit "Save", class: "submit-button" %>
   </div>
 <% end %>
