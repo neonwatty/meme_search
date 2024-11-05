@@ -26,7 +26,7 @@ module Settings
       @image_path = ImagePath.new(image_path_params)
       respond_to do |format|
         if @image_path.save
-          flash[:notice] = "Image path was successfully created."
+          flash[:notice] = "Directory path successfully created!"
           format.html { redirect_to [ :settings, @image_path ] }
         else
           flash[:alert] = @image_path.errors.full_messages[0]
@@ -39,7 +39,7 @@ module Settings
     def update
       respond_to do |format|
         if @image_path.update(image_path_params)
-          flash[:notice] = "Image path was updated succesfully."
+          flash[:notice] = "Directory path updated succesfully!"
           format.html { redirect_to [ :settings, @image_path ], notice: "Image path was successfully updated." }
         else
           flash[:alert] = @image_path.errors.full_messages[0]
@@ -53,7 +53,7 @@ module Settings
       @image_path.destroy!
 
       respond_to do |format|
-        flash[:notice] = "Image path was successfully destroyed."
+        flash[:notice] = "Directory path successfully destroyed!"
         format.html { redirect_to [ :settings, :image_paths ], status: :see_other }
       end
     end

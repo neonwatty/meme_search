@@ -2,8 +2,7 @@
   <div class="flex flex-row items-center justify-between w-full border border-b-2 border-t-0 border-r-0 border-l-0 border-black dark:border-white">
     <h1 class="font-bold text-4xl mb-2">Current tags</h1>
     <div class="flex ml-16 mb-2">
-      <%= link_to "Create new tag",[:new, :settings, :tag_name], class: "new-button" %>
-      <%= link_to "Back to settings",[:settings], class: "back-button" %>
+      <%= link_to "Create new",[:new, :settings, :tag_name], class: "new-button" %>
     </div>
   </div>
   <% content_for :title, "Current tags" %>

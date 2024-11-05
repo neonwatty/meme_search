@@ -1,9 +1,6 @@
 require "application_system_test_case"
 
 class TagNamesTest < ApplicationSystemTestCase
-  setup do
-    @tag_name = tag_names(:one)
-  end
 
   test "visiting the index, create a new tag, edit it, and delete it" do
     # visit url directly
@@ -26,7 +23,7 @@ class TagNamesTest < ApplicationSystemTestCase
     first_tag_count = divs_with_tag_name_id.count
 
     # click on "Create New" 
-    click_on "Create new tag"
+    click_on "Create new"
     assert_selector "h1", text: "New tag"
 
     # enter name for new tag and create
