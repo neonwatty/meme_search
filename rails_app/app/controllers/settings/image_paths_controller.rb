@@ -39,8 +39,8 @@ module Settings
     def update
       respond_to do |format|
         if @image_path.update(image_path_params)
-          flash[:notice] = "Directory path updated succesfully!"
-          format.html { redirect_to [ :settings, @image_path ], notice: "Image path was successfully updated." }
+          flash[:notice] = "Directory path succesfully updated!"
+          format.html { redirect_to [ :settings, @image_path ] }
         else
           flash[:alert] = "Invalid directory path!"
           format.html { render :edit, status: :unprocessable_entity }

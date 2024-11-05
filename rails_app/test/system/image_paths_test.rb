@@ -63,7 +63,7 @@ class ImagePathsTest < ApplicationSystemTestCase
     fill_in "new_image_path_text_area", with: "example_memes_3"
     click_on "Save"
     sleep(0.2)
-    assert_selector "div", text: "Directory path successfully updated!"
+    assert_selector "div", text: "Directory path succesfully updated!"
     click_on "Back to directory paths"
     sleep(0.2)
 
