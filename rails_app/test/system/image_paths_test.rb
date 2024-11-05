@@ -52,20 +52,20 @@ class ImagePathsTest < ApplicationSystemTestCase
     click_on "Save"
     sleep(0.25)
     assert_selector "div", text: "Invalid directory path!"
+    click_on "Back to directory paths"
 
-
-
-    # # edit tag
-    # click_on "Adjust / delete", match: :first
-    # sleep(0.2)
-    # click_on "Edit this tag"
-    # sleep(0.2)
-    # fill_in "new_tag_name_text_area", with: "another_test_tag"
-    # click_on "Save"
-    # sleep(0.2)
-    # assert_selector "div", text: "Tag successfully updated!"
-    # click_on "Back to tags"
-    # sleep(0.2)
+    
+    # edit path
+    click_on "Adjust / delete", match: :first
+    sleep(0.2)
+    click_on "Edit this directory path"
+    sleep(0.2)
+    fill_in "new_image_path_text_area", with: "example_memes_3"
+    click_on "Save"
+    sleep(0.2)
+    assert_selector "div", text: "Directory path successfully updated!"
+    click_on "Back to directory paths"
+    sleep(0.2)
 
     # # count number of tags
     # divs_with_tag_name_id = all("div[id^='tag_name_']")
