@@ -23,7 +23,7 @@ class TagNamesTest < ApplicationSystemTestCase
 
     # count total number of original current tags
     divs_with_tag_name_id = all("div[id^='tag_name_']")
-    starting_tag_count = divs_with_tag_name_id.count
+    first_tag_count = divs_with_tag_name_id.count
 
     # click on "Create New" 
     click_on "Create new tag"
@@ -31,18 +31,35 @@ class TagNamesTest < ApplicationSystemTestCase
 
     # enter name for new tag and create
     fill_in "new_tag_name_text_area", with: "test_tag"
-    click_on "Create tag"
-    sleep(0.5)
+    click_on "Save"
+    sleep(0.25)
     assert_selector "div", text: "Tag successfully created!"
 
     # return to tags list
     click_on "Back to tags"
-    sleep(0.5)
+    sleep(0.2)
     divs_with_tag_name_id = all("div[id^='tag_name_']")
-    current_tag_count = divs_with_tag_name_id.count
+    second_tag_count = divs_with_tag_name_id.count
 
     # make sure current tag count is +1 of starting tag count
-    assert current_tag_count == starting_tag_count + 1
+    assert second_tag_count == first_tag_count + 1
+
+    # edit tag
+    click_on "Adjust / delete", match: :first
+    sleep(0.2)
+    click_on "Edit this tag"
+    sleep(0.2)
+    fill_in "new_tag_name_text_area", with: "another_test_tag"
+    click_on "Save"
+    sleep(0.2)
+    assert_selector "div", text: "Tag successfully updated!"
+    click_on "Back to tags"
+    sleep(0.2)
+
+    # count number of tags
+    divs_with_tag_name_id = all("div[id^='tag_name_']")
+    third_tag_count = divs_with_tag_name_id.count
+    assert third_tag_count == second_tag_count
 
   end
 
