@@ -73,6 +73,6 @@ class ImageCoresTest < ApplicationSystemTestCase
 
     # confirm second_meme_count < first_meme_count
     assert second_meme_count == first_meme_count - 1
-
   end
+  
 end
