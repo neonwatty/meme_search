@@ -2,7 +2,7 @@
   <div class="mx-auto">
     <%= render @tag_name %>
     <%= link_to "Edit this tag", [:edit, :settings, @tag_name], class: "edit-button" %>
-    <%= link_to "Back to tag", [:settings, :tag_names], class: "back-button" %>
+    <%= link_to "Back to tags", [:settings, :tag_names], class: "back-button" %>
     <div class="inline-block ml-2">
       <%= button_to "Destroy this tag",[:settings, @tag_name], method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-button" %>
     </div>

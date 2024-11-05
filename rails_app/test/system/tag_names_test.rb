@@ -24,7 +24,6 @@ class TagNamesTest < ApplicationSystemTestCase
     # count total number of original current tags
     divs_with_tag_name_id = all("div[id^='tag_name_']")
     starting_tag_count = divs_with_tag_name_id.count
-    puts "starting_tag_count --> #{starting_tag_count}"
 
     # click on "Create New" 
     click_on "Create new tag"
@@ -38,10 +37,13 @@ class TagNamesTest < ApplicationSystemTestCase
 
     # return to tags list
     click_on "Back to tags"
+    sleep(0.5)
     divs_with_tag_name_id = all("div[id^='tag_name_']")
     current_tag_count = divs_with_tag_name_id.count
 
-    puts "current_tag_count ==> #{current_tag_count}"
+    # make sure current tag count is +1 of starting tag count
+    assert current_tag_count == starting_tag_count + 1
+
   end
 
   test "should create tag name" do
