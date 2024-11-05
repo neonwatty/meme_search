@@ -29,7 +29,7 @@ module Settings
           flash[:notice] = "Directory path successfully created!"
           format.html { redirect_to [ :settings, @image_path ] }
         else
-          flash[:alert] = @image_path.errors.full_messages[0]
+          flash[:alert] = "Invalid directory path!" #@image_path.errors.full_messages[0]
           format.html { render :new, status: :unprocessable_entity }
         end
       end

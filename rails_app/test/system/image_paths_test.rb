@@ -27,19 +27,33 @@ class ImagePathsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "New directory path"
 
     # enter name for new tag and create
-    fill_in "new_image_path_text_area", with: "test_path"
+    fill_in "new_image_path_text_area", with: "example_memes_3"
     click_on "Save"
     sleep(0.25)
     assert_selector "div", text: "Directory path successfully created!"
 
-    # # return to tags list
-    # click_on "Back to tags"
-    # sleep(0.2)
-    # divs_with_tag_name_id = all("div[id^='tag_name_']")
-    # second_tag_count = divs_with_tag_name_id.count
+    # return to tags list
+    click_on "Back to directory paths"
+    sleep(0.2)
+    divs_with_image_path_id = all("div[id^='image_path_']")
+    second_path_count = divs_with_image_path_id.count
 
-    # # make sure current tag count is +1 of starting tag count
-    # assert second_tag_count == first_tag_count + 1
+    # make sure current path count is +1 of starting path count
+    assert second_path_count == first_path_count + 1
+
+
+    # try (and fail) to create a invalid image path
+    # click on "Create New" 
+    click_on "Create new"
+    assert_selector "h1", text: "New directory path"
+
+    # enter name for new tag and create
+    fill_in "new_image_path_text_area", with: "not_a_valid_path"
+    click_on "Save"
+    sleep(0.25)
+    assert_selector "div", text: "Invalid directory path!"
+
+
 
     # # edit tag
     # click_on "Adjust / delete", match: :first
