@@ -34,7 +34,7 @@ class ImageCoresTest < ApplicationSystemTestCase
     find("#tag_1").check
 
     # click off of tags
-    find("#image_core_card").click
+    find("#image_core_card_#{@image_core.id}").click
 
     # save
     click_on "Save"
