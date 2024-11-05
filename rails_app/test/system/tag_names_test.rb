@@ -16,6 +16,7 @@ class TagNamesTest < ApplicationSystemTestCase
         click_on "Settings"
         assert_selector "div", text: "Tags"
         click_on "Tags"
+        sleep(0.5)
         assert_selector "h1", text: "Current tags"
       end
     end
@@ -32,8 +33,8 @@ class TagNamesTest < ApplicationSystemTestCase
     # enter name for new tag and create
     fill_in "new_tag_name_text_area", with: "test_tag"
     click_on "Create tag"
-    sleep(1)
-    assert_selector "Tag successfully created!"
+    sleep(0.5)
+    assert_selector "div", text: "Tag successfully created!"
 
     # return to tags list
     click_on "Back to tags"
