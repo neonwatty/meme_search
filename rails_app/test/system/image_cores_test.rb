@@ -26,14 +26,13 @@ class ImageCoresTest < ApplicationSystemTestCase
     fill_in "image_core_update_description_area", with: "this is a description"
 
     # update tags
-    click_on "edit_image_core_edit_tags"
+    click_on "#edit_image_core_edit_tags"
     click_on "tag_0"
 
     # save
     click_on "Save"
-
-    assert_selector "div", text: "Invalid directory path!"
-    click_on "Back to directory paths"
+    assert_selector "div", text: "Meme succesfully updated!"
+    click_on "Back to memes"
 
 
   end

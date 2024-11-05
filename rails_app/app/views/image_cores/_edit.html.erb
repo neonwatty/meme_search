@@ -12,7 +12,7 @@
               <%= render partial: "generate_status", locals: {img_id: image_core.id, div_id: "status-image-core-id-#{image_core.id}", status: image_core.status} %>
             </div>
           </div>
-          <%= form.text_area(:description, placeholder: image_core.description, class:"text-black w-full") %>
+          <%= form.text_area(:description, placeholder: image_core.description, class:"text-black w-full", id:"image_core_update_description_area") %>
         </div>
         <div class="flex flex-col my-auto mt-5 h-full items-center">
           <h3 class="mb-2"> tags: </h3>
@@ -20,10 +20,11 @@
           <% tag_colors = TagName.all.map {|item| item.color.strip}.join(",") %>
           <% image_tags = image_core.image_tags&.map { |tag| tag.tag_name&.name } # &.compact&.join(", ") %>
           <%= form.fields_for :image_tags, @image_core.image_tags.first do |tag_fields| %>
-            <div data-controller="multi-select" class="relative", id="edit_image_core_edit_tags">
+            <div data-controller="multi-select" class="relative">
               <div
                  data-action="click->multi-select#toggle"
                 class="border rounded-md p-3 bg-white shadow-md cursor-pointer"
+                id="edit_image_core_edit_tags"
                 >
                 <input readonly name="image_core[selected_tag_names]" data-multi-select-target="selectedItems" class="text-gray-900" placeholder="Choose tags">
               </div>
