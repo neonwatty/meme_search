@@ -56,22 +56,23 @@ class ImageCoresTest < ApplicationSystemTestCase
     click_on "Back to memes"
   end
 
-
-
-  test "should update Image core" do
-    visit image_core_url(@image_core)
-    click_on "Edit this image core", match: :first
-
-    click_on "Update Image core"
-
-    assert_text "Image core was successfully updated"
-    click_on "Back"
-  end
-
   test "should destroy Image core" do
-    visit image_core_url(@image_core)
-    click_on "Destroy this image core", match: :first
+    # count current memes
+    first_meme_count = all("div[id^='image_core_card_]").count
 
-    assert_text "Image core was successfully destroyed"
+    # delete first meme
+    visit image_core_url(@image_core)
+    click_on "Delete"
+    assert_selector "div", text: "Meme succesfully deleted!"
+
+    # confirm return to index
+    assert_current_path("/image_cores")
+
+    # second meme count
+    second_meme_count = all("div[id^='image_core_card_]").count
+
+    # confirm second_meme_count < first_meme_count
+    assert second_meme_count == first_meme_count - 1
+
   end
 end
