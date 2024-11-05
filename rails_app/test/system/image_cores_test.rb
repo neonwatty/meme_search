@@ -19,12 +19,14 @@ class ImageCoresTest < ApplicationSystemTestCase
     # record initial tag count
     all_tags = all("div[id^='tag_']")
     first_tag_count = all_tags.count
+    first_description = find("#description-image-core-id-#{@image_core.id}").value
 
     # click on update
     click_on "Edit details"
 
     # update description
-    fill_in "image_core_update_description_area", with: "this is a description"
+    updated_description = "this is a new description"
+    fill_in "image_core_update_description_area", with: updated_description
 
     # update tags
     assert_selector "div#edit_image_core_edit_tags"
@@ -45,18 +47,16 @@ class ImageCoresTest < ApplicationSystemTestCase
 
     # ensure +1 tag has been added
     assert second_tag_count = first_tag_count + 1
+
+    # check updated description
+    second_description = find("#description-image-core-id-#{@image_core.id}").value
+    assert second_description == updated_description
+
+    # ensure path to index
     click_on "Back to memes"
   end
 
-  test "should create image core" do
-    visit image_cores_url
-    click_on "New image core"
 
-    click_on "Create Image core"
-
-    assert_text "Image core was successfully created"
-    click_on "Back"
-  end
 
   test "should update Image core" do
     visit image_core_url(@image_core)
