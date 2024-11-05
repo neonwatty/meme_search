@@ -1,6 +1,6 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing tag name</h1>
   <%= render "form", tag_name: @tag_name %>
-  <%= link_to "Show this tag name", [:settings, @tag_name], class: "show-button" %>
-  <%= link_to "Back to tag names", [:settings, :tag_names], class: "back-button" %>
+  <%= link_to "Details", [:settings, @tag_name], class: "show-button" %>
+  <%= link_to "Back to tags", [:settings, :tag_names], class: "back-button" %>
 </div>
