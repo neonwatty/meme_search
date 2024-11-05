@@ -80,10 +80,10 @@ class ImagePathsTest < ApplicationSystemTestCase
     sleep(0.2)
     assert_selector "div", text: "Directory path successfully deleted!"
 
-    # # count number of tags - assert the same as start
-    # divs_with_tag_name_id = all("div[id^='tag_name_']")
-    # fourth_tag_count = divs_with_tag_name_id.count
-    # assert fourth_tag_count == first_tag_count
+    # count number of image paths - assert the same as start
+    divs_with_image_path_id = all("div[id^='image_path_']")
+    fourth_path_count = divs_with_image_path_id.count
+    assert fourth_path_count == first_path_count
 
   end
 end
