@@ -61,32 +61,19 @@ class TagNamesTest < ApplicationSystemTestCase
     third_tag_count = divs_with_tag_name_id.count
     assert third_tag_count == second_tag_count
 
-  end
+    # delete tag
+    click_on "Adjust / delete", match: :first
+    sleep(0.2)
+    accept_alert do
+      click_on "Delete this tag"
+    end
+    sleep(0.2)
+    assert_selector "div", text: "Tag successfully deleted!"
 
-  test "should create tag name" do
-    visit tag_names_url
-    click_on "New tag name"
+    # count number of tags - assert the same as start
+    divs_with_tag_name_id = all("div[id^='tag_name_']")
+    fourth_tag_count = divs_with_tag_name_id.count
+    assert fourth_tag_count == first_tag_count
 
-    click_on "Create tag"
-
-    assert_text "Tag name was successfully created"
-    click_on "Back"
-  end
-
-  test "should update Tag name" do
-    visit tag_name_url(@tag_name)
-    click_on "Edit this tag name", match: :first
-
-    click_on "Update Tag name"
-
-    assert_text "Tag name was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Tag name" do
-    visit tag_name_url(@tag_name)
-    click_on "Destroy this tag name", match: :first
-
-    assert_text "Tag name was successfully destroyed"
   end
 end

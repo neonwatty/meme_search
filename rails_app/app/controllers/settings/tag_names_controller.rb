@@ -54,7 +54,7 @@ module Settings
       @tag_name.destroy!
 
       respond_to do |format|
-        flash[:notice] = "Tag successfully destroyed!"
+        flash[:notice] = "Tag successfully deleted!"
         format.html { redirect_to [ :settings, :tag_names ], status: :see_other }
       end
     end
