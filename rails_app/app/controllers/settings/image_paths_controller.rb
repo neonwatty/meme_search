@@ -53,7 +53,7 @@ module Settings
       @image_path.destroy!
 
       respond_to do |format|
-        flash[:notice] = "Directory path successfully destroyed!"
+        flash[:notice] = "Directory path successfully deleted!"
         format.html { redirect_to [ :settings, :image_paths ], status: :see_other }
       end
     end

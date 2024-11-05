@@ -54,7 +54,6 @@ class ImagePathsTest < ApplicationSystemTestCase
     assert_selector "div", text: "Invalid directory path!"
     click_on "Back to directory paths"
 
-    
     # edit path
     click_on "Adjust / delete", match: :first
     sleep(0.2)
@@ -67,19 +66,19 @@ class ImagePathsTest < ApplicationSystemTestCase
     click_on "Back to directory paths"
     sleep(0.2)
 
-    # # count number of tags
-    # divs_with_tag_name_id = all("div[id^='tag_name_']")
-    # third_tag_count = divs_with_tag_name_id.count
-    # assert third_tag_count == second_tag_count
+    # count number of paths
+    divs_with_image_path_id = all("div[id^='image_path_']")
+    third_path_count = divs_with_image_path_id.count
+    assert third_path_count == second_path_count
 
-    # # delete tag
-    # click_on "Adjust / delete", match: :first
-    # sleep(0.2)
-    # accept_alert do
-    #   click_on "Delete this tag"
-    # end
-    # sleep(0.2)
-    # assert_selector "div", text: "Tag successfully deleted!"
+    # delete path
+    click_on "Adjust / delete", match: :first
+    sleep(0.2)
+    accept_alert do
+      click_on "Delete this directory path"
+    end
+    sleep(0.2)
+    assert_selector "div", text: "Directory path successfully deleted!"
 
     # # count number of tags - assert the same as start
     # divs_with_tag_name_id = all("div[id^='tag_name_']")

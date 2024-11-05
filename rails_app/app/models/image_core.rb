@@ -62,21 +62,30 @@ class ImageCore < ApplicationRecord
       request["Content-Type"] = "application/json"
       response = http.request(request)
 
+      if response.is_a?(Net::HTTPSuccess)
+        puts "Job removed successfully for image core #{self.id}: #{response.body}"
+      else
+        puts "Failed to remove job for #{self.id}: #{response.code} - #{response.body}"
+      end
+
     rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
-      # If the connection fails, use the backup URI
-      uri = URI.parse("http://image_to_text_app:8000/remove_job/#{self.id}")
-      http = Net::HTTP.new(uri.host, uri.port)
+      begin
+        # If the connection fails, use the backup URI
+        uri = URI.parse("http://image_to_text_app:8000/remove_job/#{self.id}")
+        http = Net::HTTP.new(uri.host, uri.port)
 
-      # Try to make a request to the first URI
-      request = Net::HTTP::Delete.new(uri.request_uri)
-      request["Content-Type"] = "application/json"
-      response = http.request(request)
-    end
+        # Try to make a request to the first URI
+        request = Net::HTTP::Delete.new(uri.request_uri)
+        request["Content-Type"] = "application/json"
+        response = http.request(request)
 
-    if response.is_a?(Net::HTTPSuccess)
-      puts "Job removed successfully for image core #{self.id}: #{response.body}"
-    else
-      puts "Failed to remove job for #{self.id}: #{response.code} - #{response.body}"
+        if response.is_a?(Net::HTTPSuccess)
+          puts "Job removed successfully for image core #{self.id}: #{response.body}"
+        else
+          puts "Failed to remove job for #{self.id}: #{response.code} - #{response.body}"
+        end
+      rescue
+      end
     end
   end
 

@@ -95,7 +95,6 @@ class ImageCoresController < ApplicationController
 
 
   def generate_stopper
-    puts "STOPPER PARAMS --> #{params}"
     if @image_core.nil?
       @image_core = ImageCore.find(params[:id])
     end
