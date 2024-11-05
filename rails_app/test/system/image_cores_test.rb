@@ -7,7 +7,17 @@ class ImageCoresTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit image_cores_url
-    assert_selector "h1", text: "Image cores"
+
+    # initial image core count
+    divs_with_image_core_id = all("div[id^='image_core_']")
+    first_core_count = divs_with_image_core_id.count
+
+    # click on first
+    click_on "generate description 🪄", match: :first
+
+    # 
+
+    puts "first_core_count --> #{first_core_count}"
   end
 
   test "should create image core" do

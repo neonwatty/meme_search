@@ -270,7 +270,7 @@ class ImageCoresController < ApplicationController
           @image_core.refresh_description_embeddings
         end
 
-        flash[:notice] = "Image data was updated succesfully."
+        flash[:notice] = "Meme succesfully updated!"
         format.html { redirect_to @image_core }
       else
         flash[:alert] = @image_core.errors.full_messages[0]
@@ -284,7 +284,7 @@ class ImageCoresController < ApplicationController
     @image_core.destroy!
 
     respond_to do |format|
-      flash[:notice] = "Image data was successfully destroyed."
+      flash[:notice] = "Meme succesfully deleted!"
       format.html { redirect_to image_cores_path, status: :see_other }
     end
   end
