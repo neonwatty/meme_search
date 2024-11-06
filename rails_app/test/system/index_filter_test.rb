@@ -63,4 +63,36 @@ class IndexFilterTest < ApplicationSystemTestCase
     second_meme_count = all("div[id^='image_core_card_']").count
     assert second_meme_count == first_meme_count
   end
+
+  test "visit root, open filters, apply tag configuration, return and count" do
+    # visit root
+    visit root_path
+
+    # count memes
+    first_meme_count = all("div[id^='image_core_card_']").count
+
+    # confirm slider is not visible
+    assert_selector "div#filters_slideover", visible: false
+
+    # click on "open filters"
+    click_on "Open filters"
+
+    # confirm slideover id visible
+    assert_selector "div#filters_slideover", visible: true
+
+    # select tag one
+    assert_selector "div#tag_toggle", visible: true
+    find("#tag_toggle").click
+    find("#tag_1").check
+
+    # apply filters
+    click_on "Apply filters"
+
+    # count memes
+    second_meme_count = all("div[id^='image_core_card_']").count
+    puts "first_meme_count --> #{first_meme_count}"
+    puts "second_meme_count --> #{second_meme_count}"
+
+    assert_selector "farts"
+  end
 end
