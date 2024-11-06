@@ -1,5 +1,5 @@
 <div class="min-w-full flex flex-col items-center">
-  <div data-controller="slideover">
+  <div id="filters_slideover" data-controller="slideover">
     <style>
       dialog.slideover[open] {
         animation: slide-in-from-left 300ms forwards ease-in-out;
@@ -44,6 +44,6 @@
         </div>
       <% end %>
     </dialog>
-    <button data-action="slideover#open" class="bg-blue-600 hover hover:bg-blue-400 border border-black rounded-2xl ml-5 mt-2 my-5 px-3 py-2 cursor-pointer">Open filters</button>
+    <button id="open_filters_button" data-action="slideover#open" class="bg-blue-600 hover hover:bg-blue-400 border border-black rounded-2xl ml-5 mt-2 my-5 px-3 py-2 cursor-pointer">Open filters</button>
   </div>
 </div>
