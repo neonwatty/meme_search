@@ -39,8 +39,8 @@
               <%= check_box_tag :has_embeddings, checked: true, id: "has_embeddings_checkbox", class:"w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %>
             </div>
           </div>
-          <%= submit_tag 'Filter', class: "bg-emerald-400 hover hover:bg-emerald-300 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer" %>
-          <button autofocus data-action="slideover#close" class="bg-blue-500 hover hover:bg-blue-400 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer">Close without filtering</button>
+          <%= submit_tag 'Apply filters', class: "bg-emerald-400 hover hover:bg-emerald-300 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer" %>
+          <%= button_tag "Close without filtering", data: { action: 'slideover#close' }, type: "button", class: "bg-blue-500 hover hover:bg-blue-400 border border-black rounded-2xl ml-5 mt-8 my-5 px-2 cursor-pointer"%>
         </div>
       <% end %>
     </dialog>
