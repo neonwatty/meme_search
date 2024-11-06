@@ -37,7 +37,7 @@ class IndexFilterTest < ApplicationSystemTestCase
     assert second_meme_count == first_meme_count
   end
 
-  test "visit root, open filters, click 'do not filter' button, return and count" do
+  test "visit root, open filters, click 'Close without filtering' button, return and count" do
     # visit root
     visit root_path
 
@@ -52,5 +52,15 @@ class IndexFilterTest < ApplicationSystemTestCase
 
     # confirm slideover id visible
     assert_selector "div#filters_slideover", visible: true
+
+    # click on close button
+    click_on "Close without filtering"
+
+    # confirm slideover is not visible
+    assert_selector "div#filters_slideover", visible: false
+
+    # confirm meme count unchanged
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == first_meme_count
   end
 end
