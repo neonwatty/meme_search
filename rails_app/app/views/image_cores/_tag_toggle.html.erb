@@ -14,7 +14,7 @@
     class="absolute left-0 right-0 mt-1 hidden bg-white border rounded-md shadow-lg z-10"
   >
           <% tag_names.each_with_index do |tag, index|  %>
-            <div class="p-2 flex items-center">
+            <div class="p-2 flex items-center", id='tag_<%= index %>'>
               <%= tag_fields.text_field :tag,
                         class: 'mr-2 pr-4', 
                         data: {

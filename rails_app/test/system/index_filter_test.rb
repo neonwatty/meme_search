@@ -83,12 +83,17 @@ class IndexFilterTest < ApplicationSystemTestCase
     # select tag one
     assert_selector "div#tag_toggle", visible: true
     find("#tag_toggle").click
+    find("#tag_0").check
     find("#tag_1").check
+    assert_selector "farts"
+
+    # find("#has_embeddings_checkbox").uncheck
 
     # apply filters
     click_on "Apply filters"
 
     # count memes
+    sleep(0.2)
     second_meme_count = all("div[id^='image_core_card_']").count
     puts "first_meme_count --> #{first_meme_count}"
     puts "second_meme_count --> #{second_meme_count}"
