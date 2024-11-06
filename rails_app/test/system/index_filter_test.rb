@@ -85,9 +85,8 @@ class IndexFilterTest < ApplicationSystemTestCase
     find("#tag_toggle").click
     find("#tag_0").check
     find("#tag_1").check
-    assert_selector "farts"
-
-    # find("#has_embeddings_checkbox").uncheck
+    find("#has_embeddings_checkbox").uncheck
+    # assert_selector "farts"
 
     # apply filters
     click_on "Apply filters"
