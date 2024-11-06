@@ -70,6 +70,4 @@ class SearchTest < ApplicationSystemTestCase
     assert second_meme_count == 0
   end
 
-
-
 end
