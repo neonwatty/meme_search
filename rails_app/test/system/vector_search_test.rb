@@ -72,8 +72,6 @@ class SearchTest < ApplicationSystemTestCase
     # flip to vector mode and search
     toggle = find("#search-toggle-div", visible: true)
     toggle.click
-    assert_selector "farty"
-    
 
     # search for single meme by keyword
     query = "darkly"
@@ -82,7 +80,12 @@ class SearchTest < ApplicationSystemTestCase
     second_meme_count = all("div[id^='image_core_card_']").count
     assert second_meme_count == 1
 
-    # flip to vector mode and search
+    # search for single meme by synonym
+    query = "black"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 1
     
   end
 end
