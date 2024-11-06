@@ -8,6 +8,76 @@ class SearchTest < ApplicationSystemTestCase
     # initial count memes
     @first_meme_count = all("div[id^='image_core_card_']").count
     assert @first_meme_count == 0
+  end
+
+  test "keyword search, all tags allowed" do
+    # search for single meme by keyword
+    query = "fucks"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 1
+
+    # search for single meme by keyword
+    query = "pills"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 1
+
+    # search for single meme by keyword
+    query = "weird"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 1
+
+    # search for multiple memes by keyword
+    query = "image"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 4
+  end
+
+  test "keyword search, tag filter allowed" do
+    # select tag one
+    assert_selector "div#tag_toggle", visible: true
+    find("#tag_toggle").click
+    find("#tag_1").check
+    find("#tag_toggle").click
+
+    # search for single meme by keyword - should not show up as it is tagged with un-selected tag
+    query = "fucks"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 0
+
+
+    # select tag one
+    assert_selector "div#tag_toggle", visible: true
+    find("#tag_toggle").click
+    find("#tag_0").check
+    find("#tag_1").uncheck
+    find("#tag_toggle").click
+
+    # search for single meme by keyword - should not show up as it is tagged with un-selected tag
+    query = "weird"
+    fill_in "search-box", with: query
+    sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
+    second_meme_count = all("div[id^='image_core_card_']").count
+    assert second_meme_count == 0
+  end
+
+  
+  test "vector search, all tags allowed" do
+    # visit search path
+    visit search_image_cores_path
+
+    # initial count memes
+    @first_meme_count = all("div[id^='image_core_card_']").count
+    assert @first_meme_count == 0
 
     # visit root - to update a description
     visit image_cores_url
@@ -34,7 +104,7 @@ class SearchTest < ApplicationSystemTestCase
     click_on "Edit details"
 
     # update description
-    updated_description = "for now we see through a glass darkly"
+    updated_description = "an image saying for now we see through a glass darkly"
     fill_in "image_core_update_description_area", with: updated_description
 
     # update tags
@@ -56,19 +126,14 @@ class SearchTest < ApplicationSystemTestCase
 
     # return to search path
     visit search_image_cores_path
-  end
 
-
-  test "keyword search to verify updated description, all tags allowed" do
     # search for single meme by keyword
     query = "darkly"
     fill_in "search-box", with: query
     sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
     second_meme_count = all("div[id^='image_core_card_']").count
     assert second_meme_count == 1
-  end
 
-  test "vector search, all tags allowed" do
     # flip to vector mode and search
     toggle = find("#search-toggle-div", visible: true)
     toggle.click
@@ -86,6 +151,5 @@ class SearchTest < ApplicationSystemTestCase
     sleep(0.5)  # search debounce is set to 300 miliseconds - so wait longer
     second_meme_count = all("div[id^='image_core_card_']").count
     assert second_meme_count == 1
-    
   end
 end
