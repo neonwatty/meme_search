@@ -12,9 +12,13 @@ class ImageCoresTest < ApplicationSystemTestCase
     divs_with_image_core_id = all("div[id^='image_core_']")
     first_core_count = divs_with_image_core_id.count
 
-    # click on first
+    # click on first item anywhere
     click_on "generate description 🪄", match: :first
     assert_current_path("/image_cores/#{@image_core.id}")
+
+    # confirm current embeddings for entry do not exist
+    first_embeddings_quant = ImageEmbedding.where({image_core_id: @image_core.id}).length
+    assert first_embeddings_quant == 0
 
     # record initial tag count
     all_tags = all("div[id^='tag_']")
@@ -40,6 +44,10 @@ class ImageCoresTest < ApplicationSystemTestCase
     click_on "Save"
     assert_selector "div", text: "Meme succesfully updated!"
     assert_current_path("/image_cores/#{@image_core.id}")
+
+    # confirm current embeddings for entry do not exist
+    second_embeddings_quant = ImageEmbedding.where({image_core_id: @image_core.id}).length
+    assert second_embeddings_quant > 0
 
     # record second tag count
     all_tags = all("div[id^='tag_']")
