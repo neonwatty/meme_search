@@ -11,10 +11,10 @@ Use Python and AI to index your memes by their content and text, making them eas
 A table of contents for the remainder of this README:
 
 - [Introduction](#introduction)
-- [Installation instructions](#installation-instructions)
 - [Pipeline overview](#pipeline-overview)
-- [Start the streamlit server](#start-the-streamlit-server)
-- [Index your own memes](#index-your-own-memes)
+- [Installation instructions (standard version)](#installation-instructions)
+  - [Start the streamlit server](#start-the-streamlit-server)
+  - [Index your own memes](#index-your-own-memes)
 - [Changelog](#changelog)
 - [Feature requests and contributing](#feature-requests-and-contributing)
 - [Running tests](#running-tests)
@@ -35,7 +35,7 @@ This meme search pipeline is built using the following open source components:
 - [sqlite](https://sqlite.org/): the greatest database of all time, used for data indexing
 - [streamlit](https://github.com/streamlit/streamlit): for serving up the app
 
-## Installation instructions
+## Installation instructions (standard version)
 
 To create a handy tool for your own memes pull the repo and install the requirements file
 
@@ -51,7 +51,7 @@ Alternatively you can install all the requirements you need using docker via the
 docker compose up
 ```
 
-## Start the streamlit server
+### Start the streamlit server
 
 After indexing your memes you can then start the streamlit app, allowing you to semantically search for and retrieve your memes
 
@@ -67,7 +67,7 @@ docker compose up
 
 Note: you can drag and drop any recovered meme directly from the streamlit app to any messager app of your choice.
 
-## Index your own memes
+### Index your own memes
 
 Place any images / memes you would like indexed for the search app in this repo's subdirectory
 
