@@ -1,11 +1,13 @@
 name: "DockerBuild"
 
 on:
-  push:
+  workflow_dispatch:
   pull_request:
+  push:
     branches: ["pro-beta"]
     paths:
       - "meme_search_pro/meme_search_app/**"
+
 jobs:
   Build_And_Push_App:
     runs-on: ubuntu-22.04
