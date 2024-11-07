@@ -2,7 +2,6 @@
 base_dir = Dir.getwd
 example_memes_subdir =  "example_memes_1"
 example_dir = base_dir + "/public/memes/" +  example_memes_subdir
-puts example_dir
 if File.directory?(example_dir)
   examples_path = ImagePath.new({ name: example_memes_subdir })
   examples_path.save!
@@ -21,7 +20,6 @@ example_2.refresh_description_embeddings
 base_dir = Dir.getwd
 example_memes_subdir =  "example_memes_2"
 example_dir = base_dir + "/public/memes/" +  example_memes_subdir
-puts example_dir
 if File.directory?(example_dir)
   examples_path = ImagePath.new({ name: example_memes_subdir })
   examples_path.save!
@@ -38,7 +36,7 @@ example_4.refresh_description_embeddings
 
 # create two tags
 my_tag_name = "tag_one"
-tag_one = TagName.new({ name: my_tag_name, color: "black" })
+tag_one = TagName.new({ name: my_tag_name, color: "amber" })
 tag_one.save!
 
 my_tag_name = "tag_two"
