@@ -13,7 +13,7 @@ lock = threading.Lock()
 
 # constants
 APP_URL = "http://host.docker.internal:3000/image_cores/"
-JOB_DB = "job_queue.db"
+JOB_DB = "/app/db/job_queue.db"
 
 # initialize logging
 logging.basicConfig(

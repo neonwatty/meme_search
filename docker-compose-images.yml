@@ -20,6 +20,7 @@ services:
       - 8000:8000
     volumes:
       - ./memes/:/app/public/memes
+      - ./data/image_to_text_app:/app/db
     container_name: meme_search_image_to_text_app
     deploy:
       resources:
