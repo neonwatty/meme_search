@@ -99,7 +99,6 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     drb (2.2.1)
-    error_highlight (0.6.0)
     erubi (1.13.0)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
@@ -366,7 +365,6 @@ DEPENDENCIES
   brakeman
   capybara
   debug
-  error_highlight (>= 0.4.0)
   image_processing (~> 1.2)
   importmap-rails
   informers

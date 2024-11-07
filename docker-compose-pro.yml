@@ -1,11 +1,11 @@
 version: "3.8"
 
 services:
-  rails_app:
-    image: ghcr.io/neonwatty/test:latest
-    container_name: meme_search_rails_app
+  meme_search_pro:
+    image: ghcr.io/neonwatty/meme-search-pro-app:latest
+    container_name: meme_search_pro
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@meme-search-db:5432/meme_search_production
+      - DATABASE_URL=postgres://postgres:postgres@meme-search-pro-db:5432/meme_search
     ports:
       - "3000:3000"
     depends_on:
@@ -14,14 +14,14 @@ services:
     volumes:
       - ./memes/:/rails/public/memes
 
-  image_to_text_app:
-    image: ghcr.io/neonwatty/test2:latest
+  image_to_text_generator:
+    image: ghcr.io/neonwatty/image-to-text-generator:latest
+    container_name: image_to_text_generator
     ports:
       - 8000:8000
     volumes:
       - ./memes/:/app/public/memes
       - ./data/image_to_text_app:/app/db
-    container_name: meme_search_image_to_text_app
     deploy:
       resources:
         limits: # <-- roughly tested min memory for cpu usage
@@ -32,13 +32,13 @@ services:
         #       count: 1
         #       capabilities: [gpu]
 
-  meme-search-db:
+  meme-search-pro-db:
     image: pgvector/pgvector:pg17
-    container_name: meme-search-db # note: must use - and not _ as ActiveRecord uses URI::RFC2396_Parser to parse database URLs
+    container_name: meme-search-pro-db # note: must use - and not _ as ActiveRecord uses URI::RFC2396_Parser to parse database URLs
     volumes:
-      - ./data/meme-search-db:/var/lib/postgresql/data
+      - ./data/meme-search-pro-db:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: meme_search_production
+      POSTGRES_DB: meme_search
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:

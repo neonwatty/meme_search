@@ -64,7 +64,7 @@ class ImageCoresController < ApplicationController
         # If the connection fails, use the backup URI
         puts "Failed to connect to localhost: #{e.message}"
 
-        uri = URI("http://meme_search_image_to_text_app:8000/add_job")
+        uri = URI("http://image_to_text_generator:8000/add_job")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the backup URI
@@ -115,7 +115,7 @@ class ImageCoresController < ApplicationController
 
       rescue => e  # For compose runner (when app run in docker network)
         # If the connection fails, use the backup URI
-        uri = URI.parse("http://meme_search_image_to_text_app:8000/remove_job/#{@image_core.id}")
+        uri = URI.parse("http://image_to_text_generator:8000/remove_job/#{@image_core.id}")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the first URI
