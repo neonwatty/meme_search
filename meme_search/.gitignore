@@ -1,5 +1,7 @@
+.DS_Store
+._.DS_Store
 **/.DS_Store
-
+**/._.DS_Store
 **/.env*
 scratch.ipynb
 bug_reports/

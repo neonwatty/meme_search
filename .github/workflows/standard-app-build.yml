@@ -1,10 +1,10 @@
-name: 'DockerBuild'
+name: "DockerBuild"
 
 on:
   push:
     tags:
-      - 'v*'
-  
+      - "v*"
+
 jobs:
   Build_And_Push:
     runs-on: ubuntu-22.04
@@ -49,7 +49,7 @@ jobs:
       - name: Build and Upload for AMD64 and ARM64
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./meme_search/
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}

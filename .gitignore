@@ -2,4 +2,4 @@
 **/.DS_Store
 **/*.db
 **/*.pyc
-data
+meme_search_pro/db_data

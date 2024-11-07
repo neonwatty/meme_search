@@ -11,17 +11,17 @@ services:
     depends_on:
       meme-search-db:
         condition: service_healthy
-    volumes:
-      - ./memes/:/rails/public/memes
+    volumes: # <-- any additional meme directory must be mounted here
+      - ./meme_search_pro/memes/:/rails/public/memes
 
   image_to_text_generator:
     image: ghcr.io/neonwatty/image-to-text-generator:latest
     container_name: image_to_text_generator
     ports:
       - 8000:8000
-    volumes:
-      - ./memes/:/app/public/memes
-      - ./data/image_to_text_app:/app/db
+    volumes: # <-- any additional meme directory must be mounted here
+      - ./meme_search_pro/memes/:/app/public/memes
+      - ./meme_search_pro/db_data/image_to_text_generator:/app/db
     deploy:
       resources:
         limits: # <-- roughly tested min memory for cpu usage
@@ -36,7 +36,7 @@ services:
     image: pgvector/pgvector:pg17
     container_name: meme-search-pro-db # note: must use - and not _ as ActiveRecord uses URI::RFC2396_Parser to parse database URLs
     volumes:
-      - ./data/meme-search-pro-db:/var/lib/postgresql/data
+      - ./meme_search_pro/db_data/meme-search-pro-db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: meme_search
       POSTGRES_USER: postgres
