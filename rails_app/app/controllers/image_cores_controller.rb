@@ -202,8 +202,8 @@ class ImageCoresController < ApplicationController
       if params[:selected_path_names].present?
         if params[:selected_path_names].length > 0
           selected_path_names = params[:selected_path_names].split(",").map { |path| path.strip }
-          image_path_ids = selected_path_names.map {|name| ImagePath.where({name: name})}.map {|element| element[0].id}
-          keeper_ids = @image_cores.select { |item| image_path_ids.include?(item.image_path_id)}.map {|item| item.id}
+          image_path_ids = selected_path_names.map { |name| ImagePath.where({ name: name }) }.map { |element| element[0].id }
+          keeper_ids = @image_cores.select { |item| image_path_ids.include?(item.image_path_id) }.map { |item| item.id }
           @image_cores = ImageCore.where(id: keeper_ids).order(updated_at: :desc)
         end
       end

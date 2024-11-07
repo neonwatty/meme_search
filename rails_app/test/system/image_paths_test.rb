@@ -1,7 +1,6 @@
 require "application_system_test_case"
 
 class ImagePathsTest < ApplicationSystemTestCase
-
   test "visiting the index, create a new path, edit it, and delete it" do
     # record first meme count
     visit root_path
@@ -96,6 +95,5 @@ class ImagePathsTest < ApplicationSystemTestCase
     divs_with_image_path_id = all("div[id^='image_path_']")
     fourth_path_count = divs_with_image_path_id.count
     assert fourth_path_count == first_path_count
-
   end
 end

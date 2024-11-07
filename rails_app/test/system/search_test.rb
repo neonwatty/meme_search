@@ -70,7 +70,7 @@ class SearchTest < ApplicationSystemTestCase
     assert second_meme_count == 0
   end
 
-  
+
   test "vector search, all tags allowed" do
     # visit search path
     visit search_image_cores_path
@@ -92,7 +92,7 @@ class SearchTest < ApplicationSystemTestCase
     assert_current_path("/image_cores/#{@image_core.id}")
 
     # confirm current embeddings for entry do not exist
-    first_embeddings_quant = ImageEmbedding.where({image_core_id: @image_core.id}).length
+    first_embeddings_quant = ImageEmbedding.where({ image_core_id: @image_core.id }).length
     assert first_embeddings_quant == 0
 
     # record initial tag count
@@ -121,7 +121,7 @@ class SearchTest < ApplicationSystemTestCase
     assert_current_path("/image_cores/#{@image_core.id}")
 
     # confirm current embeddings for entry do not exist
-    second_embeddings_quant = ImageEmbedding.where({image_core_id: @image_core.id}).length
+    second_embeddings_quant = ImageEmbedding.where({ image_core_id: @image_core.id }).length
     assert second_embeddings_quant > 0
 
     # return to search path

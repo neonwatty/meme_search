@@ -17,7 +17,7 @@ class ImageCoresTest < ApplicationSystemTestCase
     assert_current_path("/image_cores/#{@image_core.id}")
 
     # confirm current embeddings for entry do not exist
-    first_embeddings_quant = ImageEmbedding.where({image_core_id: @image_core.id}).length
+    first_embeddings_quant = ImageEmbedding.where({ image_core_id: @image_core.id }).length
     assert first_embeddings_quant == 0
 
     # record initial tag count
@@ -46,7 +46,7 @@ class ImageCoresTest < ApplicationSystemTestCase
     assert_current_path("/image_cores/#{@image_core.id}")
 
     # confirm current embeddings for entry do not exist
-    second_embeddings_quant = ImageEmbedding.where({image_core_id: @image_core.id}).length
+    second_embeddings_quant = ImageEmbedding.where({ image_core_id: @image_core.id }).length
     assert second_embeddings_quant > 0
 
     # record second tag count
@@ -82,5 +82,4 @@ class ImageCoresTest < ApplicationSystemTestCase
     # confirm second_meme_count < first_meme_count
     assert second_meme_count == first_meme_count - 1
   end
-
 end
