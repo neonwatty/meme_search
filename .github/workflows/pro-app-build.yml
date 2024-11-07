@@ -55,5 +55,5 @@ jobs:
           context: ./meme_search_pro/meme_search_app
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: "tag1" # ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
