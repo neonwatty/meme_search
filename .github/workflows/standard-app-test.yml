@@ -4,6 +4,7 @@
 name: Python application
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: ["main"]
     paths-ignore:

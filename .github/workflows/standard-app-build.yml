@@ -1,6 +1,7 @@
 name: "DockerBuild"
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*"
