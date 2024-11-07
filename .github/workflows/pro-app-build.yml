@@ -38,7 +38,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ github.actor }}/test
+            ghcr.io/${{ github.actor }}/meme_search_pro
           # ${{ secrets.DOCKERHUB_USERNAME }}/meme-search
           tags: type=ref,event=tag
           flavor: latest=true
