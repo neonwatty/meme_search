@@ -36,11 +36,11 @@ example_4.refresh_description_embeddings
 
 # create two tags
 my_tag_name = "tag_one"
-tag_one = TagName.new({ name: my_tag_name, color: "amber" })
+tag_one = TagName.new({ name: my_tag_name, color: "#ef4444" })
 tag_one.save!
 
 my_tag_name = "tag_two"
-tag_two = TagName.new({ name: my_tag_name, color: "red" })
+tag_two = TagName.new({ name: my_tag_name, color: "#d946ef" })
 tag_two.save!
 
 # tag a few images with these tags
