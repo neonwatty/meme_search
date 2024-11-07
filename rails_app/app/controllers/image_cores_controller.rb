@@ -60,12 +60,11 @@ class ImageCoresController < ApplicationController
         data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
         request.body = data.to_json
         response = http.request(request)
-
-      rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
+      rescue => e # For compose runner (when app run in docker network)
         # If the connection fails, use the backup URI
         puts "Failed to connect to localhost: #{e.message}"
 
-        uri = URI("http://image_to_text_app:8000/add_job")
+        uri = URI("http://meme_search_image_to_text_app:8000/add_job")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the backup URI
@@ -81,7 +80,7 @@ class ImageCoresController < ApplicationController
           # flash[:notice] = "Image added to queue for automatic description generation."
           # format.html { redirect_back_or_to root_path }
         else
-          flash[:alert] = "Error: #{response.code} - #{response.message}"
+          flash[:alert] = "Cannot generate description, your model is offline!"
           format.html { redirect_back_or_to root_path }
         end
       end
@@ -114,9 +113,9 @@ class ImageCoresController < ApplicationController
         request["Content-Type"] = "application/json"
         response = http.request(request)
 
-      rescue SocketError, Errno::ECONNREFUSED => e  # For compose runner (when app run in docker network)
+      rescue => e  # For compose runner (when app run in docker network)
         # If the connection fails, use the backup URI
-        uri = URI.parse("http://image_to_text_app:8000/remove_job/#{@image_core.id}")
+        uri = URI.parse("http://meme_search_image_to_text_app:8000/remove_job/#{@image_core.id}")
         http = Net::HTTP.new(uri.host, uri.port)
 
         # Try to make a request to the first URI
