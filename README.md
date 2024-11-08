@@ -152,22 +152,23 @@ The pro version of meme search builds on the standard version, adding an array o
 
 <p align="center">
   <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-    <figure>
+    <figure style="display: flex; flex-direction: column; align-items: center;">
+      <figcaption>Search</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
-    <figcaption>Search</figcaption>
     </figure>
-    <figure>
+    <figure style="display: flex; flex-direction: column; align-items: center;">
+      <figcaption>Edit</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-edit-example.gif" height="225">
-        <figcaption>Edit</figcaption>
     </figure>
-    <figure>
+    <figure style="display: flex; flex-direction: column; align-items: center;">
+      <figcaption>Filter</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-filters-example.gif" height="225">
-        <figcaption>Filter</figcaption>
     </figure>
-    <figure>
+    <figure style="display: flex; flex-direction: column; align-items: center;">
+      <figcaption>Generate</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-generate-example.gif" height="225">
-        <figcaption>Generate</figcaption>
     </figure>
+
   </div>
 </p>
 
