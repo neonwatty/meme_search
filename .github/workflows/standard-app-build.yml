@@ -2,9 +2,9 @@ name: "DockerBuild"
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - "v*"
+  # push:
+  #   tags:
+  #     - "v*"
 
 jobs:
   Build_And_Push:
