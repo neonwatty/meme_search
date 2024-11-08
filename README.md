@@ -152,19 +152,19 @@ The pro version of meme search builds on the standard version, adding an array o
 
 <p align="center">
   <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-    <figure style="display: flex; flex-direction: column; align-items: center;">
+    <figure>
       <figcaption>Search</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
     </figure>
-    <figure style="display: flex; flex-direction: column; align-items: center;">
+    <figure>
       <figcaption>Edit</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-edit-example.gif" height="225">
     </figure>
-    <figure style="display: flex; flex-direction: column; align-items: center;">
+    <figure>
       <figcaption>Filter</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-filters-example.gif" height="225">
     </figure>
-    <figure style="display: flex; flex-direction: column; align-items: center;">
+    <figure>
       <figcaption>Generate</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-generate-example.gif" height="225">
     </figure>
