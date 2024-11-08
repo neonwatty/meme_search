@@ -151,7 +151,7 @@ python -m pytest tests/
 The pro version of meme search builds on the standard version, adding an array of features requested by the community.
 
 <p align="center">
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+  <div style="display: grid;">
     <figure>
       <figcaption>Search</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
