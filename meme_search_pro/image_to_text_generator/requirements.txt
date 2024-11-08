@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+requests
+Pillow
+torch
+torchvision
+transformers
+einops

@@ -1,0 +1,7 @@
+one:
+  name: tag_one
+  color: "#ff00d0"
+
+two:
+  name: tag_two
+  color: "#001eff"

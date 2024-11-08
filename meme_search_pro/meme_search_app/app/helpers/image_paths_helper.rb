@@ -1,0 +1,2 @@
+module ImagePathsHelper
+end

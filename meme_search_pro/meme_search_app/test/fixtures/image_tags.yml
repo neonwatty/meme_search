@@ -1,0 +1,15 @@
+one:
+  tag_name: one
+  image_core: one
+
+two:
+  tag_name: one
+  image_core: two
+
+three:
+  tag_name: two
+  image_core: two
+
+four:
+  tag_name: two
+  image_core: three
