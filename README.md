@@ -168,7 +168,6 @@ The pro version of meme search builds on the standard version, adding an array o
       <figcaption>Generate</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-generate-example.gif" height="225">
     </figure>
-
   </div>
 </p>
 
