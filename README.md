@@ -152,10 +152,22 @@ The pro version of meme search builds on the standard version, adding an array o
 
 <p align="center">
   <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-    <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
-    <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-edit-example.gif" height="225">
-    <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-filters-example.gif" height="225">
-    <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
+    <figure>
+      <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
+    <figcaption>Search</figcaption>
+    </figure>
+    <figure>
+      <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-edit-example.gif" height="225">
+        <figcaption>Edit</figcaption>
+    </figure>
+    <figure>
+      <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-filters-example.gif" height="225">
+        <figcaption>Filter</figcaption>
+    </figure>
+    <figure>
+      <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-generate-example.gif" height="225">
+        <figcaption>Generate</figcaption>
+    </figure>
   </div>
 </p>
 
