@@ -1,7 +1,7 @@
-from meme_search.utilities.status import get_input_directory_status
-from meme_search.utilities.remove import remove
-from meme_search.utilities.add import add
-from meme_search.utilities import img_dir, sqlite_db_path, vector_db_path
+from meme_search_app.utilities.status import get_input_directory_status
+from meme_search_app.utilities.remove import remove
+from meme_search_app.utilities.add import add
+from meme_search_app.utilities import img_dir, sqlite_db_path, vector_db_path
 
 
 def process() -> bool:

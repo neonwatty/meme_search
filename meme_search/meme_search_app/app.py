@@ -1,7 +1,7 @@
 import time
-from meme_search import base_dir
-from meme_search.utilities.query import complete_query
-from meme_search.utilities.create import process
+from meme_search_app import base_dir
+from meme_search_app.utilities.query import complete_query
+from meme_search_app.utilities.create import process
 import streamlit as st
 
 st.set_page_config(page_title="Meme Search")

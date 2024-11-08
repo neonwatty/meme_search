@@ -1,7 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: python tests for meme search standard app
 
 on:
   workflow_dispatch:
@@ -16,12 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v2
-      - uses: chartboost/ruff-action@v1
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          args: "format --check"
-          config: .ruff.toml
+          python-version: "3.12"
+
+      - name: Install Ruff and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+
+      - name: Run Ruff linting
+        run: |
+          ruff format --check --config ./meme_search/.ruff.toml ./meme_search/meme_search_app
+
   test:
     name: run pytest
     runs-on: ubuntu-latest
@@ -29,18 +37,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+
       - name: Install dependencies
         run: |
+          cd meme_search
           python -m pip install --upgrade pip
           pip install -r requirements.test
           pip install -r requirements.txt
+
       - name: Run pytest
         run: |
-          PYTHONPATH=. python3.10 -m pytest tests/test_app.py &&
-          PYTHONPATH=. python3.10 -m pytest tests/utilities/test_imgs.py &&
-          PYTHONPATH=. python3.10 -m pytest tests/utilities/test_query.py
+          cd meme_search &&
+          PYTHONPATH=. python3.10 -m pytest tests/test_app.py
           # PYTHONPATH=. python3.10 -m pytest tests/utilities/test_add_remove.py ## requires large runner

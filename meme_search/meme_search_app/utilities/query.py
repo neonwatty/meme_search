@@ -3,8 +3,8 @@ import sqlite3
 import numpy as np
 from typing import Tuple, Union
 import argparse
-from meme_search.utilities import model
-from meme_search.utilities import vector_db_path, sqlite_db_path
+from meme_search_app.utilities import model
+from meme_search_app.utilities import vector_db_path, sqlite_db_path
 
 
 def query_vector_db(query: str, db_file_path: str, k: int = 10) -> Tuple[list, list]:

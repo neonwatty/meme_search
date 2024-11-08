@@ -1,5 +1,5 @@
 import sqlite3
-from meme_search.utilities.imgs import collect_img_paths
+from meme_search_app.utilities.imgs import collect_img_paths
 
 
 def get_current_indexed_img_names(sqlite_db_path: str):

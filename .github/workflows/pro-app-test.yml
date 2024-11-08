@@ -1,4 +1,4 @@
-name: rails tests for meme search app
+name: rails tests for meme search pro app
 
 on:
   workflow_dispatch:

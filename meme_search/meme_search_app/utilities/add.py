@@ -1,9 +1,9 @@
 import os
 import sqlite3
 import faiss
-from meme_search.utilities import model
-from meme_search.utilities.text_extraction import extract_text_from_imgs
-from meme_search.utilities.chunks import create_all_img_chunks
+from meme_search_app.utilities import model
+from meme_search_app.utilities.text_extraction import extract_text_from_imgs
+from meme_search_app.utilities.chunks import create_all_img_chunks
 
 
 def add_to_chunk_db(img_chunks: list, sqlite_db_path: str) -> None:
