@@ -151,22 +151,22 @@ python -m pytest tests/
 The pro version of meme search builds on the standard version, adding an array of features requested by the community.
 
 <p align="center">
-  <div style="display: grid;">
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
     <figure>
-      <figcaption>Search</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-search-example.gif" height="225">
+      <figcaption>Search</figcaption>
     </figure>
     <figure>
-      <figcaption>Edit</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-edit-example.gif" height="225">
+      <figcaption>Edit</figcaption>
     </figure>
     <figure>
-      <figcaption>Filter</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-pro-filters-example.gif" height="225">
+      <figcaption>Filter</figcaption>
     </figure>
     <figure>
-      <figcaption>Generate</figcaption>
       <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme-search-generate-example.gif" height="225">
+      <figcaption>Generate</figcaption>
     </figure>
   </div>
 </p>
