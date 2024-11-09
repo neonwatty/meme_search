@@ -46,7 +46,7 @@ This repo contains two versions of the meme search app. Both versions can be use
 
 ### Features - standard version
 
-The standard version of meme search is a simple one page app that allows you to index a diretory of memes and recover them via text based search as illustrated below.
+The standard version of meme search is a simple one page app that allows you to index a directory of memes and recover them via text based search as illustrated below.
 
 <p align="center">
 <img align="center" src="https://github.com/jermwatt/readme_gifs/blob/main/meme_search.gif" height="325">
