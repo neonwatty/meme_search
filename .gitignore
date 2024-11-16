@@ -3,3 +3,7 @@
 **/*.db
 **/*.pyc
 meme_search_pro/db_data
+.pytest_cache
+.ruff_cache
+.vscode
+.venv
