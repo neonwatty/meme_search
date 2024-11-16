@@ -7,3 +7,4 @@ meme_search_pro/db_data
 .ruff_cache
 .vscode
 .venv
+.env
