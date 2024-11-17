@@ -1,0 +1,30 @@
+service: meme-search-pro
+image: neonwatty/meme-search-demo-two
+servers:
+  web:
+    hosts:
+      - 44.226.127.200
+
+proxy:
+  app_port: 8501
+  ssl: false
+  host: 44.226.127.200
+  healthcheck:
+    interval: 3
+    path: /
+    timeout: 10
+
+registry:
+  server: ghcr.io
+  username: neonwatty
+  password:
+    - GITHUB_REGISTRY_TOKEN
+
+# Configure builder setup.
+builder:
+  arch: amd64
+  dockerfile: "./Dockerfile_standard"
+
+# Use a different ssh user than root
+ssh:
+  user: ubuntu

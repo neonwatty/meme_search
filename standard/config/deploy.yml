@@ -1,4 +1,4 @@
-service: meme-search
+service: meme-search-standard
 image: neonwatty/meme-search-demo-one
 servers:
   web:
@@ -7,8 +7,8 @@ servers:
 
 proxy:
   app_port: 8501
-  ssl: false
-  host: 44.226.127.200
+  ssl: true
+  host: meme_search.standard.ytdatakit.xyz
   healthcheck:
     interval: 3
     path: /
