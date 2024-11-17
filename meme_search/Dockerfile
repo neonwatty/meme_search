@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /home
 
-COPY ./meme_search/requirements.txt .
+COPY requirements.txt .
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
@@ -22,11 +22,12 @@ WORKDIR /home
 
 COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin
-COPY ./meme_search/meme_search_app /home/meme_search
-COPY ./meme_search/.streamlit /home/.streamlit
+COPY meme_search_app /home/meme_search_app
+COPY .streamlit /home/.streamlit
+COPY data /home/data
 
 EXPOSE 8501
 
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health || exit 1
 
-ENTRYPOINT ["streamlit", "run", "/home/meme_search/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "/home/meme_search_app/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
