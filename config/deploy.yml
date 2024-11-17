@@ -1,5 +1,5 @@
 service: meme-search
-image: neonwatty/meme-search-demo
+image: neonwatty/meme-search-demo-one
 servers:
   web:
     hosts:
@@ -23,8 +23,7 @@ registry:
 # Configure builder setup.
 builder:
   arch: amd64
-  dockerfile: "./meme_search/Dockerfile"
-  context: "./meme_search"
+  dockerfile: "./Dockerfile_standard"
 
 # Use a different ssh user than root
 ssh:
