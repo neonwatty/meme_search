@@ -124,41 +124,17 @@ class ImageCoresController < ApplicationController
 
   # PATCH/PUT /image_cores/1 or /image_cores/1.json
   def update
-    image_tags = @image_core.image_tags.map { |tag| tag.id }
-    image_tags.each do |tag|
-      ImageTag.destroy(tag)
-    end
-
-    # check if description has changed to update status
-    update_params = image_update_params
-    update_description_embeddings = false
-    if @image_core.description != update_params[:description]
-      update_description_embeddings = true
-    end
-
     respond_to do |format|
-      if @image_core.update(update_params)
-        # recompute embeddings if description has changed
-        if update_description_embeddings
-          @image_core.refresh_description_embeddings
-        end
-
-        flash[:notice] = "Meme succesfully updated!"
+        flash[:alert] = feature_unavailable_alert
         format.html { redirect_to @image_core }
-      else
-        flash[:alert] = @image_core.errors.full_messages[0]
-        format.html { render :edit, status: :unprocessable_entity }
-      end
     end
   end
 
   # DELETE /image_cores/1 or /image_cores/1.json
   def destroy
-    @image_core.destroy!
-
     respond_to do |format|
-      flash[:notice] = "Meme succesfully deleted!"
-      format.html { redirect_to image_cores_path, status: :see_other }
+        flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to @image_core }
     end
   end
 

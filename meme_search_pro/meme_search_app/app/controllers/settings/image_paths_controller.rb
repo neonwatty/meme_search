@@ -1,6 +1,8 @@
 module Settings
   class ImagePathsController < ApplicationController
-    before_action :set_image_path, only: %i[ show edit update destroy ]
+    include ApplicationHelper
+
+    before_action :set_image_path, only: %i[ show edit update destroy create ]
 
     # GET /settings/image_paths
     def index
@@ -23,38 +25,25 @@ module Settings
 
     # POST /settings/image_paths
     def create
-      @image_path = ImagePath.new(image_path_params)
       respond_to do |format|
-        if @image_path.save
-          flash[:notice] = "Directory path successfully created!"
-          format.html { redirect_to [ :settings, @image_path ] }
-        else
-          flash[:alert] = "Invalid directory path!"
-          format.html { render :new, status: :unprocessable_entity }
-        end
+          flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to [:settings, @image_path] }
       end
     end
 
     # PATCH/PUT /settings/image_paths/1
     def update
       respond_to do |format|
-        if @image_path.update(image_path_params)
-          flash[:notice] = "Directory path succesfully updated!"
-          format.html { redirect_to [ :settings, @image_path ] }
-        else
-          flash[:alert] = "Invalid directory path!"
-          format.html { render :edit, status: :unprocessable_entity }
-        end
+          flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to [:settings, @image_path] }
       end
     end
 
     # DELETE /settings/image_paths/1
     def destroy
-      @image_path.destroy!
-
       respond_to do |format|
-        flash[:notice] = "Directory path successfully deleted!"
-        format.html { redirect_to [ :settings, :image_paths ], status: :see_other }
+        flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to [:settings, @image_path] }
       end
     end
 

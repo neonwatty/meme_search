@@ -1,6 +1,8 @@
 module Settings
   class TagNamesController < ApplicationController
-    before_action :set_tag_name, only: %i[ show edit update destroy ]
+    include ApplicationHelper
+
+    before_action :set_tag_name, only: %i[ show edit update destroy create ]
 
     # GET /settings/tag_names
     def index
@@ -23,39 +25,25 @@ module Settings
 
     # POST /settings/tag_names
     def create
-      @tag_name = TagName.new(tag_name_params)
-
       respond_to do |format|
-        if @tag_name.save
-          flash[:notice] = "Tag successfully created!"
-          format.html { redirect_to [ :settings, @tag_name ] }
-        else
-          flash[:alert] = @tag_name.errors.full_messages[0]
-          format.html { render :new, status: :unprocessable_entity }
-        end
+          flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to [:settings, @tag_name] }
       end
     end
 
     # PATCH/PUT /settings/tag_names/1
     def update
       respond_to do |format|
-        if @tag_name.update(tag_name_params)
-          flash[:notice] = "Tag successfully updated!"
-          format.html { redirect_to [ :settings, @tag_name ] }
-        else
-          flash[:alert] = @tag_name.errors.full_messages[0]
-          format.html { render :edit, status: :unprocessable_entity }
-        end
+          flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to [:settings, @tag_name] }
       end
     end
 
     # DELETE /settings/tag_names/1
     def destroy
-      @tag_name.destroy!
-
       respond_to do |format|
-        flash[:notice] = "Tag successfully deleted!"
-        format.html { redirect_to [ :settings, :tag_names ], status: :see_other }
+          flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to [:settings, @tag_name] }
       end
     end
 
