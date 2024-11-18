@@ -3,12 +3,12 @@ image: neonwatty/meme-search-demo-two
 servers:
   web:
     hosts:
-      - 44.226.127.200
+      - 44.240.243.23
 
 proxy:
-  app_port: 8501
-  ssl: false
-  host: 44.226.127.200
+  app_port: 3000
+  ssl: true
+  host: meme-search.pro.ytdatakit.xyz
   healthcheck:
     interval: 3
     path: /
@@ -23,7 +23,7 @@ registry:
 # Configure builder setup.
 builder:
   arch: amd64
-  dockerfile: "./Dockerfile_standard"
+  dockerfile: "./Dockerfile_pro"
 
 # Use a different ssh user than root
 ssh:
