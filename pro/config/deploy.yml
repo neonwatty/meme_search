@@ -28,3 +28,16 @@ builder:
 # Use a different ssh user than root
 ssh:
   user: ubuntu
+
+accessories:
+  postgres:
+    image: pgvector/pgvector:pg17
+    host: 44.240.243.23
+    directories:
+      - ./meme_search_pro/db_data/meme-search-db:/var/lib/postgresql/data
+    env:
+      clear:
+        POSTGRES_DB: meme_search
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+    port: "127.0.0.1:5432:5432"

@@ -1,1 +1,1 @@
-FROM ghcr.io/neonwatty/meme_search_pro:latest
+FROM ghcr.io/neonwatty/meme-search-demo-pro:latest
