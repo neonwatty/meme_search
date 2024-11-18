@@ -12,12 +12,9 @@ Rails.application.routes.draw do
     collection do
       get "search"
       post "search_items"
-      post "description_receiver"
-      post "status_receiver"
     end
     member do
       post "generate_description"
-      post "generate_stopper"
     end
   end
 

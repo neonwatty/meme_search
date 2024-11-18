@@ -3,142 +3,15 @@ require "net/http"
 require "json"
 
 class ImageCoresController < ApplicationController
+  include ApplicationHelper
   rate_limit to: 20, within: 1.minute, only: [ :search ], with: -> { redirect_to root_path, alert: "Too many requests. Please try again" }
   before_action :set_image_core, only: %i[ show edit update destroy generate_description ]
-  skip_before_action :verify_authenticity_token, only: [ :description_receiver, :status_receiver ]
-
-  def status_receiver
-    received_data = params[:data]
-    id = received_data[:image_core_id].to_i
-    status = received_data[:status].to_i
-    image_core = ImageCore.find(id)
-    image_core.status = status
-    img_id = image_core.id
-    div_id = "status-image-core-id-#{image_core.id}"
-    if image_core.save
-      status_html = ApplicationController.renderer.render(partial: "image_cores/generate_status", locals: { img_id: img_id, div_id: div_id, status: image_core.status })
-      ActionCable.server.broadcast "image_status_channel", { div_id: div_id, status_html: status_html }
-    else
-    end
-  end
-
-  def description_receiver
-    received_data = params[:data]
-    id = received_data[:image_core_id].to_i
-    description = received_data[:description]
-
-    image_core = ImageCore.find(id)
-    image_core.description = description
-    div_id = "description-image-core-id-#{image_core.id}"
-
-    if image_core.save
-      # update view with newly generated description
-      ActionCable.server.broadcast "image_description_channel", { div_id: div_id, description: description }
-
-      # re-compute embeddings
-      image_core.refresh_description_embeddings
-    else
-      puts "Error updating description: #{image.errors.full_messages.join(", ")}"
-    end
-  end
 
   def generate_description
-    status = @image_core.status
-    if status != "in_queue" && status != "processing"
-      # update status of instance
-      @image_core.status = 1
-      @image_core.save
-
-      # send request
-      begin # For local / native metal testing
-        uri = URI("http://localhost:8000/add_job")
-        http = Net::HTTP.new(uri.host, uri.port)
-
-        # Try to make a request to the first URI
-        request = Net::HTTP::Post.new(uri)
-        request["Content-Type"] = "application/json"
-        data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
-        request.body = data.to_json
-        response = http.request(request)
-      rescue => e # For compose runner (when app run in docker network)
-        # If the connection fails, use the backup URI
-        puts "Failed to connect to localhost: #{e.message}"
-
-        uri = URI("http://image_to_text_generator:8000/add_job")
-        http = Net::HTTP.new(uri.host, uri.port)
-
-        # Try to make a request to the backup URI
-        request = Net::HTTP::Post.new(uri)
-        request["Content-Type"] = "application/json"
-        data = { image_core_id: @image_core.id, image_path: @image_core.image_path.name + "/" + @image_core.name }
-        request.body = data.to_json
-        response = http.request(request)
-      end
-
       respond_to do |format|
-        if response.is_a?(Net::HTTPSuccess)
-          # flash[:notice] = "Image added to queue for automatic description generation."
-          # format.html { redirect_back_or_to root_path }
-        else
-          flash[:alert] = "Cannot generate description, your model is offline!"
-          format.html { redirect_back_or_to root_path }
-        end
+        flash[:alert] = feature_unavailable_alert
+        format.html { redirect_to @image_core }
       end
-    else
-      respond_to do |format|
-        flash[:alert] = "Image currently in queue for text description generation or processing."
-        format.html { redirect_back_or_to root_path }
-      end
-    end
-  end
-
-
-  def generate_stopper
-    if @image_core.nil?
-      @image_core = ImageCore.find(params[:id])
-    end
-    status = @image_core.status
-    if status == "in_queue"
-      # update status of instance
-      @image_core.status = 4
-      @image_core.save!
-
-      # send request
-      begin # For local / native metal testing
-        uri = URI.parse("http://localhost:8000/remove_job/#{@image_core.id}")
-        http = Net::HTTP.new(uri.host, uri.port)
-
-        # Try to make a request to the first URI
-        request = Net::HTTP::Delete.new(uri.request_uri)
-        request["Content-Type"] = "application/json"
-        response = http.request(request)
-
-      rescue => e  # For compose runner (when app run in docker network)
-        # If the connection fails, use the backup URI
-        uri = URI.parse("http://image_to_text_generator:8000/remove_job/#{@image_core.id}")
-        http = Net::HTTP.new(uri.host, uri.port)
-
-        # Try to make a request to the first URI
-        request = Net::HTTP::Delete.new(uri.request_uri)
-        request["Content-Type"] = "application/json"
-        response = http.request(request)
-      end
-
-      respond_to do |format|
-        if response.is_a?(Net::HTTPSuccess)
-          flash[:notice] = "Removing from process queue."
-          format.html { redirect_back_or_to root_path }
-        else
-          flash[:alert] = "Error: #{response.code} - #{response.message}"
-          format.html { redirect_back_or_to root_path }
-        end
-      end
-    else
-      respond_to do |format|
-        flash[:alert] = "Image currently in queue for text description generation or processing."
-        format.html { redirect_back_or_to root_path }
-      end
-    end
   end
 
   def search

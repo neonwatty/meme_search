@@ -8,7 +8,7 @@ servers:
 proxy:
   app_port: 8501
   ssl: true
-  host: meme_search.standard.ytdatakit.xyz
+  host: meme-search.standard.ytdatakit.xyz
   healthcheck:
     interval: 3
     path: /
