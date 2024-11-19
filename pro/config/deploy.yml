@@ -6,7 +6,7 @@ servers:
       - 44.240.243.23
 
 env:
-  - DATABASE_URL: postgres://postgres:postgres@meme-search-pro-postgres:5432/meme_search
+  DATABASE_URL: postgres://postgres:postgres@meme-search-pro-postgres:5432/meme_search
 
 proxy:
   app_port: 3000
