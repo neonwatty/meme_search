@@ -5,10 +5,13 @@ servers:
     hosts:
       - 44.240.243.23
 
+env:
+  - DATABASE_URL: postgres://postgres:postgres@meme-search-pro-postgres:5432/meme_search
+
 proxy:
   app_port: 3000
   ssl: true
-  host: meme-search.pro.ytdatakit.xyz
+  host: meme-search-pro.ytdatakit.xyz
   healthcheck:
     interval: 3
     path: /
@@ -34,7 +37,7 @@ accessories:
     image: pgvector/pgvector:pg17
     host: 44.240.243.23
     directories:
-      - ./meme_search_pro/db_data/meme-search-db:/var/lib/postgresql/data
+      - meme_search_pro/db_data/meme-search-db:/var/lib/postgresql/data
     env:
       clear:
         POSTGRES_DB: meme_search
