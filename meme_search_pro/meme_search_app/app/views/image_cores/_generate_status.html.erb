@@ -3,7 +3,7 @@
   <% when "not_started" %>
     <div class="flex flex-row space-x-1">
       <%= form_with(url: generate_description_image_core_path(img_id), local: true) do |form| %>
-        <% form.submit "generate description 🪄", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
+        <% form.submit "generate description 🪄", class: "bg-blue-400 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
       <% end %>
       <div class="bg-purple-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm hidden">
         not started
@@ -24,7 +24,7 @@
     </div>
   <% when "done" %>
     <%= form_with(url: generate_description_image_core_path(img_id), local: true) do |form| %>
-      <% form.submit "generate description 🪄", class: "bg-blue-500 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
+      <% form.submit "generate description 🪄", class: "bg-blue-400 border hover hover:bg-cyan-500 cursor-pointer w-auto py-1 px-2 rounded-2xl"%>
     <% end %>
     <div class="bg-emerald-500 hover w-auto py-1 px-2 rounded-2xl text-center text-sm hidden">
       done

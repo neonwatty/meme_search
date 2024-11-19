@@ -31,5 +31,11 @@ module MemeSearch
     end
 
     config.active_job.queue_adapter = :async
+
+
+    config.action_dispatch.default_headers = {
+      'Header-Name' => 'Header-Value',
+      'X-Frame-Options' => 'ALLOWALL'
+    }
   end
 end

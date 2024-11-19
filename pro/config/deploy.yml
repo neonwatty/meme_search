@@ -14,7 +14,7 @@ proxy:
   host: meme-search-pro.ytdatakit.xyz
   healthcheck:
     interval: 3
-    path: /
+    path: /up
     timeout: 10
 
 registry:
