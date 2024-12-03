@@ -1,6 +1,6 @@
 <a href="https://colab.research.google.com/github/jermwatt/meme_search/blob/main/meme_search_walkthrough.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> <a href="https://www.youtube.com/watch?v=P1k1EGvoJIg" target="_parent"><img src="https://badges.aleen42.com/src/youtube.svg" alt="Youtube"/></a>
 
-# Meme Search app, walkthrough, and demo
+# A locally hostable Meme Search Engine written in Python and Ruby
 
 Use AI to index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
 
