@@ -1,5 +1,3 @@
-<a href="https://colab.research.google.com/github/jermwatt/meme_search/blob/main/meme_search_walkthrough.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> <a href="https://www.youtube.com/watch?v=P1k1EGvoJIg" target="_parent"><img src="https://badges.aleen42.com/src/youtube.svg" alt="Youtube"/></a>
-
 # A locally hostable Meme Search Engine written in Python and Ruby
 
 Use AI to index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
@@ -129,6 +127,8 @@ This meme search pipeline is written in pure Python and is built using the follo
 - [faiss](https://github.com/facebookresearch/faiss): a fast and efficient vector db
 - [sqlite](https://sqlite.org/): the greatest database of all time, used for data indexing
 - [streamlit](https://github.com/streamlit/streamlit): for serving up the app
+
+The notebook linked to here <a href="https://colab.research.google.com/github/jermwatt/meme_search/blob/main/meme_search_walkthrough.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> walks through the whole process!  You can also watch an overview of this walkthrough by clicking here  <a href="https://www.youtube.com/watch?v=P1k1EGvoJIg" target="_parent"><img src="https://badges.aleen42.com/src/youtube.svg" alt="Youtube"/></a>.
 
 ### Running tests - standard version
 
