@@ -1,4 +1,4 @@
-# A locally hostable Meme Search Engine written in Python and Ruby
+# A Meme Search Engine built to self-host in Python, Ruby, and Docker
 
 Use AI to index your memes by their content and text, making them easily retrievable for your meme warfare pleasures.
 
