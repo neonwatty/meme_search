@@ -2,5 +2,14 @@
 **/.DS_Store
 **/*.db
 **/*.pyc
-meme_search_pro/db_data
 **/.vscode
+node_modules/
+logs
+*.log
+.env
+dist/
+build/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
