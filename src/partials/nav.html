@@ -71,33 +71,33 @@
           </div>
           <div id="full-menu" class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
                 aria-current="page"
-                id="home-h"
-                onclick="loadHTML('src/partials/index.html', 'partial-placeholder'); setActive('home-h');"
-                >Home</a
+                href="#mission"
+                >mission</a
               >
               <a
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
-                id="search-h"
-                href="#section-2"
+                href="#try-standard"
               >
-                Search</a
-              >
-              <a
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                id="uploads-h"
-                onclick="loadHTML('src/partials/uploads.html', 'partial-placeholder'); setActive('uploads-h');"
-                >All uploads</a
+                try it here</a
               >
               <a
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                id="new-h"
-                onclick="loadHTML('src/partials/new.html', 'partial-placeholder'); setActive('new-h');"
-                >New upload</a
+                href="#try-pro"
+                >try the pro version!</a
               >
+              <a
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                href="#github"
+                >github
+              </a>
+              <a
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                href="#about"
+                >about
+              </a>
             </div>
           </div>
         </div>
@@ -131,30 +131,32 @@
       <div class="space-y-1 px-2 pb-3 pt-2">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
-          class="block rounded-md bg-gray-700 px-3 py-2 text-base font-medium text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
           aria-current="page"
-          id="home-v"
-          onclick="loadHTML('src/partials/index.html', 'partial-placeholder'); setActive('home-v');"
-          >Home</a
+          href="#mission"
+          >mission</a
         >
         <a
           class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
-          id="search-v"
-          onclick="loadHTML('src/partials/search.html', 'partial-placeholder'); setActive('search-v');"
-          >Search</a
+          href="#try-standard"
+        >
+          try it here</a
         >
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-          id="uploads-v"
-          onclick="loadHTML('src/partials/uploads.html', 'partial-placeholder'); setActive('uploads-v');"
-          >All uploads</a
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          href="#try-pro"
+          >try the pro version!</a
         >
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-          id="new-v"
-          onclick="loadHTML('src/partials/new.html', 'partial-placeholder'); setActive('home-v');"
-          >New upload</a
-        >
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          href="#github"
+          >github
+        </a>
+        <a
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          href="#about"
+          >about
+        </a>
       </div>
     </div>
   </nav>
