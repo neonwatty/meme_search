@@ -23,37 +23,55 @@
 >
   <div class="mx-auto my-auto max-w-4xl">
     <p
-      class="text-center text-3xl md:text-6xl mt-6 text-gray-900 dark:text-white"
+      class="text-center text-3xl md:text-6xl mt-6 mb-5 text-gray-900 dark:text-white"
     >
       Try the App Right Here!
     </p>
-    <!-- Slideshow container -->
-    <div class="slideshow-container">
-      <!-- Full-width images with number and caption text -->
-      <div class="mySlides fade">
-        <img src="../public/images/cat.jpeg" style="width: 100%" />
+    <div class="flex flex-row space-x-3 items-center">
+      <div class="flex flex-col w-full h-full border border-cyan-300">
+        <div>
+          <p
+            class="text-center text-lg md:text-lg mt-6 text-gray-900 dark:text-white"
+          >
+            Imagine these were your memes.
+          </p>
+        </div>
+        <!-- Slideshow container -->
+        <div class="slideshow-container">
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides fade flex items-center justify-center">
+            <img src="../public/images/cat.jpeg" class="w-[90%] mx-auto" />
+          </div>
+
+          <div class="mySlides fade flex items-center justify-center">
+            <img src="../public/images/no.jpeg" class="w-[90%] mx-auto" />
+          </div>
+
+          <div class="mySlides fade flex items-center justify-center">
+            <img
+              src="../public/images/two_pills.jpeg"
+              class="w-[90%] mx-auto"
+            />
+          </div>
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br />
+        <!-- The dots/circles -->
+        <div style="text-align: center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
       </div>
-
-      <div class="mySlides fade">
-        <img src="../public/images/no.jpeg" style="width: 100%" />
-      </div>
-
-      <div class="mySlides fade">
-        <img src="../public/images/two_pills.jpeg" style="width: 100%" />
-      </div>
-
-      <!-- Next and previous buttons -->
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-
-    <br />
-
-    <!-- The dots/circles -->
-    <div style="text-align: center">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
+      <iframe
+        src="https://meme-search-standard.ytdatakit.xyz/"
+        class="w-full h-[80vh]"
+        frameborder="0"
+        title="meme search standard demo"
+      ></iframe>
     </div>
   </div>
 </section>
