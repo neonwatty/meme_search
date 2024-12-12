@@ -1,8 +1,4 @@
-# ignore mac os files
 **/.DS_Store
-**/*.db
-**/*.pyc
-**/.vscode
 node_modules/
 logs
 *.log
@@ -13,3 +9,5 @@ build/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+**/.vscode
+*/.vscode

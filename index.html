@@ -3,23 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/output.css" />
-    <title>My vanilla html / js / tailwind template</title>
+    <link href="dist/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Main Page</title>
   </head>
-  <body class="h-screen w-screen bg-slate-200 dark:bg-slate-800">
-    <div
-      id="container"
-      class="w-screen h-screen flex items-center justify-center mx-auto bg-slate-200 dark:bg-slate-800"
-    >
-      <div
-        class="w-1/3 h-1/3 flex items-center justify-center rounded-2xl border-2 border-white bg-green-200 dark:bg-green-800"
-      >
-        <h1
-          class="text-3xl font-bold underline text-slate-800 dark:text-slate-200"
-        >
-          Hello world!
-        </h1>
-      </div>
-    </div>
+  <body class="bg-white dark:bg-slate-800"">
+    <script src="src/js/partials.js"></script>
+    <script src="src/js/hamburger_dropdown.js"></script>
+    <script src="src/js/utilities.js"></script>
+    <script src="src/js/theme.js"></script>
+
+
+    <!-- navbar placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- partial placeholder -->
+    <div id="partial-placeholder"></div>
+
+    <!-- partial in nav -->
+    <script>
+      loadHTML("src/partials/nav.html", "nav-placeholder");
+    </script>
+
+    <!-- partial in mobile menu -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          // retrieve index on first load
+          loadHTML('src/partials/index.html', 'partial-placeholder'); 
+          setTimeout(() => {
+              // get menu elements
+              const isMobile = /Mobi|Android/i.test(navigator.userAgent); // Simple check for mobile devices
+              if (isMobile) {
+                  setActive('home-v');
+              }else {
+                setActive('home-h')
+              }
+          },100)
+      });
+    </script>
   </body>
 </html>

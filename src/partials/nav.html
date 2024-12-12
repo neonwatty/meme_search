@@ -1,0 +1,160 @@
+<html>
+  <nav class="bg-gray-800 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div
+          class="absolute inset-y-0 left-0 flex items-center sm:hidden"
+          id="vertical-menu"
+        >
+          <!-- Mobile menu button-->
+          <button
+            type="button"
+            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            id="menu-button"
+          >
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open main menu</span>
+            <!--
+            Icon when menu is closed.
+
+            Menu open: "hidden", Menu closed: "block"
+          -->
+            <svg
+              class="block h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              id="menu-button-hidden"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <!--
+            Icon when menu is open.
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+            <svg
+              class="hidden h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+              id="menu-button-open"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+          id="menu-div"
+        >
+          <div class="flex flex-shrink-0 items-center">
+            <img
+              class="h-8 w-auto"
+              src="https://www.reshot.com/preview-assets/icons/YR43P85X2D/bottle-YR43P85X2D.svg"
+              alt="Your Company"
+            />
+          </div>
+          <div id="full-menu" class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+                aria-current="page"
+                id="home-h"
+                onclick="loadHTML('src/partials/index.html', 'partial-placeholder'); setActive('home-h');"
+                >Home</a
+              >
+              <a
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+                id="search-h"
+                onclick="loadHTML('src/partials/search.html', 'partial-placeholder'); setActive('search-h');"
+                >Search</a
+              >
+              <a
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                id="uploads-h"
+                onclick="loadHTML('src/partials/uploads.html', 'partial-placeholder'); setActive('uploads-h');"
+                >All uploads</a
+              >
+              <a
+                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                id="new-h"
+                onclick="loadHTML('src/partials/new.html', 'partial-placeholder'); setActive('new-h');"
+                >New upload</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center ml-18 mt-2 mr-2 w-max select-none transition duration-200 ease-in"
+        >
+          <!-- Toggle -->
+          <div class="relative w-10 mr-2">
+            <input
+              type="checkbox"
+              name="toggle"
+              id="theme-toggle"
+              class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+            />
+            <label
+              for="toggle"
+              class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+            ></label>
+          </div>
+          <!-- Icon -->
+          <div class="text-xs">
+            <i id="toggle-label" class="fas fa-2x fa-sun text-white"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="hidden" id="mobile-menu">
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <a
+          class="block rounded-md bg-gray-700 px-3 py-2 text-base font-medium text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          aria-current="page"
+          id="home-v"
+          onclick="loadHTML('src/partials/index.html', 'partial-placeholder'); setActive('home-v');"
+          >Home</a
+        >
+        <a
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          id="search-v"
+          onclick="loadHTML('src/partials/search.html', 'partial-placeholder'); setActive('search-v');"
+          >Search</a
+        >
+        <a
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          id="uploads-v"
+          onclick="loadHTML('src/partials/uploads.html', 'partial-placeholder'); setActive('uploads-v');"
+          >All uploads</a
+        >
+        <a
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          id="new-v"
+          onclick="loadHTML('src/partials/new.html', 'partial-placeholder'); setActive('home-v');"
+          >New upload</a
+        >
+      </div>
+    </div>
+  </nav>
+</html>
