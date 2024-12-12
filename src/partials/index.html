@@ -18,57 +18,72 @@
 </section>
 
 <section
-  id="try-standard"
+  id="example"
   class="section section-2 bg-blue-500 flex items-center justify-center h-screen"
 >
   <div class="mx-auto my-auto max-w-4xl">
     <p
       class="text-center text-3xl md:text-6xl mt-6 mb-5 text-gray-900 dark:text-white"
     >
-      Try the App Right Here!
+      Imagine these were your memes ⤵
     </p>
-    <div class="flex flex-row space-x-3 items-center">
-      <div class="flex flex-col w-full h-full border border-cyan-300">
-        <div>
-          <p
-            class="text-center text-lg md:text-lg mt-6 text-gray-900 dark:text-white"
-          >
-            Imagine these were your memes.
-          </p>
+    <div class="flex flex-col w-full h-full border border-cyan-300">
+      <!-- Slideshow container -->
+      <div class="slideshow-container">
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade flex items-center justify-center">
+          <img src="../public/images/cat.jpeg" class="w-[90%] mx-auto" />
         </div>
-        <!-- Slideshow container -->
-        <div class="slideshow-container">
-          <!-- Full-width images with number and caption text -->
-          <div class="mySlides fade flex items-center justify-center">
-            <img src="../public/images/cat.jpeg" class="w-[90%] mx-auto" />
-          </div>
 
-          <div class="mySlides fade flex items-center justify-center">
-            <img src="../public/images/no.jpeg" class="w-[90%] mx-auto" />
-          </div>
-
-          <div class="mySlides fade flex items-center justify-center">
-            <img
-              src="../public/images/two_pills.jpeg"
-              class="w-[90%] mx-auto"
-            />
-          </div>
-
-          <!-- Next and previous buttons -->
-          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="mySlides fade flex items-center justify-center">
+          <img src="../public/images/no.jpeg" class="w-[90%] mx-auto" />
         </div>
-        <br />
-        <!-- The dots/circles -->
-        <div style="text-align: center">
-          <span class="dot" onclick="currentSlide(1)"></span>
-          <span class="dot" onclick="currentSlide(2)"></span>
-          <span class="dot" onclick="currentSlide(3)"></span>
+
+        <div class="mySlides fade flex items-center justify-center">
+          <img src="../public/images/two_pills.jpeg" class="w-[90%] mx-auto" />
         </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+      <br />
+      <!-- The dots/circles -->
+      <div style="text-align: center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+    </div>
+    <p
+      class="text-center text-2xl md:text-2xl mt-6 mb-10 text-gray-900 dark:text-white"
+    >
+      Try searching for them below! ⤵
+    </p>
+  </div>
+</section>
+
+<section
+  id="try-lite"
+  class="section section-3 bg-red-500 flex items-center justify-center h-screen"
+>
+  <div class="mx-auto my-auto max-w-4xl">
+    <p
+      class="text-center text-3xl md:text-6xl mt-6 text-gray-900 dark:text-white"
+    >
+      Try out the "lite" version! ⤵
+    </p>
+    <div class="flex flex-col w-full h-full border border-cyan-300">
+      <div>
+        <p
+          class="text-center text-2xl md:text-2xl mt-6 mb-10 text-gray-900 dark:text-white"
+        >
+          (e.g., try searching for "kitty" or "two capsules") ⤵
+        </p>
       </div>
       <iframe
         src="https://meme-search-standard.ytdatakit.xyz/"
-        class="w-full h-[80vh]"
+        class="w-full h-[70vh]"
         frameborder="0"
         title="meme search standard demo"
       ></iframe>
@@ -78,38 +93,29 @@
 
 <section
   id="try-pro"
-  class="section section-3 bg-red-500 flex items-center justify-center h-screen"
->
-  <div class="mx-auto my-auto max-w-4xl">
-    <p
-      class="text-center text-3xl md:text-6xl mt-6 text-gray-900 dark:text-white"
-    >
-      Welcome to <strong>Meme Search</strong>
-    </p>
-    <p
-      class="text-center text-2xl md:text-2xl mt-6 text-gray-900 dark:text-white"
-    >
-      the open source Meme Search Engine that's free and built to self-host
-      locally with Python, Ruby, and Docker.
-    </p>
-  </div>
-</section>
-
-<section
   class="section section-4 bg-emerald-500 flex items-center justify-center h-screen"
 >
-  <div class="mx-auto my-auto max-w-4xl">
+  <div class="mx-auto my-auto max-w-5xl">
     <p
       class="text-center text-3xl md:text-6xl mt-6 text-gray-900 dark:text-white"
     >
-      Welcome to <strong>Meme Search</strong>
+      Try out the "pro" version! ⤵
     </p>
-    <p
-      class="text-center text-2xl md:text-2xl mt-6 text-gray-900 dark:text-white"
-    >
-      the open source Meme Search Engine that's free and built to self-host
-      locally with Python, Ruby, and Docker.
-    </p>
+    <div class="flex flex-row w-auto h-fit border border-cyan-300">
+      <div class="flex flex-col items-center justify-center mx-auto my-auto">
+        <p
+          class="text-center align-middle my-auto mx-auto w-1/2 text-xl md:text-xl mt-6 text-gray-900 dark:text-white"
+        >
+          free and open source with advanced search features, tags, and more! ⤷
+        </p>
+      </div>
+      <iframe
+        src="https://meme-search-pro.ytdatakit.xyz/"
+        class="w-screen h-[85vh]"
+        frameborder="0"
+        title="meme search pro demo"
+      ></iframe>
+    </div>
   </div>
 </section>
 
