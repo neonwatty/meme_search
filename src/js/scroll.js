@@ -1,8 +1,9 @@
 window.addEventListener("scroll", () => {
   const sections = document.querySelectorAll(".section");
 
-  sections.forEach((section) => {
+  sections.forEach((section, index) => {
     const rect = section.getBoundingClientRect();
+    console.log(index);
 
     // Apply a sticky effect when the section reaches the top of the viewport
     if (rect.top <= 0 && rect.bottom >= 0) {

@@ -19,3 +19,7 @@ a {
 .toggle-checkbox:checked + .toggle-label {
   background: #68d391; /* Green background when checked */
 }
+
+html {
+  scroll-behavior: smooth;
+}
