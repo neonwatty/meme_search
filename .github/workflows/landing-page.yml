@@ -1,8 +1,15 @@
 name: Build and Deploy Landing Page
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes / pull_request targeting the default branch
   push:
+    branches: ["landing-page"]
+    paths:
+      - "src/**"
+      - "index.html"
+      - "package.json"
+
+  pull_request:
     branches: ["landing-page"]
     paths:
       - "src/**"
