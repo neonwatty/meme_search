@@ -5,14 +5,14 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 export default defineConfig({
   base: "/meme-search/",
   build: {
-    outDir: "dist", // Ensure the build outputs to the "dist" directory
+    outDir: "dist",
   },
   plugins: [
     viteStaticCopy({
       targets: [
         {
-          src: "src/*", // Source path
-          dest: "src", // Destination in dist folder
+          src: "src/*",
+          dest: "src",
         },
       ],
     }),
