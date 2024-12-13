@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div
-          class="absolute inset-y-0 left-0 flex items-center sm:hidden"
+          class="absolute inset-y-0 left-0 flex items-center xl:hidden"
           id="vertical-menu"
         >
           <!-- Mobile menu button-->
@@ -59,55 +59,49 @@
           </button>
         </div>
         <div
-          class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+          class="flex flex-1 items-center justify-center xl:items-stretch xl:justify-start"
           id="menu-div"
         >
-          <div class="flex flex-shrink-0 items-center">
-            <img
-              class="h-8 w-auto"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Twemoji2_1f602.svg/1920px-Twemoji2_1f602.svg.png"
-              alt="Meme Search emoji"
-            />
+          <div class="mt-1 mr-1">
+            <a href="https://github.com/neonwatty/meme-search">
+              <i
+                class="fa-brands fa-github"
+                style="color: #63e6be; font-size: 36px"
+              ></i>
+            </a>
           </div>
-          <div id="full-menu" class="hidden sm:ml-6 sm:block">
+          <div id="full-menu" class="hidden xl:ml-6 xl:block">
             <div class="flex space-x-4">
               <a
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+                class="rounded-md px-3 py-2 text-xl font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
                 aria-current="page"
                 href="#mission"
                 >mission</a
               >
               <a
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+                class="rounded-md px-3 py-2 text-xl font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
                 href="#example"
               >
                 a short example</a
               >
               <a
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                class="rounded-md px-3 py-2 text-xl font-medium text-light hover:bg-gray-700 hover:text-white"
                 href="#try-lite"
                 >try the lite version!</a
               >
               <a
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                class="rounded-md px-3 py-2 text-xl font-medium text-light hover:bg-gray-700 hover:text-white"
                 href="#try-pro"
                 >try the pro version!
               </a>
               <a
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                class="rounded-md px-3 py-2 text-xl font-medium text-light hover:bg-gray-700 hover:text-white"
                 href="#download"
                 >download
-              </a>
-              <a href="https://github.com/neonwatty/meme-search">
-                <i
-                  class="fa-brands fa-github"
-                  style="color: #63e6be; font-size: 36px"
-                ></i>
               </a>
             </div>
           </div>
         </div>
-
         <div
           class="flex items-center ml-18 mt-2 mr-2 w-max select-none transition duration-200 ease-in"
         >
@@ -118,6 +112,7 @@
               name="toggle"
               id="theme-toggle"
               class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+              checked="true"
             />
             <label
               for="toggle"
@@ -137,29 +132,29 @@
       <div class="space-y-1 px-2 pb-3 pt-2">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          class="block rounded-md px-3 py-2 text-lg font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
           aria-current="page"
           href="#mission"
           >mission</a
         >
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          class="block rounded-md px-3 py-2 text-lg font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
           href="#example"
         >
           example</a
         >
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          class="block rounded-md px-3 py-2 text-lg font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
           href="#try-lite"
           >try the lite version!</a
         >
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          class="block rounded-md px-3 py-2 text-lg font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
           href="#try-pro"
           >try the pro version!
         </a>
         <a
-          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
+          class="block rounded-md px-3 py-2 text-lg font-medium text-light hover:bg-gray-700 hover:text-white active:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-500"
           href="#download"
           >download
         </a>

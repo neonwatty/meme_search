@@ -1,12 +1,14 @@
+document.documentElement.classList.add("dark");
+
 // set icon visibility
 function iconVisibility(toggle, label) {
   const toggleLabelClasses = label.classList;
   if (toggle.checked) {
-    toggleLabelClasses.remove("fa-sun");
-    toggleLabelClasses.add("fa-moon");
-  } else {
     toggleLabelClasses.remove("fa-moon");
     toggleLabelClasses.add("fa-sun");
+  } else {
+    toggleLabelClasses.remove("fa-sun");
+    toggleLabelClasses.add("fa-moon");
   }
 }
 
@@ -18,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // initial setting
     iconVisibility(themeToggle, toggleLabel);
+    themeToggle.checked = true;
+    document.documentElement.classList.toggle("dark", themeToggle.checked);
 
     // form event handler
     themeToggle.addEventListener("change", () => {
