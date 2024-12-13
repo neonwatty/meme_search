@@ -48,8 +48,8 @@ jobs:
         run: |
           npm install
 
-      # Build the project - make sure to have build step in package.json
-      - name: Build the project
+      # Build the project using Vite
+      - name: Build the project with Vite
         run: |
           npm run build
 

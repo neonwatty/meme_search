@@ -1,16 +1,16 @@
 // Next/previous controls
-function plusSlides(n) {
+export function plusSlides(n) {
   showSlides((slideIndex += n));
 }
 
 // Thumbnail image controls
-function currentSlide(n) {
+export function currentSlide(n) {
   showSlides((slideIndex = n));
 }
 
 let slideIndex = 1;
 
-function showSlides(n) {
+export function showSlides(n) {
   let i;
   let slides = document.getElementsByClassName("mySlides");
   let dots = document.getElementsByClassName("dot");

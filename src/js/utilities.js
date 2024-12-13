@@ -1,4 +1,4 @@
-function setActive(activeLinkId) {
+export function setActive(activeLinkId) {
   const links = document.querySelectorAll("#full-menu a, #mobile-menu a");
   links.forEach((link) => {
     if (activeLinkId !== null && link.id !== null && link.id === activeLinkId) {
