@@ -5,18 +5,12 @@ on:
   push:
     branches: ["landing-page"]
     paths:
-      - "src/**"
-      - "index.html"
-      - "package.json"
-      - "vite.config.js"
+      - "*"
 
   pull_request:
     branches: ["landing-page"]
     paths:
-      - "src/**"
-      - "index.html"
-      - "package.json"
-      - "vite.config.js"
+      - "*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
