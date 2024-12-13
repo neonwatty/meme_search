@@ -7,7 +7,8 @@
       name="description"
       content="Meme Search is the open source Meme Search Engine that's free and built to self-host locally with Python, Ruby, and Docker."
     />
-    <link href="dist/styles.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
+    <link rel="icon" href="/happy.png" type="image/png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
@@ -23,9 +24,15 @@
   </head>
   <body class="bg-white dark:bg-slate-800">
     <!-- <script src="src/js/scroll.js"></script> -->
-    <script type="module" src="src/js/carousel.js"></script>
     <script type="module" src="src/js/hamburger_dropdown.js"></script>
     <script type="module" src="src/js/theme.js"></script>
+
+    <!-- import carousel.js utilities -->
+    <script type="module">
+      import { plusSlides, currentSlide } from "./src/js/carousel.js";
+      window.plusSlides = plusSlides;
+      window.currentSlide = currentSlide;
+    </script>
 
     <!-- navbar placeholder -->
     <div id="nav-placeholder"></div>
@@ -36,7 +43,6 @@
     <!-- partial in nav -->
     <script type="module">
       import { loadHTML } from "./src/js/partials.js";
-
       loadHTML("src/partials/nav.html", "nav-placeholder");
     </script>
 
