@@ -1,4 +1,4 @@
-function loadHTML(filePath, containerId) {
+export function loadHTML(filePath, containerId) {
   fetch(filePath)
     .then((response) => {
       if (!response.ok) {

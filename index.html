@@ -3,20 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Meme Search is the open source Meme Search Engine that's free and built to self-host locally with Python, Ruby, and Docker.">
-    <link href="dist/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta
+      name="description"
+      content="Meme Search is the open source Meme Search Engine that's free and built to self-host locally with Python, Ruby, and Docker."
+    />
+    <link href="dist/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>Meme Search</title>
   </head>
-  <body class="bg-white dark:bg-slate-800"">
+  <body class="bg-white dark:bg-slate-800">
     <!-- <script src="src/js/scroll.js"></script> -->
-    <script src="src/js/carousel.js"></script>
-    <script src="src/js/hamburger_dropdown.js"></script>
-    <script src="src/js/partials.js"></script>
-    <script src="src/js/theme.js"></script>
-    <script src="src/js/utilities.js"></script>
-
+    <script type="module" src="src/js/carousel.js"></script>
+    <script type="module" src="src/js/hamburger_dropdown.js"></script>
+    <script type="module" src="src/js/theme.js"></script>
 
     <!-- navbar placeholder -->
     <div id="nav-placeholder"></div>
@@ -25,24 +34,30 @@
     <div id="partial-placeholder"></div>
 
     <!-- partial in nav -->
-    <script>
+    <script type="module">
+      import { loadHTML } from "./src/js/partials.js";
+
       loadHTML("src/partials/nav.html", "nav-placeholder");
     </script>
 
     <!-- partial in mobile menu -->
-    <script>
+    <script type="module">
+      // Import the greet function from the module
+      import { loadHTML } from "./src/js/partials.js";
+      import { setActive } from "./src/js/utilities.js";
+
       document.addEventListener("DOMContentLoaded", () => {
-          // retrieve index on first load
-          loadHTML('src/partials/index.html', 'partial-placeholder'); 
-          setTimeout(() => {
-              // get menu elements
-              const isMobile = /Mobi|Android/i.test(navigator.userAgent); // Simple check for mobile devices
-              if (isMobile) {
-                  setActive('home-v');
-              }else {
-                setActive('home-h')
-              }
-          },100)
+        // retrieve index on first load
+        loadHTML("src/partials/index.html", "partial-placeholder");
+        setTimeout(() => {
+          // get menu elements
+          const isMobile = /Mobi|Android/i.test(navigator.userAgent); // Simple check for mobile devices
+          if (isMobile) {
+            setActive("home-v");
+          } else {
+            setActive("home-h");
+          }
+        }, 100);
       });
     </script>
   </body>
