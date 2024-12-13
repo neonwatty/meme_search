@@ -60,12 +60,6 @@ jobs:
         run: |
           npm run build
 
-      - name: Configure vite
-        run: |
-          echo 'export default {
-            base: "/${{ github.event.repository.name }}/"
-          }' > vite.config.js
-
       # Setup GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v5
