@@ -1,18 +1,21 @@
 name: Build and Deploy Landing Page
 
 on:
-  # Runs on pushes / pull_request targeting the default branch
+  # Trigger on pushes to the "landing-page" branch
   push:
-    branches: ["landing-page"]
+    branches:
+      - "landing-page" # Specify the branch
     paths:
-      - "*"
+      - "*" # Trigger on changes to any file
 
+  # Trigger on pull requests targeting the "landing-page" branch
   pull_request:
-    branches: ["landing-page"]
+    branches:
+      - "landing-page" # Specify the branch
     paths:
-      - "*"
+      - "*" # Trigger on changes to any file in the PR
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allow manual triggering from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
