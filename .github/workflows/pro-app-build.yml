@@ -25,7 +25,7 @@
 #         uses: docker/login-action@v3
 #         with:
 #           registry: ghcr.io
-#           username: neonwatty
+#           username: croche2574
 #           password: ${{ secrets.TOKEN_GITHUB }}
 
 #       - name: Print current working directory
@@ -43,4 +43,4 @@
 #           context: ./meme_search_pro/meme_search_app
 #           platforms: linux/amd64,linux/arm64
 #           push: true
-#           tags: ghcr.io/neonwatty/meme_search_pro:latest
+#           tags: ghcr.io/croche2574/meme_search_pro:latest
