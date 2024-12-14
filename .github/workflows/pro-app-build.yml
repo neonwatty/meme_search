@@ -32,7 +32,7 @@
          run: pwd # Prints the current working directory
 
        - name: Print root directory contents
-         run: ls -l ../
+         run: ls -l ./
 
        - name: Print app directory contents
          run: ls -l ./meme-search
