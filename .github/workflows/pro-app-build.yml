@@ -35,7 +35,7 @@
          run: ls -l .
 
        - name: Print app directory contents
-         run: ls -l ./meme_search_pro
+         run: ls -l ./meme-search
 
        - name: Build and Upload for AMD64 and ARM64
          uses: docker/build-push-action@v6
