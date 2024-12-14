@@ -27,11 +27,18 @@
            registry: ghcr.io
            username: croche2574
            password: ${{ secrets.GITHUB_TOKEN }}
+      
+       - name: Checkout Branch
+         uses: actions/checkout@v1
 
        - name: Print current working directory
          run: pwd # Prints the current working directory
 
-       
+       - name: Print root directory contents
+         run: ls -l ./
+
+       - name: Print app directory contents
+         run: ls -l ./meme-search
 
        - name: Build and Upload for AMD64 and ARM64
          uses: docker/build-push-action@v6
