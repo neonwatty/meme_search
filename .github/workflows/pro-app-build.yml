@@ -26,7 +26,7 @@
          with:
            registry: ghcr.io
            username: croche2574
-           password: ${{ secrets.TOKEN_GITHUB }}
+           password: ${{ secrets.GITHUB_TOKEN }}
 
        - name: Print current working directory
          run: pwd # Prints the current working directory
